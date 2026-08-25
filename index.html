@@ -560,7 +560,7 @@
                             <li>⚡ <b>Omnichannel Bots:</b> Bot Telegram, YouTube, IG & FB.</li>
                             <li>📚 <b>Publishing:</b> E-Book Blueprint Otomatisasi 2026.</li>
                         </ul>
-                        <p class="pt-1">Ada yang ingin ditanyakan atau butuh panduan cara pakainya?</p>
+                        <p class="pt-1">Ada yang ingin ditanyakan seputar website atau produk kami?</p>
                     </div>
                 </div>
 
@@ -568,17 +568,17 @@
                 <div id="quickSuggestions" class="space-y-1.5 pt-1">
                     <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider pl-9">Pilihan Pertanyaan Cepat:</p>
                     <div class="flex flex-wrap gap-1.5 pl-9">
-                        <button onclick="sendQuickQuery('Apa saja produk dan layanan di ZiyanCorp?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/25 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
-                            ✨ Apa saja produk kita?
+                        <button onclick="sendQuickQuery('Ini website apa sih?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/25 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
+                            🌐 Ini website apa?
+                        </button>
+                        <button onclick="sendQuickQuery('Apa saja produk dan layanan di ZiyanCorp?')" class="px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/25 text-blue-700 dark:text-blue-300 text-[11px] font-medium transition-all">
+                            ✨ Produk ZiyanCorp
                         </button>
                         <button onclick="sendQuickQuery('Apakah UGC Studio cuma menghasilkan prompt saja atau ada video dan naskahnya juga?')" class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/25 text-purple-700 dark:text-purple-300 text-[11px] font-medium transition-all">
                             🛍️ UGC Studio cuma prompt?
                         </button>
-                        <button onclick="sendQuickQuery('Bagaimana cara kerja sistem video 4K @4kscenicwildlife?')" class="px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/25 text-blue-700 dark:text-blue-300 text-[11px] font-medium transition-all">
+                        <button onclick="sendQuickQuery('Bagaimana cara kerja sistem video 4K @4kscenicwildlife?')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 text-[11px] font-medium transition-all">
                             🐾 Pabrik Video 4K Satwa
-                        </button>
-                        <button onclick="sendQuickQuery('Bagaimana cara pesan bot khusus atau konsultasi bisnis?')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 text-[11px] font-medium transition-all">
-                            💬 Hubungi Admin WhatsApp
                         </button>
                     </div>
                 </div>
@@ -688,6 +688,16 @@
 
         const intelligentResponses = [
             {
+                pattern: /(website apa|web apa|ini apa|apa ini|siapa kalian|perusahaan apa|tujuan|tentang apa|company profile|profil|situs apa)/i,
+                reply: `<b>Website ini adalah Portal Resmi ZIYAN CORP</b> (Ziyan Automation Systems) 🚀<br><br>
+                ZiyanCorp adalah pusat inovasi <b>Automasi AI & Rumah Produksi Media Digital</b>. Di website ini, Anda dapat menemukan:<br><br>
+                1. 🛍️ <b>UGC Affiliate Studio:</b> Tool AI pembuat video & naskah promosi produk Shopee/TikTok.<br>
+                2. 🐾 <b>4K Media Studio:</b> Saluran YouTube satwa liar 4K (@4kscenicwildlife) berkecepatan tinggi.<br>
+                3. ⚡ <b>Omnichannel Bot Fleet:</b> Automasi distribusi ke Telegram, YouTube, FB Page & IG.<br>
+                4. 📚 <b>Publishing:</b> E-Book panduan industri & blueprint automasi 2026.<br><br>
+                Ada bagian yang ingin Anda jelajahi lebih lanjut?`
+            },
+            {
                 pattern: /(produk apa|apa saja produk|layanan|jual apa|fitur apa|ekosistem)/i,
                 reply: `<b>ZIYAN CORP memiliki 4 Produk & Ekosistem Utama:</b><br><br>
                 1. 🛍️ <b>Ziyan UGC Affiliate Studio:</b> Generator 5-pose prompt visual + naskah video affiliate Shopee & TikTok.<br>
@@ -726,14 +736,7 @@
                 reply: `<b>Seluruh Arsitektur Dasar ZiyanCorp Berjalan dengan Modal Rp 0:</b><br><br>
                 • Ditenagai Google Gemini Free Tier & Google Colab Cloud GPU gratis.<br>
                 • Model <b>BYOK (Bring Your Own Key):</b> Klien/pengguna bisa memasukkan kunci Gemini gratis mereka sendiri tanpa membebani server.<br>
-                • Kami juga menyediakan paket custom setup bot jika Anda ingin tim kami yang memasangkan sistemnya sampai beres!`
-            },
-            {
-                pattern: /(kontak|admin|wa|whatsapp|pesan|order|hubungi|konsultasi|beli)/i,
-                reply: `Untuk konsultasi langsung, pemesanan bot khusus, atau kerjasama bisnis dengan tim ZiyanCorp, Anda bisa langsung menghubungi kami via WhatsApp:<br><br>
-                <a href="https://wa.me/6281234567890?text=Halo%20ZiyanCorp,%20saya%20tertarik%20dengan%20solusi%20automasi%20dan%20produk%20Anda" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all">
-                    📲 Chat Admin di WhatsApp
-                </a>`
+                • Semua alat dasar bisa diakses secara terbuka!`
             },
             {
                 pattern: /(ebook|buku|blueprint|pdf|panduan)/i,
@@ -795,7 +798,7 @@
                 if (matched) {
                     appendMessage('bot', matched.reply);
                 } else {
-                    appendMessage('bot', `Terima kasih! Ziyan AI Assistant siap membantu Anda tentang <b>UGC Affiliate Studio, Pabrik Video 4K, Bot Omnichannel, atau E-Book Blueprint</b>.<br><br>Jika pertanyaan Anda membutuhkan respon kustom, silakan <a href="https://wa.me/6281234567890" target="_blank" class="text-cyan-500 dark:text-cyan-400 font-bold underline">Hubungi Admin di WhatsApp</a>.`);
+                    appendMessage('bot', `<b>Ziyan AI Assistant siap membantu Anda!</b><br><br>Anda bisa menanyakan tentang:<br>• 🛍️ <b>UGC Affiliate Studio</b> (cara buat video affiliate)<br>• 🐾 <b>Media Satwa 4K</b> (sistem video autopilot)<br>• ⚡ <b>Bot Fleet</b> (arsip & posting otomatis)<br>• 📚 <b>E-Book Blueprint</b> (panduan AI 2026).<br><br>Ketik topik yang ingin Anda ketahui!`);
                 }
             }, 600);
         }
