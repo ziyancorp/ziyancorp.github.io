@@ -1,208 +1,548 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ziyan Automation Systems (ZAS)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZIYAN CORP — The Next-Gen AI Automation & Media Studio</title>
+    <meta name="description" content="Pusat ekosistem automasi AI, pabrik konten video 4K autopilot, dan platform SaaS modern ZiyanCorp.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN with custom config -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'sans-serif'],
+                        display: ['Cabinet Grotesk', 'Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
                     colors: {
-                        neonBlue: '#00f3ff',
-                        neonPurple: '#bc13fe',
-                        darkBg: '#050505'
+                        obsidian: '#070A11',
+                        obsidianCard: '#0E1424',
+                        geminiCyan: '#06B6D4',
+                        geminiBlue: '#3B82F6',
+                        geminiViolet: '#8B5CF6',
+                        geminiCoral: '#F43F5E',
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Luminous Effects Core */
-        body {
-            background-color: #050505;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 243, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(188, 19, 254, 0.08), transparent 25%);
-            font-family: 'Inter', sans-serif;
-            color: #ffffff;
-        }
-
-        .glow-text {
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
+        /* Modern Glassmorphism & GPU Acceleration */
+        .glass-dark {
+            background: rgba(14, 20, 36, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        .glow-text-purple {
-            text-shadow: 0 0 10px rgba(188, 19, 254, 0.5), 0 0 20px rgba(188, 19, 254, 0.3);
+        .glass-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
-        .luminous-button {
+        /* Glowing Border Animation */
+        .radiant-card {
             position: relative;
-            background: transparent;
-            color: #00f3ff;
-            border: 1px solid #00f3ff;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1);
-            transition: all 0.3s ease;
+            border-radius: 1.5rem;
+            padding: 1.5px;
+            overflow: hidden;
+        }
+        .radiant-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, #06B6D4, #3B82F6, #8B5CF6, #F43F5E, transparent 70%);
+            animation: spin 6s linear infinite;
+        }
+        .radiant-inner {
+            position: relative;
+            border-radius: calc(1.5rem - 1.5px);
+            height: 100%;
         }
 
-        .luminous-button:hover {
-            background: rgba(0, 243, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6), inset 0 0 15px rgba(0, 243, 255, 0.4);
-            text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
         }
 
-        .luminous-card {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-        }
-
-        .luminous-card:hover {
-            border-color: #00f3ff;
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
-            transform: translateY(-5px);
-        }
-        
-        .luminous-card-premium:hover {
-            border-color: #bc13fe;
-            box-shadow: 0 0 25px rgba(188, 19, 254, 0.3);
+        /* Subtle ambient glow */
+        .ambient-glow {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(650px, 90vw);
+            height: min(650px, 90vw);
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(139, 92, 246, 0.1) 45%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(70px);
         }
     </style>
 </head>
-<body class="antialiased min-h-screen selection:bg-neonBlue selection:text-black relative">
-    
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 top-0 border-b border-white/10 bg-black/50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="font-bold text-2xl tracking-tighter">
-                ZIYAN<span class="text-neonBlue glow-text">.ZAS</span>
-            </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-                <a href="#templates" class="hover:text-neonBlue transition">Templates</a>
-                <a href="#services" class="hover:text-neonBlue transition">Services</a>
-                <a href="#about" class="hover:text-neonBlue transition">About</a>
-            </div>
-            <a href="#contact" class="luminous-button px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider">
-                Hire Us
-            </a>
-        </div>
-    </nav>
+<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white transition-colors duration-300 overflow-x-hidden antialiased">
 
-    <!-- Hero Section -->
-    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
-        <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-neonPurple/50 bg-neonPurple/10 text-neonPurple text-xs font-bold tracking-widest uppercase glow-text-purple animate-pulse-slow">
-            B2B Automation Agency
-        </div>
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
-            Automate Your Business.<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonBlue to-neonPurple glow-text">Scale Without Limits.</span>
-        </h1>
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-12">
-            Kami mengubah proses manual yang membuang waktu menjadi sistem otomatis yang bekerja 24/7. Mulai dari Rp 150.000 untuk template instan, hingga sistem Enterprise.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-6">
-            <a href="#templates" class="luminous-button px-8 py-4 rounded-lg font-bold text-lg">
-                Lihat Template n8n (Tripwire)
-            </a>
-            <a href="#services" class="px-8 py-4 rounded-lg font-bold text-lg border border-white/20 hover:bg-white/10 transition">
-                Konsultasi Enterprise
-            </a>
-        </div>
-    </main>
+    <!-- Ambient Glow Background -->
+    <div class="ambient-glow"></div>
 
-    <!-- Showcase / Tripwire (Produk Murah) -->
-    <section id="templates" class="py-20 bg-black/40 border-y border-white/5 relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">Template Otomasi <span class="text-neonBlue glow-text">Siap Pakai</span></h2>
-                <p class="text-gray-400">Plug & play n8n workflows. Langsung download, langsung jalan.</p>
-            </div>
+    <!-- ========================================================
+         STICKY NAVIGATION BAR (ULTRA-RESPONSIVE)
+    ======================================================== -->
+    <header class="sticky top-0 z-50 transition-colors duration-300 border-b border-slate-200/80 dark:border-white/5 bg-white/80 dark:bg-obsidian/80 backdrop-blur-2xl px-4 sm:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="luminous-card rounded-2xl p-8 flex flex-col">
-                    <div class="h-12 w-12 rounded-lg bg-neonBlue/20 border border-neonBlue/50 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">WhatsApp CRM Sync</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">Otomatiskan follow-up WhatsApp dan sinkronisasi data prospek langsung ke Google Sheets.</p>
-                    <div class="flex justify-between items-center mt-auto pt-6 border-t border-white/10">
-                        <span class="text-2xl font-bold">Rp 150k</span>
-                        <button class="text-neonBlue hover:text-white transition text-sm font-bold uppercase tracking-wider">Buy Now</button>
-                    </div>
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
                 </div>
+                <div>
+                    <span class="font-display font-black text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                        ZIYAN CORP <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 uppercase font-bold">2026</span>
+                    </span>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Autonomous Systems & Media</p>
+                </div>
+            </a>
 
-                <!-- Card 2 -->
-                <div class="luminous-card rounded-2xl p-8 flex flex-col">
-                    <div class="h-12 w-12 rounded-lg bg-neonBlue/20 border border-neonBlue/50 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Auto-Invoice Generator</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">Buat dan kirim PDF Invoice otomatis setiap ada order masuk dari E-Commerce Anda.</p>
-                    <div class="flex justify-between items-center mt-auto pt-6 border-t border-white/10">
-                        <span class="text-2xl font-bold">Rp 150k</span>
-                        <button class="text-neonBlue hover:text-white transition text-sm font-bold uppercase tracking-wider">Buy Now</button>
-                    </div>
-                </div>
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#media" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Media Studio</a>
+                <a href="#saas" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">AI UGC SaaS</a>
+                <a href="#automation" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Bot Fleet</a>
+                <a href="#publishing" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Publishing</a>
+                <a href="#demo" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Live Demo</a>
+            </nav>
 
-                <!-- Card 3 -->
-                <div class="luminous-card rounded-2xl p-8 flex flex-col">
-                    <div class="h-12 w-12 rounded-lg bg-neonBlue/20 border border-neonBlue/50 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Omnichannel Content</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">Sekali klik, konten Anda ter-publish otomatis ke IG, YouTube, Telegram, dan TikTok.</p>
-                    <div class="flex justify-between items-center mt-auto pt-6 border-t border-white/10">
-                        <span class="text-2xl font-bold">Rp 199k</span>
-                        <button class="text-neonBlue hover:text-white transition text-sm font-bold uppercase tracking-wider">Buy Now</button>
-                    </div>
-                </div>
+            <!-- Actions: Theme Toggle & CTA -->
+            <div class="flex items-center gap-2.5">
+                
+                <!-- Dark / Light Mode Switcher Button -->
+                <button id="themeToggle" aria-label="Toggle Dark/Light Mode" class="w-10 h-10 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 transition-all cursor-pointer">
+                    <!-- Sun Icon (shown in dark mode) -->
+                    <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <!-- Moon Icon (shown in light mode) -->
+                    <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-500/20 active:scale-95 transition-all">
+                    Hubungi Studio ➔
+                </a>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobileMenuBtn" aria-label="Open Mobile Menu" class="md:hidden w-10 h-10 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                </button>
             </div>
         </div>
-    </section>
 
-    <!-- Services / High Ticket (Jasa Mahal) -->
-    <section id="services" class="py-24 relative">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="luminous-card luminous-card-premium rounded-3xl p-10 md:p-14 text-center border-neonPurple/30 bg-gradient-to-b from-neonPurple/5 to-transparent">
-                <div class="inline-block mb-4 px-4 py-1.5 rounded-full bg-neonPurple/20 text-neonPurple text-xs font-bold tracking-widest uppercase">
-                    Enterprise Service
-                </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6">Butuh Sistem Kustom <br>yang <span class="text-neonPurple glow-text-purple">Kompleks?</span></h2>
-                <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
-                    Tim Engineer ZiyanCorp akan merancang, menginstal, dan me-maintenance seluruh infrastruktur AI & Automasi di perusahaan Anda secara *Done-For-You*.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-xl mx-auto mb-10">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-neonPurple">✓</span><span class="text-gray-300">End-to-End n8n Setup</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="text-neonPurple">✓</span><span class="text-gray-300">Custom AI Agents (Manus/Hermes)</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="text-neonPurple">✓</span><span class="text-gray-300">Server & Database Hosting</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="text-neonPurple">✓</span><span class="text-gray-300">24/7 Priority Support</span>
-                    </div>
-                </div>
-                <a href="mailto:contact@ziyancorp.com" class="inline-block bg-neonPurple text-white font-bold py-4 px-10 rounded-lg shadow-[0_0_20px_rgba(188,19,254,0.5)] hover:shadow-[0_0_40px_rgba(188,19,254,0.8)] hover:-translate-y-1 transition-all duration-300">
-                    Jadwalkan Konsultasi (Mulai Rp 3 Juta)
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden md:hidden pt-4 pb-2 border-t border-slate-200 dark:border-white/5 mt-3 space-y-3">
+            <a href="#media" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Media Studio (@4kscenicwildlife)</a>
+            <a href="#saas" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">AI UGC SaaS Studio</a>
+            <a href="#automation" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Omnichannel Bot Fleet</a>
+            <a href="#publishing" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Tech Publishing</a>
+            <a href="#demo" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Live Demo AI</a>
+            <a href="#contact" class="block w-full text-center py-3 rounded-xl bg-cyan-500 text-white font-bold text-sm">Hubungi Kami Sekarang</a>
+        </div>
+    </header>
+
+    <!-- ========================================================
+         HERO SECTION (NEXT-GEN POWERHOUSE)
+    ======================================================== -->
+    <section class="relative z-10 pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-3xl mx-auto space-y-6">
+            
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                Autopilot System Active • 2026 Standard
+            </div>
+
+            <!-- Main Punchy Headline -->
+            <h1 class="font-display font-black text-4xl sm:text-6xl md:text-7xl tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+                Bukan Sekadar AI.<br>
+                <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                    Ini Pabrik Digital 24 Jam.
+                </span>
+            </h1>
+
+            <!-- Punchy Subtitle -->
+            <p class="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+                Kami membangun ekosistem automasi mandiri: dari produksi video sinematik 4K autopilot, generator konten affiliate UGC, hingga arsitektur bot lintas platform skala global.
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#media" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 active:scale-95 transition-all text-center">
+                    Jelajahi Ekosistem ZiyanCorp ➔
+                </a>
+                <a href="#demo" class="w-full sm:w-auto px-8 py-4 rounded-2xl border border-slate-300 dark:border-white/10 bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-800 dark:text-white font-bold text-sm backdrop-blur-xl transition-all text-center">
+                    Coba Live Demo AI
                 </a>
             </div>
+
+            <!-- KPI Metric Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-10 text-left">
+                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
+                    <p class="text-2xl font-black text-cyan-500 dark:text-cyan-400 font-display">100M+</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Target Viral Views</p>
+                </div>
+                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
+                    <p class="text-2xl font-black text-blue-500 dark:text-blue-400 font-display">100%</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Zero Human Touch</p>
+                </div>
+                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
+                    <p class="text-2xl font-black text-purple-500 dark:text-purple-400 font-display">4K Ultra</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Cloud GPU Render</p>
+                </div>
+                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
+                    <p class="text-2xl font-black text-emerald-500 dark:text-emerald-400 font-display">Rp 0</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Base Ops Budget</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-10 text-center text-gray-500 text-sm">
-        <p>&copy; 2026 ZiyanCorp (Ziyan Automation Systems). All rights reserved.</p>
-        <p class="mt-2 text-neonBlue/50 text-xs tracking-widest">POWERED BY ANTIGRAVITY & n8n</p>
+    <!-- ========================================================
+         DIVISI 1: 4K SCENIC WILDLIFE & MEDIA ENGINE
+    ======================================================== -->
+    <section id="media" class="relative z-10 py-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+        <div class="radiant-card">
+            <div class="radiant-inner p-6 sm:p-12 bg-white dark:bg-obsidianCard">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-mono text-xs font-bold uppercase">
+                            Divisi 01 • Autopilot Production
+                        </div>
+                        <h2 class="font-display font-black text-3xl sm:text-4xl text-slate-900 dark:text-white leading-tight">
+                            4K Scenic Wildlife Media Studio
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Saluran media resmi ZiyanCorp (<b class="text-cyan-500">@4kscenicwildlife</b>) yang memproduksi konten dokumenter alam beresolusi 4K dengan retensi ekstrem (>85% VVSA & >110% APV) menggunakan narasi studio Christopher Neural dan Colab GPU rendering.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                                <h4 class="font-bold text-xs text-slate-900 dark:text-white">🚀 3 Slot Harian Organik</h4>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Tayang di jam emas penonton Amerika Serikat & Global.</p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                                <h4 class="font-bold text-xs text-slate-900 dark:text-white">🎨 Viral Yellow Badge</h4>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Subtitle tebal hitam-kuning bergaya retention visual.</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <a href="https://youtube.com/shorts/3KUfXLk6arE" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition-all">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                Tonton Episode Benchmark (52Hz Whale) ➔
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Video Showcase Mockup -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="w-full max-w-[280px] rounded-3xl p-3 bg-slate-900 border-4 border-slate-700 shadow-2xl relative overflow-hidden">
+                            <div class="aspect-[9/16] rounded-2xl bg-slate-950 flex flex-col justify-between p-4 relative overflow-hidden text-center">
+                                <div class="w-full text-right"><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500 text-white font-bold">4K SHORTS</span></div>
+                                <div class="my-auto space-y-2">
+                                    <div class="w-14 h-14 mx-auto rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+                                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                    <h5 class="text-xs font-black text-white px-2">The Loneliest Creature on Earth</h5>
+                                    <span class="inline-block px-3 py-1 rounded bg-[#FFE000] text-black font-black text-[11px] uppercase tracking-wide">52Hz Whale</span>
+                                </div>
+                                <p class="text-[10px] text-slate-400">@4kscenicwildlife</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         DIVISI 2: AI UGC AFFILIATE SAAS & OHVN STUDIO
+    ======================================================== -->
+    <section id="saas" class="relative z-10 py-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+            <span class="text-xs font-mono font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest">Divisi 02 • SaaS Software</span>
+            <h2 class="font-display font-black text-3xl sm:text-5xl text-slate-900 dark:text-white">
+                Ziyan UGC Affiliate Studio
+            </h2>
+            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+                Aplikasi web bertenaga AI untuk mengubah 1 foto produk Shopee / TikTok menjadi 5 variasi video promosi realistis dengan alur multi-angle.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Card 1 -->
+            <div class="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-500 dark:text-purple-400 flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">Multi-Angle Pose Engine</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Menghasilkan 5 sudut pengambilan gambar otomatis: model memegang produk, detail interaksi tekstur, aktivitas santai, hingga ekspresi kepuasan.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 text-xs text-purple-500 font-bold">
+                    Tersedia di ziyancorp/Saas-prototype- ➔
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">Ohvn Master Dashboard</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Arsitektur SaaS terpadu dengan sistem Top-Up saldo koin, manajemen perpustakaan aset video, dan navigasi modular React 19.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 text-xs text-cyan-500 font-bold">
+                    Tersedia di ziyancorp/Ohvn ➔
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">BYOK Free Model (Rp 0)</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Mendukung model Bring-Your-Own-Key sehingga pengguna bisa memasukkan API Gemini gratis mereka tanpa membebani biaya server ZiyanCorp.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 text-xs text-blue-500 font-bold">
+                    Zero Operational Cost ➔
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================================
+         DIVISI 3: BOT FLEET & PUBLISHING (2 COLUMNS)
+    ======================================================== -->
+    <section id="automation" class="relative z-10 py-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Box 1: Omnichannel Bot Fleet -->
+            <div class="p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg space-y-5">
+                <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase">Divisi 03 • Fleet Automation</span>
+                <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">Omnichannel Distribution Fleet</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Jaringan bot tanpa henti yang mengotomatiskan pengarsipan, pembuatan naskah, dan pengunggahan serentak ke 4 platform raksasa:
+                </p>
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-xs font-bold">
+                        📱 Telegram Channel Auto-Sync
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-xs font-bold">
+                        📺 YouTube Studio Auto-Upload
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-xs font-bold">
+                        📘 Facebook Page Permanent Token
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-xs font-bold">
+                        📸 Instagram Business API Reels
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box 2: Tech Publishing House -->
+            <div id="publishing" class="p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg space-y-5">
+                <span class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase">Divisi 04 • Knowledge & Publishing</span>
+                <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">ZiyanCorp Publishing House</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Penerbitan E-Book panduan industri dengan format visual inovatif: icon vektor SVG, diagram alur pipeline, dan layout majalah teknologi Google Chrome.
+                </p>
+                <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-between">
+                    <div>
+                        <p class="font-bold text-xs text-amber-800 dark:text-amber-300">Master Blueprint 2026 Ready</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Pabrik Konten AI 24 Jam (Vector PDF)</p>
+                    </div>
+                    <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-amber-500 text-black">OFFICIAL</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================================
+         INTERACTIVE LIVE AI HOOK GENERATOR DEMO
+    ======================================================== -->
+    <section id="demo" class="relative z-10 py-16 px-4 sm:px-8 max-w-4xl mx-auto w-full">
+        <div class="p-6 sm:p-10 rounded-3xl border border-cyan-500/30 bg-white dark:bg-obsidianCard shadow-2xl shadow-cyan-500/10 space-y-6">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest">Interactive Client Tool</span>
+                <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">Coba Generator Hook Viral ZiyanCorp</h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Pilih kategori konten dan saksikan AI meracik hook 3 detik pembuka video Anda.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <select id="demoCategory" class="px-4 py-3.5 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-slate-900 text-sm font-semibold text-slate-800 dark:text-white focus:outline-none focus:border-cyan-500">
+                    <option value="wildlife">🐾 4K Scenic Wildlife & Misteri Laut</option>
+                    <option value="affiliate">🛍️ Shopee/TikTok UGC Produk Affiliate</option>
+                    <option value="automation">⚡ Bisnis Automasi & n8n Agency</option>
+                </select>
+                <button id="generateHookBtn" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm hover:opacity-95 active:scale-95 transition-all">
+                    Generate Hook Instan ➔
+                </button>
+            </div>
+
+            <!-- Result Box -->
+            <div id="hookResult" class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 font-mono text-xs sm:text-sm text-slate-800 dark:text-cyan-300 leading-relaxed min-h-[70px] flex items-center">
+                ✨ Klik tombol di atas untuk menguji kecerdasan generator ZiyanCorp.
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         CONTACT & FOOTER
+    ======================================================== -->
+    <footer id="contact" class="relative z-10 border-t border-slate-200 dark:border-white/5 bg-white dark:bg-slate-950 pt-16 pb-12 px-4 sm:px-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            
+            <div class="md:col-span-2 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-cyan-500 flex items-center justify-center text-white font-black text-sm">Z</div>
+                    <span class="font-display font-black text-xl text-slate-900 dark:text-white">ZIYAN CORP</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
+                    Membangun masa depan media dan automasi tanpa batas. Ditenagai oleh Google Material 3 Expressive, Cloud GPU, dan infrastruktur zero-touch.
+                </p>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <h4 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider">Ekosistem</h4>
+                <p><a href="#media" class="text-slate-500 hover:text-cyan-500">4K Scenic Wildlife</a></p>
+                <p><a href="#saas" class="text-slate-500 hover:text-cyan-500">Ohvn UGC Studio</a></p>
+                <p><a href="#automation" class="text-slate-500 hover:text-cyan-500">Omnichannel Bots</a></p>
+                <p><a href="#publishing" class="text-slate-500 hover:text-cyan-500">Ziyan Publishing</a></p>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <h4 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider">Official Links</h4>
+                <p><a href="https://ziyancorp.github.io" class="text-slate-500 hover:text-cyan-500">ziyancorp.github.io</a></p>
+                <p><a href="https://youtube.com/@4kscenicwildlife" target="_blank" class="text-slate-500 hover:text-cyan-500">YouTube @4kscenicwildlife</a></p>
+                <p><a href="https://github.com/ziyancorp" target="_blank" class="text-slate-500 hover:text-cyan-500">GitHub @ziyancorp</a></p>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4 text-center sm:text-left">
+            <span>© 2026 ZIYAN CORP (Ziyan Automation Systems). All Rights Reserved.</span>
+            <span class="font-mono text-[11px]">Powered by Google Cloud & GitHub Pages</span>
+        </div>
     </footer>
+
+    <!-- ========================================================
+         SCRIPTS: THEME TOGGLE, MOBILE MENU, INTERACTIVE DEMO
+    ======================================================== -->
+    <script>
+        // 1. Dark / Light Mode Switcher with LocalStorage
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check saved preference or system preference
+        if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            htmlElement.classList.remove('dark');
+        } else {
+            htmlElement.classList.add('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // 2. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 3. Interactive AI Hook Generator Demo
+        const sampleHooks = {
+            wildlife: [
+                "\"Monster laut sedalam 4.000 meter ini rela mati kelaparan selama 4 tahun hanya demi menjaga bayinya... dan ini alasan mengerikannya.\"",
+                "\"Hewan ini bersuara di frekuensi 52 Hz... dan sepanjang hidupnya, tak ada satu pun paus di samudra yang bisa mendengarnya.\"",
+                "\"Jangan tertipu dengan penampilannya yang cantik, makhluk laut ini bisa menumbuhkan kembali otaknya dalam 3 hari!\""
+            ],
+            affiliate: [
+                "\"Stop beli botol minum mahal kalau belum tahu rahasia termos stainless 24 jam yang lagi viral ini!\"",
+                "\"Gue kira barang 30 ribuan ini zonk, pas datang ternyata kualitasnya mirip brand jutaan... tonton sampai habis!\"",
+                "\"Review jujur pemakaian 1 bulan: ini alasan kenapa produk ini terjual 50 ribu pcs dalam seminggu!\""
+            ],
+            automation: [
+                "\"Capek ngedit video 6 jam sehari? Begini cara kita bikin 90 video 4K autopilot sebulan tanpa menyentuh tombol edit.\"",
+                "\"Kenapa kerja keras kalau bot kita bisa posting otomatis ke YouTube, Instagram, dan TikTok sekali klik?\"",
+                "\"Blueprint agensi AI 2026: Modal Rp 0 bisa hasilkan sistem automasi sekelas korporat.\""
+            ]
+        };
+
+        const generateBtn = document.getElementById('generateHookBtn');
+        const categorySelect = document.getElementById('demoCategory');
+        const resultBox = document.getElementById('hookResult');
+
+        generateBtn.addEventListener('click', () => {
+            const cat = categorySelect.value;
+            const list = sampleHooks[cat];
+            const randomHook = list[Math.floor(Math.random() * list.length)];
+            
+            resultBox.innerHTML = `<span class="text-slate-400 font-sans block mb-1">🔥 Viral Hook Hasil Racikan AI ZiyanCorp:</span> ${randomHook}`;
+        });
+    </script>
 
 </body>
 </html>
