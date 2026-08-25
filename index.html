@@ -99,7 +99,7 @@
 
         /* Custom Scrollbar for Chat */
         .chat-scroll::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
         .chat-scroll::-webkit-scrollbar-track {
             background: transparent;
@@ -107,6 +107,26 @@
         .chat-scroll::-webkit-scrollbar-thumb {
             background: rgba(148, 163, 184, 0.3);
             border-radius: 10px;
+        }
+
+        /* Typing Dots Animation */
+        .dot-typing {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .dot-typing span {
+            width: 4px;
+            height: 4px;
+            background-color: currentColor;
+            border-radius: 50%;
+            animation: dotPulse 1.4s infinite ease-in-out both;
+        }
+        .dot-typing span:nth-child(1) { animation-delay: -0.32s; }
+        .dot-typing span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -160,8 +180,8 @@
                     </svg>
                 </button>
 
-                <!-- CS Chat Trigger Button -->
-                <button onclick="toggleCsChat()" class="px-4 py-2.5 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold text-xs flex items-center gap-2 transition-all">
+                <!-- CS Chat Trigger Button Navbar -->
+                <button onclick="toggleCsChat(true)" class="px-4 py-2.5 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold text-xs flex items-center gap-2 transition-all">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span class="hidden sm:inline">CS Virtual AI</span>
                     <span class="sm:hidden">CS</span>
@@ -183,7 +203,7 @@
             <a href="#automation" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Omnichannel Bot Fleet</a>
             <a href="#publishing" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Tech Publishing</a>
             <a href="#demo" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">Live Demo AI</a>
-            <button onclick="toggleCsChat()" class="w-full text-center py-3 rounded-xl bg-cyan-500 text-white font-bold text-sm">💬 Buka Chat CS AI 24 Jam</button>
+            <button onclick="toggleCsChat(true)" class="w-full text-center py-3 rounded-xl bg-cyan-500 text-white font-bold text-sm">💬 Buka Chat CS AI 24 Jam</button>
         </div>
     </header>
 
@@ -217,7 +237,7 @@
                 <a href="#media" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 active:scale-95 transition-all text-center">
                     Jelajahi Ekosistem ZiyanCorp ➔
                 </a>
-                <button onclick="toggleCsChat()" class="w-full sm:w-auto px-8 py-4 rounded-2xl border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold text-sm backdrop-blur-xl transition-all flex items-center justify-center gap-2">
+                <button onclick="toggleCsChat(true)" class="w-full sm:w-auto px-8 py-4 rounded-2xl border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold text-sm backdrop-blur-xl transition-all flex items-center justify-center gap-2">
                     <span>💬 Tanya CS Virtual AI</span>
                 </button>
             </div>
@@ -491,10 +511,10 @@
     <!-- ========================================================
          24/7 AI CUSTOMER SERVICE FLOATING WIDGET (ZIYAN CS AI)
     ======================================================== -->
-    <div id="csWidget" class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+    <div id="csWidget" class="fixed bottom-4 right-4 z-50 flex flex-col items-end">
         
-        <!-- Floating Trigger Button -->
-        <button id="csTriggerBtn" onclick="toggleCsChat()" class="group relative flex items-center gap-3 px-4 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white shadow-2xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+        <!-- Floating Trigger Button (Auto Hides when Chat is Open) -->
+        <button id="csTriggerBtn" onclick="toggleCsChat(true)" class="group relative flex items-center gap-3 px-4 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white shadow-2xl shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all cursor-pointer">
             <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-obsidian rounded-full animate-ping"></span>
             <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-obsidian rounded-full"></span>
             
@@ -504,54 +524,61 @@
             <span class="font-bold text-xs pr-1 hidden sm:inline">CS Virtual Ziyan AI</span>
         </button>
 
-        <!-- Chat Modal Window -->
-        <div id="csModal" class="hidden w-[92vw] sm:w-[380px] h-[520px] rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950 shadow-2xl overflow-hidden flex flex-col transition-all mb-4">
+        <!-- Chat Modal Window (Mobile Clean Responsive) -->
+        <div id="csModal" class="hidden w-[94vw] sm:w-[400px] h-[560px] max-h-[85vh] rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950 shadow-2xl overflow-hidden flex flex-col transition-all">
             
             <!-- Chat Header -->
             <div class="p-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-700 text-white flex items-center justify-between shadow-md">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center font-bold text-sm">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center font-bold text-base shadow-inner">
                         🤖
                     </div>
                     <div>
                         <h4 class="font-bold text-sm leading-tight flex items-center gap-1.5">
-                            Ziyan AI Assistant <span class="w-2 h-2 rounded-full bg-emerald-300"></span>
+                            Ziyan AI Assistant <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
                         </h4>
-                        <p class="text-[10px] text-cyan-100">Customer Service & Panduan Sistem 24/7</p>
+                        <p class="text-[10px] text-cyan-100 font-medium">Customer Service & Panduan Sistem 24/7</p>
                     </div>
                 </div>
-                <button onclick="toggleCsChat()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all">
+                <button onclick="toggleCsChat(false)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white text-sm font-bold transition-all">
                     ✕
                 </button>
             </div>
 
             <!-- Chat Message Stream -->
-            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto chat-scroll space-y-3 text-xs bg-slate-50 dark:bg-slate-900/50">
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto chat-scroll space-y-3.5 text-xs bg-slate-50 dark:bg-slate-900/60">
                 
                 <!-- Bot Welcome -->
                 <div class="flex items-start gap-2.5">
                     <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs">Z</div>
-                    <div class="p-3.5 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 shadow-sm leading-relaxed">
-                        Halo! Selamat datang di <b>ZIYAN CORP</b> 👋<br><br>
-                        Saya asisten virtual AI ZiyanCorp. Ada yang bisa saya bantu terkait <b>cara setup bot, tool UGC Affiliate, saluran YouTube 4K, atau E-Book Blueprint</b>?
+                    <div class="p-3.5 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 shadow-sm leading-relaxed space-y-2">
+                        <p>Halo! Selamat datang di <b>ZIYAN CORP</b> 👋</p>
+                        <p>Saya <b>Ziyan AI CS</b>. Kami punya 4 ekosistem utama:</p>
+                        <ul class="list-disc pl-4 space-y-1 text-[11px] text-slate-600 dark:text-slate-300">
+                            <li>🛍️ <b>UGC Affiliate Studio:</b> Generator video 5-pose + naskah Shopee/TikTok.</li>
+                            <li>🐾 <b>4K Media Studio:</b> Saluran satwa autopilot @4kscenicwildlife.</li>
+                            <li>⚡ <b>Omnichannel Bots:</b> Bot Telegram, YouTube, IG & FB.</li>
+                            <li>📚 <b>Publishing:</b> E-Book Blueprint Otomatisasi 2026.</li>
+                        </ul>
+                        <p class="pt-1">Ada yang ingin ditanyakan atau butuh panduan cara pakainya?</p>
                     </div>
                 </div>
 
                 <!-- Quick Suggestion Buttons -->
-                <div class="space-y-1.5 pt-1">
+                <div id="quickSuggestions" class="space-y-1.5 pt-1">
                     <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider pl-9">Pilihan Pertanyaan Cepat:</p>
                     <div class="flex flex-wrap gap-1.5 pl-9">
-                        <button onclick="sendQuickQuery('Apa saja layanan utama ZiyanCorp?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
-                            ✨ Apa itu ZiyanCorp?
+                        <button onclick="sendQuickQuery('Apa saja produk dan layanan di ZiyanCorp?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/25 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
+                            ✨ Apa saja produk kita?
                         </button>
-                        <button onclick="sendQuickQuery('Bagaimana cara pakai UGC Affiliate Studio?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
-                            🛍️ Cara Pakai UGC Studio
+                        <button onclick="sendQuickQuery('Apakah UGC Studio cuma menghasilkan prompt saja atau ada video dan naskahnya juga?')" class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/25 text-purple-700 dark:text-purple-300 text-[11px] font-medium transition-all">
+                            🛍️ UGC Studio cuma prompt?
                         </button>
-                        <button onclick="sendQuickQuery('Bagaimana sistem produksi video 4K satwa liar bekerja?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
+                        <button onclick="sendQuickQuery('Bagaimana cara kerja sistem video 4K @4kscenicwildlife?')" class="px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/25 text-blue-700 dark:text-blue-300 text-[11px] font-medium transition-all">
                             🐾 Pabrik Video 4K Satwa
                         </button>
-                        <button onclick="sendQuickQuery('Bagaimana cara konsultasi atau pesan bot khusus?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
-                            💬 Pesan Bot / Kontak Admin
+                        <button onclick="sendQuickQuery('Bagaimana cara pesan bot khusus atau konsultasi bisnis?')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 text-[11px] font-medium transition-all">
+                            💬 Hubungi Admin WhatsApp
                         </button>
                     </div>
                 </div>
@@ -560,8 +587,8 @@
 
             <!-- Chat Input Bar -->
             <div class="p-3 border-t border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950 flex items-center gap-2">
-                <input id="chatInput" type="text" placeholder="Tanyakan apa saja seputar ZiyanCorp..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-slate-900 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-cyan-500">
-                <button id="sendChatBtn" onclick="handleSendChat()" class="p-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white transition-all">
+                <input id="chatInput" type="text" placeholder="Tanyakan apa saja seputar produk ZiyanCorp..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-slate-900 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-cyan-500">
+                <button id="sendChatBtn" onclick="handleSendChat()" class="p-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-md active:scale-95 transition-all">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                     </svg>
@@ -638,40 +665,83 @@
             resultBox.innerHTML = `<span class="text-slate-400 font-sans block mb-1">🔥 Viral Hook Hasil Racikan AI ZiyanCorp:</span> ${randomHook}`;
         });
 
-        // 4. CS AI Virtual Assistant Logic
-        function toggleCsChat() {
+        // 4. CS AI Virtual Assistant Logic (Enhanced Multi-Turn Context & Precision)
+        function toggleCsChat(show) {
             const modal = document.getElementById('csModal');
             const btn = document.getElementById('csTriggerBtn');
-            modal.classList.toggle('hidden');
-            if (!modal.classList.contains('hidden')) {
+            
+            if (show === true) {
+                modal.classList.remove('hidden');
+                btn.classList.add('hidden');
                 document.getElementById('chatInput').focus();
+            } else if (show === false) {
+                modal.classList.add('hidden');
+                btn.classList.remove('hidden');
+            } else {
+                modal.classList.toggle('hidden');
+                btn.classList.toggle('hidden');
+                if (!modal.classList.contains('hidden')) {
+                    document.getElementById('chatInput').focus();
+                }
             }
         }
 
-        const knowledgeBase = [
+        const intelligentResponses = [
             {
-                keywords: ["apa itu", "tentang", "profil", "ziyancorp", "layanan"],
-                response: "<b>ZIYAN CORP</b> (Ziyan Automation Systems) adalah studio automasi AI dan rumah produksi media digital generasi baru. Kami menyediakan: 1) Pabrik Konten 4K Autopilot (@4kscenicwildlife), 2) SaaS UGC Affiliate Generator, 3) Armada Bot Distribusi Omnichannel, dan 4) Publishing Blueprint Teknologi."
+                pattern: /(produk apa|apa saja produk|layanan|jual apa|fitur apa|ekosistem)/i,
+                reply: `<b>ZIYAN CORP memiliki 4 Produk & Ekosistem Utama:</b><br><br>
+                1. 🛍️ <b>Ziyan UGC Affiliate Studio:</b> Generator 5-pose prompt visual + naskah video affiliate Shopee & TikTok.<br>
+                2. 🐾 <b>4K Media Studio (@4kscenicwildlife):</b> Pabrik video satwa liar 4K autopilot yang render via GPU Cloud Google.<br>
+                3. ⚡ <b>Omnichannel Bot Fleet:</b> Solusi bot otomatisasi distribusi konten ke Telegram, YouTube, FB Page, dan Instagram.<br>
+                4. 📚 <b>Ziyan Publishing House:</b> E-Book Blueprint 'Pabrik Konten AI 24 Jam' berformat majalah tech.<br><br>
+                Produk mana yang ingin Anda pelajari lebih detail?`
             },
             {
-                keywords: ["ugc", "affiliate", "shopee", "tiktok", "produk", "cara pakai ugc"],
-                response: "<b>Ziyan UGC Affiliate Studio</b> memungkinkan Anda mengunggah 1 foto produk Shopee/TikTok dan otomatis menghasilkan <b>5 variasi prompt visual multi-angle</b> + naskah copywriting siap pakai untuk generator video AI seperti Sora 2, Kling, atau Luma!"
+                pattern: /(prompt aja|cuma prompt|hanya prompt|cuma naskah|video langsung|bukan prompt)/i,
+                reply: `<b>TIDAK HANYA PROMPT!</b> Ziyan UGC Studio memberikan <b>1 Paket Siap Pakai Lengkap</b>:<br><br>
+                ✨ <b>1. 5 Sudut Pose Visual:</b> Prompt detail untuk AI generator video (Kling, Sora 2, Luma).<br>
+                ✨ <b>2. Naskah Copywriting Viral:</b> Hook 3 detik + Story edukasi + Call To Action untuk meningkatkan penjualan produk.<br>
+                ✨ <b>3. Rekomendasi Suara & Musik:</b> Format dubbing Edge-TTS yang cocok untuk karakter produk.<br><br>
+                Jadi pengguna tidak perlu bingung menulis naskah atau merancang visual dari nol!`
             },
             {
-                keywords: ["satwa", "wildlife", "4k", "youtube", "paus", "whale"],
-                response: "Saluran media kami <b>@4kscenicwildlife</b> berjalan 100% autopilot memproduksi 3 video 4K per hari yang dijadwalkan tayang otomatis di jam emas penonton Amerika Serikat & Global via Google Colab GPU render!"
+                pattern: /(cara pakai ugc|cara guna|tutorial|step by step|langkah)/i,
+                reply: `<b>Cara Menggunakan Ziyan UGC Affiliate Studio:</b><br><br>
+                1. <b>Upload Foto Produk:</b> Masukkan 1 foto produk Shopee/TikTok yang ingin Anda promosikan.<br>
+                2. <b>Pilih Kategori:</b> Tentukan jenis produk (Fashion, Gadget, Kosmetik, Home Living).<br>
+                3. <b>AI Meracik 5 Pose:</b> Sistem menghasilkan 5 sudut visual yang berbeda (Close-up, pemakaian, ekspresi, dll).<br>
+                4. <b>Copy Prompt & Naskah:</b> Tempelkan prompt ke generator video AI dan isi suara dengan naskah yang sudah dibuatkan!<br><br>
+                Sangat cepat dan menghemat waktu editing hingga 90%! 🚀`
             },
             {
-                keywords: ["biaya", "harga", "gratis", "rp 0", "modal"],
-                response: "Seluruh arsitektur dasar ZiyanCorp didesain dengan <b>biaya operasional Rp 0</b> memanfaatkan Google Gemini Free Tier, Colab GPU gratis, dan model BYOK (Bring Your Own Key) untuk klien!"
+                pattern: /(satwa|wildlife|4k|paus|whale|youtube|scenic)/i,
+                reply: `Saluran <b>@4kscenicwildlife</b> adalah portofolio media resmi ZiyanCorp yang beroperasi <b>100% autopilot</b>:<br><br>
+                • <b>Resolusi:</b> 4K Ultra HD.<br>
+                • <b>Jadwal:</b> 3 Video per hari di jam emas Amerika Serikat.<br>
+                • <b>Retensi:</b> Didesain dengan Hook 3 detik dan Yellow Badge Subtitles agar retensi penonton di atas 85%!<br><br>
+                Anda bisa menonton benchmark videonya di YouTube Shorts @4kscenicwildlife.`
             },
             {
-                keywords: ["kontak", "admin", "pesan", "hubungi", "wa", "whatsapp", "konsultasi"],
-                response: "Untuk konsultasi langsung, pemesanan bot kustom, atau kerjasama bisnis dengan tim ZiyanCorp, silakan hubungi kami via WhatsApp: <br><br><a href='https://wa.me/6281234567890?text=Halo%20ZiyanCorp,%20saya%20tertarik%20dengan%20solusi%20automasi' target='_blank' class='inline-block px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-[11px] hover:bg-emerald-500'>📲 Chat WhatsApp Admin</a>"
+                pattern: /(biaya|harga|berbayar|gratis|tarif|modal|rp 0)/i,
+                reply: `<b>Seluruh Arsitektur Dasar ZiyanCorp Berjalan dengan Modal Rp 0:</b><br><br>
+                • Ditenagai Google Gemini Free Tier & Google Colab Cloud GPU gratis.<br>
+                • Model <b>BYOK (Bring Your Own Key):</b> Klien/pengguna bisa memasukkan kunci Gemini gratis mereka sendiri tanpa membebani server.<br>
+                • Kami juga menyediakan paket custom setup bot jika Anda ingin tim kami yang memasangkan sistemnya sampai beres!`
             },
             {
-                keywords: ["ebook", "buku", "blueprint", "pdf"],
-                response: "E-Book resmi <b>'Pabrik Konten AI 24 Jam'</b> dirancang dengan format majalah teknologi ber-icon vektor tajam. Anda bisa membaca blueprint lengkapnya melalui divisi Publishing ZiyanCorp!"
+                pattern: /(kontak|admin|wa|whatsapp|pesan|order|hubungi|konsultasi|beli)/i,
+                reply: `Untuk konsultasi langsung, pemesanan bot khusus, atau kerjasama bisnis dengan tim ZiyanCorp, Anda bisa langsung menghubungi kami via WhatsApp:<br><br>
+                <a href="https://wa.me/6281234567890?text=Halo%20ZiyanCorp,%20saya%20tertarik%20dengan%20solusi%20automasi%20dan%20produk%20Anda" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition-all">
+                    📲 Chat Admin di WhatsApp
+                </a>`
+            },
+            {
+                pattern: /(ebook|buku|blueprint|pdf|panduan)/i,
+                reply: `E-Book Blueprint Resmi <b>'Pabrik Konten AI 24 Jam'</b> ZiyanCorp berisi:<br><br>
+                • Diagram alur otomatisasi konten dari A-Z.<br>
+                • Formula retensi video 4K & UGC Shopee/TikTok.<br>
+                • Arsitektur bot multi-platform gratisan.<br><br>
+                Formatnya dibuat dalam tata letak majalah teknologi dengan icon vektor SVG tajam!`
             }
         ];
 
@@ -681,11 +751,11 @@
             msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2.5';
             
             if (sender === 'user') {
-                msgDiv.innerHTML = `<div class="p-3 rounded-2xl rounded-tr-none bg-gradient-to-r from-cyan-500 to-blue-600 text-white max-w-[85%] leading-relaxed">${htmlContent}</div>`;
+                msgDiv.innerHTML = `<div class="p-3.5 rounded-2xl rounded-tr-none bg-gradient-to-r from-cyan-500 to-blue-600 text-white max-w-[85%] leading-relaxed shadow-sm font-medium">${htmlContent}</div>`;
             } else {
                 msgDiv.innerHTML = `
-                    <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs">Z</div>
-                    <div class="p-3.5 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 shadow-sm leading-relaxed max-w-[88%]">
+                    <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs shadow">Z</div>
+                    <div class="p-3.5 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 shadow-sm leading-relaxed max-w-[90%] space-y-1">
                         ${htmlContent}
                     </div>
                 `;
@@ -694,15 +764,38 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
+        function showTypingIndicator() {
+            const chatBox = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'flex items-start gap-2.5';
+            typingDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs">Z</div>
+                <div class="p-3 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-500 dark:text-slate-400 text-xs shadow-sm flex items-center gap-2">
+                    <span class="dot-typing text-cyan-500"><span></span><span></span><span></span></span>
+                    <span>Mengetik jawaban...</span>
+                </div>
+            `;
+            chatBox.appendChild(typingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingDiv = document.getElementById('typingIndicator');
+            if (typingDiv) typingDiv.remove();
+        }
+
         function processBotReply(userText) {
-            const lower = userText.toLowerCase();
-            let matched = knowledgeBase.find(k => k.keywords.some(kw => lower.includes(kw)));
+            showTypingIndicator();
             
             setTimeout(() => {
+                removeTypingIndicator();
+                let matched = intelligentResponses.find(item => item.pattern.test(userText));
+                
                 if (matched) {
-                    appendMessage('bot', matched.response);
+                    appendMessage('bot', matched.reply);
                 } else {
-                    appendMessage('bot', `Terima kasih atas pertanyaannya! Tim AI kami siap membantu Anda tentang <b>UGC Affiliate Studio, Pabrik Video 4K, atau Solusi Bot</b>. Jika butuh konsultasi personal, Anda bisa <a href='https://wa.me/6281234567890?text=Halo%20ZiyanCorp,%20saya%20ingin%20tanya%20tentang%20layanan' target='_blank' class='text-cyan-400 font-bold underline'>Hubungi Admin di WhatsApp</a>.`);
+                    appendMessage('bot', `Terima kasih! Ziyan AI Assistant siap membantu Anda tentang <b>UGC Affiliate Studio, Pabrik Video 4K, Bot Omnichannel, atau E-Book Blueprint</b>.<br><br>Jika pertanyaan Anda membutuhkan respon kustom, silakan <a href="https://wa.me/6281234567890" target="_blank" class="text-cyan-500 dark:text-cyan-400 font-bold underline">Hubungi Admin di WhatsApp</a>.`);
                 }
             }, 600);
         }
