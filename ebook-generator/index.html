@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="id" data-mode="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZiyanCorp AI E-Book Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg: #f8fafc; --bg2: #ffffff; --bg3: #f1f5f9; --tx: #0f172a; --tx2: #475569; --tx3: #94a3b8;
+            --pr: #2563eb; --pr2: #1d4ed8; --prl: #eff6ff; --prb: #bfdbfe;
+            --bd: #e2e8f0; --bd2: #cbd5e1;
+            --green: #10b981; --red: #ef4444; --amber: #f59e0b; --cyan: #06b6d4; --purple: #8b5cf6;
+            --sh: 0 1px 3px rgb(0 0 0/.08); --sh2: 0 4px 12px rgb(0 0 0/.1); --sh3: 0 12px 32px rgb(0 0 0/.12);
+            --r: 12px; --r2: 16px; --r3: 24px;
+            --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+        [data-mode="dark"] {
+            --bg: #0a0e1a; --bg2: #111827; --bg3: #1e293b; --tx: #f1f5f9; --tx2: #94a3b8; --tx3: #64748b;
+            --pr: #3b82f6; --pr2: #60a5fa; --prl: rgba(59,130,246,.12); --prb: #1e40af;
+            --bd: #1e293b; --bd2: #334155;
+            --sh: 0 1px 3px rgb(0 0 0/.4); --sh2: 0 4px 12px rgb(0 0 0/.5); --sh3: 0 12px 32px rgb(0 0 0/.6);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font); background: var(--bg); color: var(--tx); line-height: 1.6; min-height: 100vh; transition: background .3s, color .3s; }
+
+        /* ── HEADER ── */
+        .header { position: sticky; top: 0; z-index: 50; background: var(--bg2); border-bottom: 1px solid var(--bd); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(12px); }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.05rem; }
+        .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--pr), var(--cyan)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .85rem; font-weight: 900; }
+        .header-actions { display: flex; gap: 8px; align-items: center; }
+        .btn-icon { width: 36px; height: 36px; border-radius: var(--r); border: 1px solid var(--bd); background: var(--bg3); color: var(--tx); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: .2s; font-size: 1.1rem; }
+        .btn-icon:hover { background: var(--bd); }
+
+        /* ── MAIN CONTAINER ── */
+        .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 100px; }
+
+        /* ── STEP INDICATOR ── */
+        .steps { display: flex; gap: 4px; margin-bottom: 28px; padding: 4px; background: var(--bg3); border-radius: 100px; }
+        .step-tab { flex: 1; text-align: center; padding: 10px 8px; border-radius: 100px; font-size: .78rem; font-weight: 700; color: var(--tx3); cursor: pointer; transition: .2s; }
+        .step-tab.active { background: var(--pr); color: #fff; box-shadow: var(--sh2); }
+        .step-tab.done { color: var(--green); }
+
+        /* ── CARDS ── */
+        .card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2); padding: 20px; margin-bottom: 16px; box-shadow: var(--sh); transition: border-color .2s; }
+        .card:hover { border-color: var(--bd2); }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .card-title .icon { font-size: 1.2rem; }
+
+        /* ── FORM ELEMENTS ── */
+        label { display: block; font-size: .82rem; font-weight: 600; color: var(--tx2); margin-bottom: 6px; }
+        input[type="text"], input[type="password"], textarea, select {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--bd); border-radius: var(--r); background: var(--bg3);
+            color: var(--tx); font-family: var(--font); font-size: .9rem; transition: border-color .2s; outline: none;
+        }
+        input:focus, textarea:focus, select:focus { border-color: var(--pr); box-shadow: 0 0 0 3px var(--prl); }
+        textarea { resize: vertical; min-height: 80px; }
+        select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='3'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+
+        /* ── BUTTONS ── */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 100px; font-family: var(--font); font-size: .88rem; font-weight: 700; cursor: pointer; border: none; transition: .2s; }
+        .btn-primary { background: var(--pr); color: #fff; box-shadow: var(--sh2); }
+        .btn-primary:hover { background: var(--pr2); transform: translateY(-1px); box-shadow: var(--sh3); }
+        .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+        .btn-outline { background: transparent; color: var(--tx); border: 1px solid var(--bd); }
+        .btn-outline:hover { background: var(--bg3); }
+        .btn-sm { padding: 8px 16px; font-size: .8rem; }
+        .btn-danger { background: var(--red); color: #fff; }
+        .btn-full { width: 100%; }
+        .btn-group { display: flex; gap: 8px; margin-top: 16px; }
+
+        /* ── SOURCE CHIPS ── */
+        .source-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+        .source-chip { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r); font-size: .85rem; }
+        .source-chip .type-badge { padding: 3px 8px; border-radius: 6px; font-size: .7rem; font-weight: 700; text-transform: uppercase; flex-shrink: 0; }
+        .source-chip .type-badge.yt { background: #fee2e2; color: #dc2626; }
+        .source-chip .type-badge.web { background: #dbeafe; color: #2563eb; }
+        .source-chip .type-badge.pdf { background: #fef3c7; color: #d97706; }
+        .source-chip .type-badge.txt { background: #d1fae5; color: #059669; }
+        [data-mode="dark"] .source-chip .type-badge.yt { background: rgba(220,38,38,.2); }
+        [data-mode="dark"] .source-chip .type-badge.web { background: rgba(37,99,235,.2); }
+        [data-mode="dark"] .source-chip .type-badge.pdf { background: rgba(217,119,6,.2); }
+        [data-mode="dark"] .source-chip .type-badge.txt { background: rgba(5,150,105,.2); }
+        .source-chip .source-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--tx2); }
+        .source-chip .chars { font-size: .72rem; color: var(--tx3); font-family: var(--mono); flex-shrink: 0; }
+        .source-chip .remove-btn { width: 24px; height: 24px; border-radius: 6px; border: none; background: transparent; color: var(--red); cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .source-chip .remove-btn:hover { background: rgba(239,68,68,.1); }
+
+        /* ── ADD SOURCE PANEL ── */
+        .add-panel { border: 2px dashed var(--bd); border-radius: var(--r2); padding: 16px; }
+        .add-type-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        .type-btn { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--bd); background: var(--bg2); color: var(--tx2); font-size: .8rem; font-weight: 600; cursor: pointer; transition: .2s; }
+        .type-btn:hover, .type-btn.active { background: var(--pr); color: #fff; border-color: var(--pr); }
+        .add-input-area { display: none; margin-top: 12px; }
+        .add-input-area.visible { display: block; }
+
+        /* ── THEME PICKER ── */
+        .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 8px; }
+        .theme-card { padding: 14px; border-radius: var(--r); border: 2px solid var(--bd); cursor: pointer; transition: .2s; text-align: center; position: relative; }
+        .theme-card:hover { border-color: var(--pr); }
+        .theme-card.selected { border-color: var(--pr); background: var(--prl); }
+        .theme-card.locked { opacity: .6; cursor: pointer; }
+        .theme-card.locked.unlocked { opacity: 1; }
+        .theme-swatch { height: 28px; border-radius: 6px; margin-bottom: 8px; }
+        .theme-name { font-size: .78rem; font-weight: 700; }
+        .lock-icon { position: absolute; top: 8px; right: 8px; font-size: .85rem; }
+
+        /* ── PROGRESS ── */
+        .progress-list { display: flex; flex-direction: column; gap: 10px; }
+        .progress-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg3); border-radius: var(--r); font-size: .88rem; }
+        .progress-item .status-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; flex-shrink: 0; }
+        .progress-item .status-icon.done { background: var(--green); color: #fff; }
+        .progress-item .status-icon.active { background: var(--pr); color: #fff; animation: pulse 1.5s infinite; }
+        .progress-item .status-icon.pending { background: var(--bg2); border: 2px solid var(--bd); color: var(--tx3); }
+        .progress-item .status-icon.error { background: var(--red); color: #fff; }
+        .progress-bar-wrap { width: 100%; height: 6px; background: var(--bg3); border-radius: 100px; margin-top: 16px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--pr), var(--cyan)); border-radius: 100px; transition: width .5s ease; width: 0%; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--bd); border-top-color: var(--pr); border-radius: 50%; animation: spin .6s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── RESULT ── */
+        .result-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .preview-frame { background: #fff; border: 1px solid var(--bd); border-radius: var(--r2); overflow: hidden; max-height: 500px; overflow-y: auto; }
+        .preview-frame iframe { width: 100%; height: 600px; border: none; }
+
+        /* ── MODAL ── */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .modal-overlay.visible { display: flex; }
+        .modal { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r3); padding: 28px; max-width: 400px; width: 100%; box-shadow: var(--sh3); }
+        .modal h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+        .modal p { font-size: .88rem; color: var(--tx2); margin-bottom: 16px; }
+
+        /* ── STEP PANELS ── */
+        .step-panel { display: none; }
+        .step-panel.active { display: block; animation: fadeIn .3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── PAGES SELECTOR ── */
+        .pages-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+        .pages-option { padding: 10px 8px; text-align: center; border: 2px solid var(--bd); border-radius: var(--r); cursor: pointer; transition: .2s; }
+        .pages-option:hover { border-color: var(--pr); }
+        .pages-option.selected { border-color: var(--pr); background: var(--prl); }
+        .pages-option .num { font-size: 1.3rem; font-weight: 800; display: block; }
+        .pages-option .lbl { font-size: .68rem; color: var(--tx2); }
+
+        /* ── ALERT ── */
+        .alert { padding: 12px 16px; border-radius: var(--r); font-size: .85rem; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; }
+        .alert-info { background: var(--prl); color: var(--pr); border: 1px solid var(--prb); }
+        .alert-error { background: rgba(239,68,68,.1); color: var(--red); border: 1px solid rgba(239,68,68,.3); }
+        .alert-success { background: rgba(16,185,129,.1); color: var(--green); border: 1px solid rgba(16,185,129,.3); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .container { padding: 16px 12px 80px; }
+            .steps { gap: 2px; }
+            .step-tab { padding: 8px 4px; font-size: .68rem; }
+            .theme-grid { grid-template-columns: repeat(2, 1fr); }
+            .pages-grid { grid-template-columns: repeat(2, 1fr); }
+            .btn-group { flex-direction: column; }
+            .header { padding: 10px 14px; }
+            .add-type-btns { gap: 6px; }
+        }
+
+        /* ── HIDE SECTIONS ── */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+    <div class="logo">
+        <div class="logo-icon">📚</div>
+        <span>E-Book Generator</span>
+    </div>
+    <div class="header-actions">
+        <button class="btn-icon" onclick="toggleMode()" title="Dark/Light Mode" id="modeBtn">🌙</button>
+    </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<div class="container">
+
+    <!-- STEP TABS -->
+    <div class="steps">
+        <div class="step-tab active" data-step="1" onclick="goStep(1)">📎 Sumber</div>
+        <div class="step-tab" data-step="2" onclick="goStep(2)">⚙️ Pengaturan</div>
+        <div class="step-tab" data-step="3" onclick="goStep(3)">🤖 Generate</div>
+        <div class="step-tab" data-step="4" onclick="goStep(4)">📖 Hasil</div>
+    </div>
+
+    <!-- ═══ STEP 1: SOURCES ═══ -->
+    <div class="step-panel active" id="panel-1">
+        <div class="card">
+            <div class="card-title"><span class="icon">📎</span> Sumber Informasi</div>
+            <p style="font-size:.85rem;color:var(--tx2);margin-bottom:16px;">Masukkan sumber pengetahuan yang akan diolah menjadi E-Book. Bisa kombinasi dari berbagai jenis sumber.</p>
+
+            <div class="source-list" id="sourceList"></div>
+
+            <div class="add-panel" id="addPanel">
+                <div class="add-type-btns">
+                    <button class="type-btn" onclick="selectAddType('youtube')">🎬 YouTube</button>
+                    <button class="type-btn" onclick="selectAddType('website')">🌐 Website</button>
+                    <button class="type-btn" onclick="selectAddType('pdf')">📄 PDF</button>
+                    <button class="type-btn" onclick="selectAddType('text')">📝 Teks</button>
+                </div>
+
+                <div class="add-input-area" id="input-youtube">
+                    <label>Link Video YouTube</label>
+                    <input type="text" id="ytUrl" placeholder="https://youtube.com/watch?v=...">
+                    <div class="btn-group"><button class="btn btn-primary btn-sm" onclick="addYouTube()">+ Tambah</button></div>
+                </div>
+                <div class="add-input-area" id="input-website">
+                    <label>Link Artikel / Website</label>
+                    <input type="text" id="webUrl" placeholder="https://example.com/article">
+                    <div class="btn-group"><button class="btn btn-primary btn-sm" onclick="addWebsite()">+ Tambah</button></div>
+                </div>
+                <div class="add-input-area" id="input-pdf">
+                    <label>Upload File PDF</label>
+                    <input type="file" id="pdfFile" accept="application/pdf" style="padding:8px;">
+                    <div class="btn-group"><button class="btn btn-primary btn-sm" onclick="addPDF()">+ Tambah</button></div>
+                </div>
+                <div class="add-input-area" id="input-text">
+                    <label>Tulis / Tempel Teks Langsung</label>
+                    <textarea id="manualText" rows="5" placeholder="Tempelkan catatan, ringkasan, atau informasi apapun di sini..."></textarea>
+                    <div class="btn-group"><button class="btn btn-primary btn-sm" onclick="addText()">+ Tambah</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group" style="justify-content:flex-end;">
+            <button class="btn btn-primary" onclick="goStep(2)" id="btnToStep2" disabled>Selanjutnya →</button>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 2: SETTINGS ═══ -->
+    <div class="step-panel" id="panel-2">
+        <div class="card">
+            <div class="card-title"><span class="icon">📖</span> Judul E-Book</div>
+            <input type="text" id="bookTitle" placeholder="Judul akan di-generate otomatis, atau ketik manual...">
+        </div>
+
+        <div class="card">
+            <div class="card-title"><span class="icon">📄</span> Jumlah Halaman</div>
+            <div class="pages-grid">
+                <div class="pages-option" data-pages="5" onclick="selectPages(this)"><span class="num">5</span><span class="lbl">Ringkas</span></div>
+                <div class="pages-option selected" data-pages="10" onclick="selectPages(this)"><span class="num">10</span><span class="lbl">Standar</span></div>
+                <div class="pages-option" data-pages="15" onclick="selectPages(this)"><span class="num">15</span><span class="lbl">Mendalam</span></div>
+                <div class="pages-option" data-pages="20" onclick="selectPages(this)"><span class="num">20</span><span class="lbl">Komprehensif</span></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><span class="icon">🗣️</span> Gaya Penulisan</div>
+            <select id="writingStyle">
+                <option value="edukatif">📚 Edukatif — Terstruktur, definisi jelas, penjelasan runtut</option>
+                <option value="storytelling">📖 Storytelling — Naratif, menarik, penuh analogi & cerita</option>
+                <option value="formal">💼 Formal Bisnis — Profesional, berbasis data, korporat</option>
+                <option value="santai">🗣️ Santai & Gaul — Kasual, kekinian, mudah dipahami</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><span class="icon">🌐</span> Bahasa</div>
+            <select id="language">
+                <option value="indonesia">🇮🇩 Bahasa Indonesia</option>
+                <option value="english">🇬🇧 English</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><span class="icon">🎨</span> Tema Visual</div>
+            <div class="theme-grid" id="themeGrid">
+                <div class="theme-card selected" data-theme="editorial" onclick="selectTheme(this)">
+                    <div class="theme-swatch" style="background:linear-gradient(135deg,#f8fafc,#e2e8f0);"></div>
+                    <div class="theme-name">Clean Editorial</div>
+                </div>
+                <div class="theme-card" data-theme="obsidian" onclick="selectTheme(this)">
+                    <div class="theme-swatch" style="background:linear-gradient(135deg,#0f172a,#1e3a5f);"></div>
+                    <div class="theme-name">Obsidian Night</div>
+                </div>
+                <div class="theme-card" data-theme="ocean" onclick="selectTheme(this)">
+                    <div class="theme-swatch" style="background:linear-gradient(135deg,#e0f2fe,#0ea5e9);"></div>
+                    <div class="theme-name">Ocean Breeze</div>
+                </div>
+                <div class="theme-card" data-theme="sunset" onclick="selectTheme(this)">
+                    <div class="theme-swatch" style="background:linear-gradient(135deg,#fef3c7,#f97316);"></div>
+                    <div class="theme-name">Sunset Coral</div>
+                </div>
+                <div class="theme-card locked" data-theme="ziyan" onclick="attemptUnlockTheme(this)" id="ziyanTheme">
+                    <div class="theme-swatch" style="background:linear-gradient(135deg,#1e40af,#06b6d4);"></div>
+                    <div class="theme-name">Ziyan Tech Chrome</div>
+                    <span class="lock-icon" id="ziyanLock">🔒</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><span class="icon">🔑</span> API Key Gemini</div>
+            <div class="alert alert-info">
+                <span>💡</span>
+                <span>Gratis! Dapatkan API Key di <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--pr);font-weight:700;">Google AI Studio</a> → klik "Create API Key" → salin & tempel di bawah.</span>
+            </div>
+            <input type="password" id="apiKey" placeholder="Tempel API Key Gemini kamu di sini...">
+            <div style="margin-top:6px;"><label><input type="checkbox" id="saveKey" checked> Simpan key di browser ini</label></div>
+        </div>
+
+        <div class="btn-group" style="justify-content:space-between;">
+            <button class="btn btn-outline" onclick="goStep(1)">← Kembali</button>
+            <button class="btn btn-primary" onclick="startGeneration()">🚀 Generate E-Book</button>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 3: GENERATING ═══ -->
+    <div class="step-panel" id="panel-3">
+        <div class="card">
+            <div class="card-title"><span class="icon">🤖</span> Sedang Membuat E-Book...</div>
+            <div class="progress-list" id="progressList"></div>
+            <div class="progress-bar-wrap" style="margin-top:20px;">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+            <p style="text-align:center;font-size:.8rem;color:var(--tx3);margin-top:8px;" id="progressText">Mempersiapkan...</p>
+        </div>
+        <div class="btn-group" style="justify-content:center; margin-top:12px;">
+            <button class="btn btn-outline btn-sm btn-danger" onclick="cancelGeneration()" id="cancelBtn">✖ Batalkan</button>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 4: RESULT ═══ -->
+    <div class="step-panel" id="panel-4">
+        <div class="card">
+            <div class="card-title"><span class="icon">🎉</span> E-Book Berhasil Dibuat!</div>
+            <div class="result-actions">
+                <button class="btn btn-primary btn-sm" onclick="downloadPDF()">📥 Download PDF</button>
+                <button class="btn btn-outline btn-sm" onclick="downloadHTML()">🌐 Download HTML</button>
+                <button class="btn btn-outline btn-sm" onclick="goStep(1)">🔄 Buat Lagi</button>
+            </div>
+        </div>
+        <div class="preview-frame" id="previewFrame"></div>
+    </div>
+</div>
+
+<!-- ═══ PIN MODAL ═══ -->
+<div class="modal-overlay" id="pinModal">
+    <div class="modal">
+        <h3>🔒 Tema Eksklusif</h3>
+        <p>Tema ini hanya tersedia untuk admin ZiyanCorp. Masukkan PIN untuk membuka.</p>
+        <input type="password" id="pinInput" placeholder="Masukkan PIN...">
+        <div id="pinError" class="alert alert-error hidden" style="margin-top:8px;">PIN salah. Coba lagi.</div>
+        <div class="btn-group">
+            <button class="btn btn-outline btn-sm" onclick="closePinModal()">Batal</button>
+            <button class="btn btn-primary btn-sm" onclick="verifyPin()">Buka 🔓</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIG & STATE
+// ═══════════════════════════════════════════════════════
+const ADMIN_PIN = 'ziyan2026';
+const ADMIN_KEY_OBFUSCATED = ['AQ','Ab8RN6IqlDYc63LpoZDn9lNdWxAzTcdtGsKYFc74ivHuJwzQdA'];
+const CORS_PROXIES = [
+    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+];
+
+let state = {
+    sources: [],         // [{type, label, text, chars}]
+    currentStep: 1,
+    selectedPages: 10,
+    selectedTheme: 'editorial',
+    adminUnlocked: false,
+    generating: false,
+    cancelled: false,
+    generatedHTML: '',
+    generatedTitle: ''
+};
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+(function init() {
+    const mode = localStorage.getItem('ebook_mode') || 'dark';
+    document.documentElement.setAttribute('data-mode', mode);
+    document.getElementById('modeBtn').textContent = mode === 'dark' ? '☀️' : '🌙';
+
+    const savedKey = localStorage.getItem('ebook_apikey');
+    if (savedKey) document.getElementById('apiKey').value = savedKey;
+
+    if (localStorage.getItem('ebook_admin') === 'true') {
+        state.adminUnlocked = true;
+        const zt = document.getElementById('ziyanTheme');
+        zt.classList.remove('locked');
+        zt.classList.add('unlocked');
+        document.getElementById('ziyanLock').textContent = '🔓';
+    }
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+})();
+
+function toggleMode() {
+    const current = document.documentElement.getAttribute('data-mode');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-mode', next);
+    localStorage.setItem('ebook_mode', next);
+    document.getElementById('modeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+}
+
+// ═══════════════════════════════════════════════════════
+// STEP NAVIGATION
+// ═══════════════════════════════════════════════════════
+function goStep(n) {
+    if (n > 2 && state.sources.length === 0) return;
+    state.currentStep = n;
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`panel-${n}`).classList.add('active');
+    document.querySelectorAll('.step-tab').forEach(t => {
+        const s = parseInt(t.dataset.step);
+        t.classList.remove('active', 'done');
+        if (s === n) t.classList.add('active');
+        else if (s < n) t.classList.add('done');
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+// SOURCE MANAGEMENT
+// ═══════════════════════════════════════════════════════
+function selectAddType(type) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.add-input-area').forEach(a => a.classList.remove('visible'));
+    document.getElementById(`input-${type}`).classList.add('visible');
+}
+
+function addSource(type, label, text) {
+    state.sources.push({ type, label, text, chars: text.length });
+    renderSources();
+}
+
+function removeSource(idx) {
+    state.sources.splice(idx, 1);
+    renderSources();
+}
+
+function renderSources() {
+    const list = document.getElementById('sourceList');
+    const typeMap = { youtube: 'yt', website: 'web', pdf: 'pdf', text: 'txt' };
+    const emojiMap = { youtube: '🎬', website: '🌐', pdf: '📄', text: '📝' };
+
+    list.innerHTML = state.sources.map((s, i) => `
+        <div class="source-chip">
+            <span class="type-badge ${typeMap[s.type]}">${s.type.toUpperCase()}</span>
+            <span class="source-text">${emojiMap[s.type]} ${s.label}</span>
+            <span class="chars">${formatChars(s.chars)}</span>
+            <button class="remove-btn" onclick="removeSource(${i})">✕</button>
+        </div>
+    `).join('');
+
+    document.getElementById('btnToStep2').disabled = state.sources.length === 0;
+}
+
+function formatChars(n) {
+    if (n > 1000) return (n / 1000).toFixed(1) + 'K';
+    return n + '';
+}
+
+// ═══════════════════════════════════════════════════════
+// CORS PROXY FETCH
+// ═══════════════════════════════════════════════════════
+async function fetchWithProxy(url) {
+    for (const proxyFn of CORS_PROXIES) {
+        try {
+            const res = await fetch(proxyFn(url));
+            if (res.ok) return await res.text();
+        } catch (e) { /* try next */ }
+    }
+    throw new Error('Semua proxy CORS gagal. Coba lagi nanti.');
+}
+
+// ═══════════════════════════════════════════════════════
+// YOUTUBE TRANSCRIPT EXTRACTOR
+// ═══════════════════════════════════════════════════════
+function extractVideoId(input) {
+    const m = input.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    return m ? m[1] : input.trim();
+}
+
+async function getYouTubeTranscript(videoId) {
+    const html = await fetchWithProxy(`https://www.youtube.com/watch?v=${videoId}`);
+    const m = html.match(/ytInitialPlayerResponse\s*=\s*(\{.+?\});/s) || html.match(/var ytInitialPlayerResponse\s*=\s*(\{.+?\});/s);
+    if (!m) throw new Error('Tidak bisa membaca data video YouTube.');
+
+    const pr = JSON.parse(m[1]);
+    const tracks = pr?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
+    if (!tracks || tracks.length === 0) throw new Error('Video ini tidak memiliki subtitle/transkrip.');
+
+    const track = tracks.find(t => t.languageCode === 'id') || tracks.find(t => t.languageCode === 'en') || tracks[0];
+    const capUrl = track.baseUrl + (track.baseUrl.includes('?') ? '&' : '?') + 'fmt=json3';
+    const capRaw = await fetchWithProxy(capUrl);
+    const capJson = JSON.parse(capRaw);
+
+    const lines = [];
+    if (capJson.events) {
+        for (const ev of capJson.events) {
+            if (!ev.segs) continue;
+            const txt = ev.segs.map(s => s.utf8).join('').trim();
+            if (txt && txt !== '\n') lines.push(txt);
+        }
+    }
+
+    const title = pr?.videoDetails?.title || videoId;
+    return { title, text: lines.join(' ') };
+}
+
+async function addYouTube() {
+    const input = document.getElementById('ytUrl');
+    const url = input.value.trim();
+    if (!url) return;
+
+    const btn = event.target;
+    btn.disabled = true; btn.textContent = '⏳ Memuat...';
+    try {
+        const vid = extractVideoId(url);
+        const result = await getYouTubeTranscript(vid);
+        addSource('youtube', result.title, result.text);
+        input.value = '';
+    } catch (e) {
+        alert('❌ Gagal: ' + e.message);
+    }
+    btn.disabled = false; btn.textContent = '+ Tambah';
+}
+
+// ═══════════════════════════════════════════════════════
+// WEBSITE ARTICLE EXTRACTOR
+// ═══════════════════════════════════════════════════════
+async function extractArticle(url) {
+    const html = await fetchWithProxy(url);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Remove noise
+    doc.querySelectorAll('script,style,nav,header,footer,aside,iframe,form,noscript,.ad,.ads,.sidebar,.menu,.nav,.comment,.comments').forEach(el => el.remove());
+
+    // Try to find main content
+    const main = doc.querySelector('article') || doc.querySelector('main') || doc.querySelector('.post-content') || doc.querySelector('.entry-content') || doc.querySelector('.content') || doc.body;
+
+    const title = doc.querySelector('title')?.textContent || doc.querySelector('h1')?.textContent || url;
+    const text = main.textContent.replace(/\s+/g, ' ').trim();
+    return { title: title.trim(), text };
+}
+
+async function addWebsite() {
+    const input = document.getElementById('webUrl');
+    const url = input.value.trim();
+    if (!url) return;
+
+    const btn = event.target;
+    btn.disabled = true; btn.textContent = '⏳ Memuat...';
+    try {
+        const result = await extractArticle(url);
+        addSource('website', result.title.substring(0, 60), result.text);
+        input.value = '';
+    } catch (e) {
+        alert('❌ Gagal: ' + e.message);
+    }
+    btn.disabled = false; btn.textContent = '+ Tambah';
+}
+
+// ═══════════════════════════════════════════════════════
+// PDF TEXT EXTRACTOR
+// ═══════════════════════════════════════════════════════
+async function extractPDFText(file) {
+    const buf = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+    let text = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(' ') + '\n';
+    }
+    return text.trim();
+}
+
+async function addPDF() {
+    const input = document.getElementById('pdfFile');
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const btn = event.target;
+    btn.disabled = true; btn.textContent = '⏳ Memuat...';
+    try {
+        const text = await extractPDFText(file);
+        addSource('pdf', file.name, text);
+        input.value = '';
+    } catch (e) {
+        alert('❌ Gagal membaca PDF: ' + e.message);
+    }
+    btn.disabled = false; btn.textContent = '+ Tambah';
+}
+
+// ═══════════════════════════════════════════════════════
+// MANUAL TEXT
+// ═══════════════════════════════════════════════════════
+function addText() {
+    const input = document.getElementById('manualText');
+    const text = input.value.trim();
+    if (!text) return;
+    const label = text.substring(0, 50) + (text.length > 50 ? '...' : '');
+    addSource('text', label, text);
+    input.value = '';
+}
+
+// ═══════════════════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════════════════
+function selectPages(el) {
+    document.querySelectorAll('.pages-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    state.selectedPages = parseInt(el.dataset.pages);
+}
+
+function selectTheme(el) {
+    if (el.classList.contains('locked') && !el.classList.contains('unlocked')) return;
+    document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    state.selectedTheme = el.dataset.theme;
+}
+
+// ═══════════════════════════════════════════════════════
+// ADMIN PIN
+// ═══════════════════════════════════════════════════════
+function attemptUnlockTheme(el) {
+    if (state.adminUnlocked) { selectTheme(el); return; }
+    document.getElementById('pinModal').classList.add('visible');
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinError').classList.add('hidden');
+    setTimeout(() => document.getElementById('pinInput').focus(), 200);
+}
+
+function verifyPin() {
+    const pin = document.getElementById('pinInput').value;
+    if (pin === ADMIN_PIN) {
+        state.adminUnlocked = true;
+        localStorage.setItem('ebook_admin', 'true');
+        const zt = document.getElementById('ziyanTheme');
+        zt.classList.remove('locked');
+        zt.classList.add('unlocked');
+        document.getElementById('ziyanLock').textContent = '🔓';
+        closePinModal();
+        selectTheme(zt);
+
+        // Auto-fill admin key if empty
+        const keyInput = document.getElementById('apiKey');
+        if (!keyInput.value) keyInput.value = ADMIN_KEY_OBFUSCATED.join('.');
+    } else {
+        document.getElementById('pinError').classList.remove('hidden');
+    }
+}
+
+function closePinModal() { document.getElementById('pinModal').classList.remove('visible'); }
+
+// ═══════════════════════════════════════════════════════
+// GEMINI API CLIENT
+// ═══════════════════════════════════════════════════════
+async function callGemini(apiKey, prompt, temp = 0.8) {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: temp, maxOutputTokens: 8192 }
+        })
+    });
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error?.message || `API Error ${res.status}`);
+    }
+    const data = await res.json();
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ═══════════════════════════════════════════════════════
+// GENERATION ENGINE
+// ═══════════════════════════════════════════════════════
+async function startGeneration() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    if (!apiKey) { alert('⚠️ Masukkan API Key Gemini terlebih dahulu.'); return; }
+    if (state.sources.length === 0) { alert('⚠️ Tambahkan minimal 1 sumber informasi.'); return; }
+
+    if (document.getElementById('saveKey').checked) localStorage.setItem('ebook_apikey', apiKey);
+
+    state.generating = true;
+    state.cancelled = false;
+    goStep(3);
+
+    const pages = state.selectedPages;
+    const numChapters = Math.max(3, Math.ceil(pages / 3));
+    const style = document.getElementById('writingStyle').value;
+    const lang = document.getElementById('language').value;
+    const theme = state.selectedTheme;
+    const customTitle = document.getElementById('bookTitle').value.trim();
+
+    const styleMap = {
+        edukatif: 'Edukatif — terstruktur, definisi jelas, penjelasan runtut, menggunakan poin-poin',
+        storytelling: 'Storytelling — naratif, menarik, penuh analogi dan cerita nyata, membawa pembaca dalam perjalanan',
+        formal: 'Formal Bisnis — profesional, berbasis data dan fakta, bahasa korporat dan elegan',
+        santai: 'Santai & Gaul — kasual, kekinian, banyak emoji, mudah dipahami anak muda'
+    };
+    const langMap = { indonesia: 'Bahasa Indonesia', english: 'English' };
+
+    // Combine all source texts (trim to ~30k chars to fit context)
+    let allText = state.sources.map(s => s.text).join('\n\n---\n\n');
+    if (allText.length > 30000) allText = allText.substring(0, 30000) + '\n[...dipotong karena terlalu panjang]';
+
+    // Setup progress items
+    const steps = [
+        { id: 'analyze', label: 'Menganalisis sumber informasi...' },
+        { id: 'outline', label: 'Membuat kerangka bab E-Book...' },
+        ...Array.from({ length: numChapters }, (_, i) => ({ id: `ch${i + 1}`, label: `Menulis Bab ${i + 1} dari ${numChapters}...` })),
+        { id: 'assemble', label: 'Merangkai & merapikan layout E-Book...' }
+    ];
+    renderProgress(steps, 0);
+
+    try {
+        // Step 1: Analyze
+        updateProgress('analyze', 'active');
+        await sleep(800);
+        updateProgress('analyze', 'done');
+        updateProgressBar(1, steps.length);
+
+        if (state.cancelled) throw new Error('CANCELLED');
+
+        // Step 2: Generate Outline
+        updateProgress('outline', 'active');
+        const outlinePrompt = `Kamu adalah penulis E-Book profesional. Berdasarkan sumber informasi berikut, buatkan kerangka (outline) E-Book dengan ${numChapters} bab.
+
+${customTitle ? `Judul buku: "${customTitle}"` : 'Tentukan judul buku yang menarik berdasarkan isi sumber.'}
+Bahasa: ${langMap[lang]}
+Gaya: ${styleMap[style]}
+
+SUMBER INFORMASI:
+${allText.substring(0, 15000)}
+
+FORMAT OUTPUT (JSON saja tanpa markdown block):
+{
+  "title": "Judul E-Book",
+  "subtitle": "Subtitel Deskriptif",
+  "chapters": [
+    {"num": 1, "title": "Judul Bab 1", "points": ["Poin A", "Poin B", "Poin C"]},
+    {"num": 2, "title": "Judul Bab 2", "points": ["Poin A", "Poin B", "Poin C"]}
+  ]
+}`;
+
+        const outlineRaw = await callGemini(apiKey, outlinePrompt, 0.7);
+        const outlineJson = extractJSON(outlineRaw);
+        if (!outlineJson?.chapters) throw new Error('Gagal membuat kerangka bab.');
+
+        state.generatedTitle = customTitle || outlineJson.title || 'E-Book AI';
+        updateProgress('outline', 'done');
+        updateProgressBar(2, steps.length);
+
+        if (state.cancelled) throw new Error('CANCELLED');
+
+        // Step 3: Generate each chapter
+        const chapters = [];
+        for (let i = 0; i < outlineJson.chapters.length; i++) {
+            if (state.cancelled) throw new Error('CANCELLED');
+
+            const ch = outlineJson.chapters[i];
+            updateProgress(`ch${i + 1}`, 'active');
+
+            const chapterPrompt = `Kamu sedang menulis Bab ${ch.num} dari E-Book "${outlineJson.title}".
+
+JUDUL BAB: ${ch.title}
+POIN-POIN YANG HARUS DIBAHAS: ${ch.points.join(', ')}
+GAYA: ${styleMap[style]}
+BAHASA: ${langMap[lang]}
+TARGET: Konten harus padat, informatif, dan menarik. Panjang ~${Math.ceil(pages * 300 / numChapters)} kata.
+
+KONTEKS SUMBER:
+${allText.substring(0, 10000)}
+
+INSTRUKSI:
+- Tulis konten bab ini secara lengkap dalam format HTML murni (gunakan <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <em>).
+- JANGAN sertakan tag <html>, <head>, <body>, atau <style>.
+- Langsung mulai dengan konten bab.
+- Pastikan isi bab relevan dengan poin-poin di atas dan berdasarkan sumber yang diberikan.`;
+
+            const chapterHTML = await callGemini(apiKey, chapterPrompt, 0.85);
+            chapters.push({ num: ch.num, title: ch.title, html: chapterHTML });
+
+            updateProgress(`ch${i + 1}`, 'done');
+            updateProgressBar(2 + i + 1, steps.length);
+
+            // Rate limit delay
+            if (i < outlineJson.chapters.length - 1) await sleep(2500);
+        }
+
+        if (state.cancelled) throw new Error('CANCELLED');
+
+        // Step 4: Assemble
+        updateProgress('assemble', 'active');
+        const fullHTML = assembleEbook(outlineJson, chapters, theme, lang);
+        state.generatedHTML = fullHTML;
+        updateProgress('assemble', 'done');
+        updateProgressBar(steps.length, steps.length);
+        document.getElementById('progressText').textContent = '✅ Selesai!';
+
+        await sleep(1000);
+
+        // Show result
+        showResult(fullHTML);
+        goStep(4);
+
+    } catch (e) {
+        if (e.message === 'CANCELLED') {
+            document.getElementById('progressText').textContent = '❌ Dibatalkan.';
+        } else {
+            alert('❌ Error: ' + e.message);
+            document.getElementById('progressText').textContent = '❌ Gagal: ' + e.message;
+        }
+    }
+
+    state.generating = false;
+}
+
+function cancelGeneration() { state.cancelled = true; }
+
+function extractJSON(str) {
+    try {
+        const clean = str.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+        const m = clean.match(/\{[\s\S]*\}/);
+        return m ? JSON.parse(m[0]) : null;
+    } catch { return null; }
+}
+
+// ═══════════════════════════════════════════════════════
+// PROGRESS UI
+// ═══════════════════════════════════════════════════════
+function renderProgress(steps, current) {
+    const list = document.getElementById('progressList');
+    list.innerHTML = steps.map((s, i) => `
+        <div class="progress-item" id="prog-${s.id}">
+            <div class="status-icon pending">○</div>
+            <span>${s.label}</span>
+        </div>
+    `).join('');
+}
+
+function updateProgress(id, status) {
+    const el = document.getElementById(`prog-${id}`);
+    if (!el) return;
+    const icon = el.querySelector('.status-icon');
+    icon.className = 'status-icon ' + status;
+    icon.textContent = status === 'done' ? '✓' : status === 'active' ? '' : status === 'error' ? '✕' : '○';
+    if (status === 'active') icon.innerHTML = '<div class="spinner"></div>';
+}
+
+function updateProgressBar(current, total) {
+    const pct = Math.round((current / total) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `${pct}% — ${current}/${total} langkah selesai`;
+}
+
+// ═══════════════════════════════════════════════════════
+// THEME TEMPLATES
+// ═══════════════════════════════════════════════════════
+const THEMES = {
+    editorial: {
+        bg: '#ffffff', text: '#1a1a2e', accent: '#2563eb', heading: '#0f172a',
+        fontBody: "'Georgia', serif", fontHeading: "'Plus Jakarta Sans', sans-serif",
+        coverBg: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)', coverText: '#0f172a'
+    },
+    obsidian: {
+        bg: '#0f172a', text: '#cbd5e1', accent: '#38bdf8', heading: '#f1f5f9',
+        fontBody: "'Plus Jakarta Sans', sans-serif", fontHeading: "'Plus Jakarta Sans', sans-serif",
+        coverBg: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0ea5e9 100%)', coverText: '#ffffff'
+    },
+    ocean: {
+        bg: '#f0f9ff', text: '#1e3a5f', accent: '#0284c7', heading: '#0c4a6e',
+        fontBody: "'Plus Jakarta Sans', sans-serif", fontHeading: "'Plus Jakarta Sans', sans-serif",
+        coverBg: 'linear-gradient(135deg, #e0f2fe 0%, #0ea5e9 50%, #0369a1 100%)', coverText: '#ffffff'
+    },
+    sunset: {
+        bg: '#fffbeb', text: '#451a03', accent: '#ea580c', heading: '#7c2d12',
+        fontBody: "'Georgia', serif", fontHeading: "'Plus Jakarta Sans', sans-serif",
+        coverBg: 'linear-gradient(135deg, #fef3c7 0%, #f97316 50%, #dc2626 100%)', coverText: '#ffffff'
+    },
+    ziyan: {
+        bg: '#ffffff', text: '#0f172a', accent: '#2563eb', heading: '#1e40af',
+        fontBody: "'Plus Jakarta Sans', sans-serif", fontHeading: "'Plus Jakarta Sans', sans-serif",
+        coverBg: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%)', coverText: '#ffffff',
+        useIcons: true
+    }
+};
+
+const SVG_ICONS = {
+    microscope: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="m14 22 1-4H9l1 4"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="m12 6 3-3 3 3-3 3Z"/></svg>`,
+    cpu: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>`,
+    rocket: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+    lightbulb: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>`,
+    shield: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    target: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`
+};
+const ICON_KEYS = Object.keys(SVG_ICONS);
+
+function assembleEbook(outline, chapters, themeName, lang) {
+    const t = THEMES[themeName];
+    const isZiyan = themeName === 'ziyan';
+    const now = new Date();
+    const dateStr = lang === 'indonesia'
+        ? now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+        : now.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    let html = `<!DOCTYPE html><html lang="${lang === 'indonesia' ? 'id' : 'en'}">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${outline.title}</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Georgia&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:${t.fontBody};background:${t.bg};color:${t.text};line-height:1.75;padding:0}
+h1,h2,h3,h4{font-family:${t.fontHeading};color:${t.heading};line-height:1.3}
+a{color:${t.accent}}
+.cover{background:${t.coverBg};color:${t.coverText};padding:80px 40px;min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.cover h1{font-size:2.5rem;font-weight:800;margin-bottom:12px;letter-spacing:-.02em}
+.cover .subtitle{font-size:1.15rem;opacity:.9;margin-bottom:24px;max-width:500px}
+.cover .meta{font-size:.85rem;opacity:.7}
+.toc{padding:48px 40px;max-width:700px;margin:0 auto}
+.toc h2{font-size:1.5rem;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid ${t.accent}}
+.toc ul{list-style:none}
+.toc li{padding:10px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:1rem}
+.toc li span.num{color:${t.accent};font-weight:800;margin-right:8px}
+.chapter{padding:48px 40px;max-width:700px;margin:0 auto;page-break-before:always}
+.chapter-badge{display:inline-block;padding:4px 12px;background:${t.accent}20;color:${t.accent};border-radius:100px;font-size:.75rem;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.chapter h2{font-size:1.8rem;font-weight:800;margin-bottom:20px}
+.chapter h3{font-size:1.25rem;margin-top:28px;margin-bottom:12px}
+.chapter p{margin-bottom:14px;text-align:justify}
+.chapter ul,.chapter ol{margin:12px 0 16px 20px}
+.chapter li{margin-bottom:6px}
+.chapter blockquote{border-left:4px solid ${t.accent};padding:12px 20px;margin:16px 0;background:${t.accent}08;border-radius:0 8px 8px 0;font-style:italic}
+.chapter strong{color:${t.heading}}
+.footer{text-align:center;padding:40px;font-size:.8rem;color:${t.text}80;border-top:1px solid ${t.text}15}
+${isZiyan ? `
+.icon-card{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:${t.accent}10;border:1px solid ${t.accent}30;border-radius:12px;margin:4px;color:${t.accent}}
+.icon-card svg{flex-shrink:0}
+.icon-grid{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+` : ''}
+@media print{.cover{min-height:100vh}.chapter{page-break-before:always}body{font-size:11pt}}
+@media(max-width:640px){.cover{padding:48px 20px}.cover h1{font-size:1.8rem}.toc,.chapter{padding:24px 16px}.chapter h2{font-size:1.4rem}}
+</style></head><body>`;
+
+    // Cover
+    html += `<div class="cover">
+        <h1>${outline.title}</h1>
+        <div class="subtitle">${outline.subtitle || ''}</div>
+        <div class="meta">${isZiyan ? 'ZiyanCorp Publishing — Official Edition' : 'Generated by ZiyanCorp AI E-Book Generator'}<br>${dateStr}</div>
+    </div>`;
+
+    // Table of Contents
+    html += `<div class="toc"><h2>${lang === 'indonesia' ? 'Daftar Isi' : 'Table of Contents'}</h2><ul>`;
+    chapters.forEach(ch => {
+        html += `<li><span class="num">BAB ${String(ch.num).padStart(2, '0')}</span> ${ch.title}</li>`;
+    });
+    html += `</ul></div>`;
+
+    // Chapters
+    chapters.forEach((ch, idx) => {
+        html += `<div class="chapter">
+            <div class="chapter-badge">BAB ${String(ch.num).padStart(2, '0')}</div>
+            <h2>${ch.title}</h2>`;
+
+        if (isZiyan) {
+            // Add decorative icon cards for Ziyan theme
+            html += `<div class="icon-grid">`;
+            const pts = outline.chapters[idx]?.points || [];
+            pts.forEach((pt, pi) => {
+                const iconKey = ICON_KEYS[pi % ICON_KEYS.length];
+                html += `<div class="icon-card">${SVG_ICONS[iconKey]} <span>${pt}</span></div>`;
+            });
+            html += `</div>`;
+        }
+
+        html += ch.html;
+        html += `</div>`;
+    });
+
+    // Footer
+    html += `<div class="footer">
+        <p>${lang === 'indonesia' ? 'Dibuat dengan' : 'Generated with'} ❤️ ${lang === 'indonesia' ? 'oleh' : 'by'} <strong>ZiyanCorp AI E-Book Generator</strong></p>
+        <p>${dateStr}</p>
+    </div>`;
+
+    html += `</body></html>`;
+    return html;
+}
+
+// ═══════════════════════════════════════════════════════
+// RESULT & EXPORT
+// ═══════════════════════════════════════════════════════
+function showResult(html) {
+    const frame = document.getElementById('previewFrame');
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '100%';
+    iframe.style.height = '600px';
+    iframe.style.border = 'none';
+    iframe.style.borderRadius = '12px';
+    frame.innerHTML = '';
+    frame.appendChild(iframe);
+    iframe.contentDocument.open();
+    iframe.contentDocument.write(html);
+    iframe.contentDocument.close();
+}
+
+function downloadPDF() {
+    const container = document.createElement('div');
+    container.innerHTML = state.generatedHTML;
+    document.body.appendChild(container);
+
+    const opt = {
+        margin: 0.4,
+        filename: sanitizeFilename(state.generatedTitle) + '.pdf',
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+    };
+
+    html2pdf().set(opt).from(container).save().then(() => {
+        document.body.removeChild(container);
+    });
+}
+
+function downloadHTML() {
+    const blob = new Blob([state.generatedHTML], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = sanitizeFilename(state.generatedTitle) + '.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+function sanitizeFilename(name) {
+    return name.replace(/[^a-zA-Z0-9\s\u00C0-\u024F\u1E00-\u1EFF]/g, '').replace(/\s+/g, '_').substring(0, 60) || 'ebook';
+}
+</script>
+</body>
+</html>
