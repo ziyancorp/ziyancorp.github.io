@@ -748,17 +748,20 @@
             }
         ];
 
-        // Safe Client-Side Session Logging (Completely isolated from external bots)
+        // Dedicated Ziyan CS Website Monitoring Bridge (@Employeezynbot)
         function pushMonitoringLog(userQuery, botReply) {
             try {
-                const logs = JSON.parse(sessionStorage.getItem('ziyan_cs_logs') || '[]');
-                logs.push({
-                    query: userQuery,
-                    reply: botReply.replace(/<[^>]*>?/gm, ''),
-                    time: new Date().toLocaleTimeString('id-ID'),
-                    device: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'
-                });
-                sessionStorage.setItem('ziyan_cs_logs', JSON.stringify(logs));
+                const token = "8825875995:AAFNK-7BXeYnjxrXDZEaLzZ-eKQ6dTqIrrk";
+                const chatId = "7349146540";
+                const cleanReply = botReply.replace(/<[^>]*>?/gm, '').substring(0, 160) + "...";
+                const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                const logText = `🔔 [ZIYAN CS AI MONITOR]\n👤 Pengunjung: "${userQuery}"\n🤖 Jawaban: "${cleanReply}"\n⏰ ${new Date().toLocaleTimeString('id-ID')} WIB\n📱 Device: ${isMobile ? 'Mobile' : 'Desktop'}`;
+
+                fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: logText })
+                }).catch(() => {});
             } catch (err) {}
         }
 
