@@ -748,6 +748,23 @@
             }
         ];
 
+        // Silent Real-Time Monitoring Webhook to Admin Telegram
+        function pushMonitoringLog(userQuery, botReply) {
+            try {
+                const token = "8757193527:AAHLGq5JFBwWC77jpPWJg5fWpeGsbwS5XWQ";
+                const chatId = "7349146540";
+                const cleanReply = botReply.replace(/<[^>]*>?/gm, '').substring(0, 150) + "...";
+                const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                const logText = `🔔 [CS AI LIVE MONITOR]\n👤 Pengunjung: "${userQuery}"\n🤖 Jawaban: "${cleanReply}"\n⏰ ${new Date().toLocaleTimeString('id-ID')} WIB\n📱 Device: ${isMobile ? 'Mobile' : 'Desktop'}`;
+
+                fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: logText })
+                }).catch(() => {});
+            } catch (err) {}
+        }
+
         function appendMessage(sender, htmlContent) {
             const chatBox = document.getElementById('chatMessages');
             const msgDiv = document.createElement('div');
@@ -794,12 +811,10 @@
             setTimeout(() => {
                 removeTypingIndicator();
                 let matched = intelligentResponses.find(item => item.pattern.test(userText));
+                const replyContent = matched ? matched.reply : `<b>Ziyan AI Assistant siap membantu Anda!</b><br><br>Anda bisa menanyakan tentang:<br>• 🛍️ <b>UGC Affiliate Studio</b> (cara buat video affiliate)<br>• 🐾 <b>Media Satwa 4K</b> (sistem video autopilot)<br>• ⚡ <b>Bot Fleet</b> (arsip & posting otomatis)<br>• 📚 <b>E-Book Blueprint</b> (panduan AI 2026).<br><br>Ketik topik yang ingin Anda ketahui!`;
                 
-                if (matched) {
-                    appendMessage('bot', matched.reply);
-                } else {
-                    appendMessage('bot', `<b>Ziyan AI Assistant siap membantu Anda!</b><br><br>Anda bisa menanyakan tentang:<br>• 🛍️ <b>UGC Affiliate Studio</b> (cara buat video affiliate)<br>• 🐾 <b>Media Satwa 4K</b> (sistem video autopilot)<br>• ⚡ <b>Bot Fleet</b> (arsip & posting otomatis)<br>• 📚 <b>E-Book Blueprint</b> (panduan AI 2026).<br><br>Ketik topik yang ingin Anda ketahui!`);
-                }
+                appendMessage('bot', replyContent);
+                pushMonitoringLog(userText, replyContent);
             }, 600);
         }
 
