@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ziyan UGC Studio — Google Labs Flow & AI Influencer Engine</title>
-    <meta name="description" content="Platform AI UGC & Visual Studio bergaya Google Labs Flow. Generate Foto Produk & AI Influencer fotorealistik dengan referensi gambar, prompt chips, Storyboard, dan Video 1080p.">
+    <title>Ziyan UGC & Video-to-Prompt Studio — Ultimate AI Engine</title>
+    <meta name="description" content="Platform AI UGC & Video-to-Prompt Reverse Engineering. Generate Foto Produk fotorealistik, Storyboard 5-Scene, dan Bedah Video Referensi menjadi prompt Google Veo, Sora, Kling AI, Runway Gen-3.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg: #07090e; --bg2: #0f131c; --bg3: #181e2b; --bd: #222b3d;
@@ -62,7 +63,7 @@
         .dropdown-item:hover { background: var(--bg3); color: var(--pr); }
 
         /* ── MAIN LAYOUT ── */
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; width: 100%; }
+        .container { max-width: 1240px; margin: 0 auto; padding: 20px 16px 80px; width: 100%; }
 
         /* ── HERO BANNER ── */
         .ugc-banner {
@@ -114,7 +115,7 @@
         .ref-upload-box:hover { border-color: var(--pr); background: var(--prl); }
         .ref-preview { max-height: 100px; border-radius: 8px; margin-top: 8px; display: none; object-fit: cover; }
 
-        /* ── PROMPT CHIPS (GOOGLE LABS FLOW STYLE) ── */
+        /* ── PROMPT CHIPS ── */
         .chip-category { margin-bottom: 12px; }
         .chip-category-title { font-size: .75rem; font-weight: 800; color: var(--tx3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
         .chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -147,7 +148,7 @@
         }
         .btn-secondary:hover { background: var(--bd); color: var(--pr); }
 
-        /* ── DYNAMIC ANTI-DISTORTION PREVIEW CONTAINER ── */
+        /* ── DYNAMIC PREVIEW CONTAINER ── */
         .image-preview-wrapper {
             background: #000; border: 1px solid var(--bd); border-radius: var(--r2);
             min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -174,11 +175,26 @@
         .platform-btn.active { background: var(--cyanl); border-color: var(--cyan); color: var(--cyan); }
         .caption-box { background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r); padding: 16px; font-size: .85rem; line-height: 1.6; white-space: pre-wrap; color: var(--tx); }
 
-        .video-card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2); padding: 18px; margin-bottom: 14px; }
-        .prompt-code { background: var(--bg3); border: 1px solid var(--bd); border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: #38bdf8; word-break: break-all; margin: 10px 0; }
+        /* ── VIDEO REVERSE ENGINEERING STYLES ── */
+        .video-dropzone {
+            border: 2px dashed var(--bd); border-radius: var(--r); padding: 18px;
+            background: var(--bg3); text-align: center; cursor: pointer; transition: .2s; position: relative;
+        }
+        .video-dropzone:hover { border-color: var(--cyan); background: var(--cyanl); }
+        .prompt-code { background: var(--bg3); border: 1px solid var(--bd); border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: #38bdf8; word-break: break-all; margin: 8px 0; }
 
         .loader-spinner { width: 40px; height: 40px; border: 3px solid var(--bd); border-top-color: var(--pr); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 12px; }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; z-index: 100;
+            background: var(--bg2); border: 1px solid var(--green); color: var(--tx);
+            padding: 12px 20px; border-radius: var(--r); box-shadow: var(--sh2);
+            display: flex; align-items: center; gap: 10px; font-size: .85rem; font-weight: 700;
+            transform: translateY(100px); opacity: 0; transition: .3s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
 
         @media (max-width: 768px) {
             .tabs-nav { grid-template-columns: repeat(2, 1fr); gap: 6px; }
@@ -199,7 +215,7 @@
         </a>
         <div class="logo">
             <div class="logo-icon">🛍️</div>
-            <span>Ziyan UGC Studio</span>
+            <span>Ziyan UGC & Video Studio</span>
         </div>
     </div>
     <div class="header-actions">
@@ -223,10 +239,10 @@
 
     <!-- HERO BANNER -->
     <div class="ugc-banner">
-        <div class="badge-pill">⚡ Google Labs Flow & Multi-Engine Architecture</div>
-        <h1 style="font-size:1.5rem;font-weight:900;">Visual Control Studio & Video UGC Generator</h1>
-        <p style="font-size:.85rem;color:var(--tx2);max-width:850px;line-height:1.5;">
-            Sistem visual kontrol presisi: Upload referensi karakter & produk, pilih keyword chips sinematik, generate foto fotorealistik <b>Anti-Distorsi</b> (Flux & Banana Free), racik Storyboard 5-Scene, dan ekspor prompt video 1080p/4K.
+        <div class="badge-pill">⚡ Unified Visual & Video AI Powerhouse</div>
+        <h1 style="font-size:1.5rem;font-weight:900;">All-in-One UGC, Storyboard & Video-to-Prompt Studio</h1>
+        <p style="font-size:.85rem;color:var(--tx2);max-width:900px;line-height:1.5;">
+            Bangun persona AI Influencer, generate foto produk fotorealistik (Google Labs Flow Style), racik Storyboard 5-Scene, serta <b>Bedah Video Referensi (Reverse Engineering)</b> menjadi prompt adegan siap pakai untuk Google Veo, OpenAI Sora, Kling AI, dan Runway Gen-3.
         </p>
     </div>
 
@@ -246,7 +262,7 @@
         </button>
         <button class="tab-btn" onclick="switchTab('tab-video')">
             <span class="icon">🎥</span>
-            <span>Studio Video (1080p/4K)</span>
+            <span>Video-to-Prompt & Prompts</span>
         </button>
     </div>
 
@@ -254,7 +270,6 @@
          TAB 1: STUDIO FOTO AI (GOOGLE LABS FLOW WORKSPACE)
     ═══════════════════════════════════════════════════════════════ -->
     <div class="tab-panel active" id="tab-photo">
-        
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
             
             <!-- LEFT COLUMN: FLOW CONTROLS & PROMPT CHIPS -->
@@ -294,7 +309,7 @@
                     <textarea id="promptInput" class="form-textarea" placeholder="Ketik prompt visual di sini atau klik chip di bawah untuk menambahkan detail otomatis...">Photorealistic commercial shot of an attractive Indonesian female influencer happily holding and applying serum, authentic dewy glowing skin texture, soft indoor studio lighting, commercial 8k resolution.</textarea>
                 </div>
 
-                <!-- 3. INTERACTIVE KEYWORD CHIPS (GOOGLE LABS FLOW STYLE) -->
+                <!-- 3. INTERACTIVE KEYWORD CHIPS -->
                 <div class="chip-category">
                     <div class="chip-category-title">💡 Pencahayaan (Lighting)</div>
                     <div class="chips-wrap">
@@ -374,9 +389,7 @@
                     <button class="btn-secondary" onclick="sendToVideoTab()">🎥 Jadikan Referensi Video</button>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════════
@@ -431,41 +444,134 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════════
-         TAB 4: STUDIO VIDEO (IMAGE-TO-VIDEO & CAMERA PROMPTS)
+         TAB 4: VIDEO-TO-PROMPT & REVERSE-ENGINEERING STUDIO (MERGED)
     ═══════════════════════════════════════════════════════════════ -->
     <div class="tab-panel" id="tab-video">
-        <div class="card">
-            <div style="margin-bottom:16px;">
-                <h3 style="font-size:1.1rem;font-weight:800;">Studio Prompt Video (1080p & 4K Camera Direction)</h3>
-                <p style="font-size:.8rem;color:var(--tx2);">Prompt terstruktur dengan instruksi gerakan kamera (Pan, Zoom, Tilt, Lighting) yang siap disalin ke engine video AI.</p>
-            </div>
-
-            <div id="videoPromptContainer">
-                <div class="video-card">
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                        <h4 style="font-size:.95rem;font-weight:800;">🎥 Prompt Gerakan Kamera 1080p Full HD</h4>
-                        <span class="badge-pill" style="font-size:.65rem;">Kling AI / Luma / Veo / Hailuo</span>
-                    </div>
-                    <div class="prompt-code" id="videoPrompt1080">
-                        Cinematic 1080p vertical video of an aesthetic Asian female influencer holding and applying serum, camera slowly zooms in on the product texture, golden hour soft natural lighting, 60fps smooth fluid motion, hyperrealistic skin details.
-                    </div>
-                    <button class="btn-secondary" onclick="copyText('videoPrompt1080')">📋 Salin Prompt Video 1080p</button>
+        
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+            
+            <!-- LEFT COLUMN: VIDEO UPLOAD & ENGINE CONFIG -->
+            <div class="card">
+                <div class="section-title" style="color:var(--cyan);">
+                    <i class="fa-solid fa-clapperboard mr-2"></i> Bedah Video (Video-to-Prompt)
                 </div>
 
-                <div class="video-card">
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                        <h4 style="font-size:.95rem;font-weight:800;">🌟 Prompt Sinematik Ultra 4K</h4>
-                        <span class="badge-pill" style="font-size:.65rem;">4K Cinematic Fidelity</span>
+                <!-- Video Dropzone -->
+                <div class="video-dropzone" onclick="document.getElementById('videoFileInput').click()">
+                    <input type="file" id="videoFileInput" accept="video/*" style="display:none;" onchange="handleVideoUpload(this)">
+                    <div id="videoUploadPlaceholder">
+                        <i class="fa-solid fa-cloud-arrow-up text-cyan-400 text-2xl mb-2"></i>
+                        <p style="font-size:.8rem;font-weight:700;">Unggah Video Referensi MP4 / MOV</p>
+                        <p style="font-size:.68rem;color:var(--tx3);">Klik atau seret video untuk dianalisis gerakannya</p>
                     </div>
-                    <div class="prompt-code" id="videoPrompt4K">
-                        Ultra 4K UHD, hyperrealistic commercial shot, camera macro dolly in focusing on glowing skin reflection and product droplet, cinematic studio lighting, commercial depth of field, photorealistic 8k render.
+                    <div id="videoPlayerWrap" style="display:none;margin-top:8px;">
+                        <video id="uploadedVideoPlayer" style="width:100%;max-height:180px;border-radius:8px;background:#000;" controls></video>
                     </div>
-                    <button class="btn-secondary" onclick="copyText('videoPrompt4K')">📋 Salin Prompt Video 4K</button>
+                </div>
+
+                <!-- Engine & Analysis Options -->
+                <div style="margin-top:14px;" class="form-group">
+                    <label class="form-label">🎯 Target Generator Video AI</label>
+                    <select id="videoTargetEngine" class="form-select">
+                        <option value="veo">Google Veo (Fluid Motion & Cinematic)</option>
+                        <option value="kling">Kling AI Pro (Ultra Realism & Physics)</option>
+                        <option value="sora">OpenAI Sora (Complex Physics & Flow)</option>
+                        <option value="runway">Runway Gen-3 Alpha (Node & Tech Graph)</option>
+                        <option value="luma">Luma Dream Machine (Dynamic Camera)</option>
+                    </select>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <div class="form-group">
+                        <label class="form-label">🔍 Fokus Analisis</label>
+                        <select id="videoFocus" class="form-select">
+                            <option value="cinematic">Cinematic Camera Motion</option>
+                            <option value="workflow">Workflow & Nodes Graph</option>
+                            <option value="product">Product UGC & Texture</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">⏱️ Estimasi Durasi</label>
+                        <select id="videoDuration" class="form-select">
+                            <option value="5s">5 Detik (Short Loop)</option>
+                            <option value="10s">10 Detik (Extended Flow)</option>
+                            <option value="multi">Multi-Scene (3-5 Adegan)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div style="margin-top:8px;">
+                    <p style="font-size:.72rem;font-weight:700;color:var(--tx3);margin-bottom:6px;">⚡ CONTOH PRESET WORKFLOW / PRODUK:</p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                        <button type="button" class="btn-secondary" style="font-size:.72rem;justify-content:center;" onclick="loadVideoPreset('ugc_product')">🛍️ UGC Skincare Viral</button>
+                        <button type="button" class="btn-secondary" style="font-size:.72rem;justify-content:center;" onclick="loadVideoPreset('workflow_pnl')">⚡ 3D Nodes P&L Graph</button>
+                        <button type="button" class="btn-secondary" style="font-size:.72rem;justify-content:center;" onclick="loadVideoPreset('cfo_agent')">💬 WhatsApp AI Agent</button>
+                        <button type="button" class="btn-secondary" style="font-size:.72rem;justify-content:center;" onclick="loadVideoPreset('macro_shoes')">👠 Macro Footwear Walk</button>
+                    </div>
+                </div>
+
+                <button class="btn-primary" style="width:100%;margin-top:14px;background:linear-gradient(135deg,#06b6d4,#4f46e5);" onclick="executeVideoReverseEngineer()">
+                    <i class="fa-solid fa-microchip mr-1"></i>
+                    <span>Bedah Video & Buat Multi-Scene Prompt</span>
+                </button>
+            </div>
+
+            <!-- RIGHT COLUMN: MULTI-SCENE OUTPUT -->
+            <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
+                <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:12px;">
+                    <div class="section-title" style="margin-bottom:0;">
+                        <i class="fa-solid fa-film mr-2 text-cyan-400"></i> Hasil Rincian Prompt Per Adegan
+                    </div>
+                    <button class="btn-secondary" style="font-size:.72rem;padding:4px 8px;" onclick="copyAllVideoPrompts()">📋 Salin Semua Prompt</button>
+                </div>
+
+                <!-- Video Output Container -->
+                <div id="videoOutputContainer" style="flex:1;overflow-y:auto;max-height:540px;padding-right:4px;">
+                    
+                    <!-- Default State: Ready Image-to-Video Prompts -->
+                    <div class="space-y-3" id="defaultVideoPrompts">
+                        <div class="card" style="background:var(--bg3);padding:14px;margin-bottom:10px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <span style="font-size:.75rem;font-weight:800;color:var(--cyan);text-transform:uppercase;">🎥 Adegan 1 (00:00 - 00:03) — The Hook & Product Focus</span>
+                                <button class="btn-secondary" style="font-size:.68rem;padding:2px 6px;" onclick="copyElemText(this)">Salin</button>
+                            </div>
+                            <p class="prompt-text prompt-code" style="color:#38bdf8;">Cinematic 1080p vertical video of an aesthetic Asian female influencer holding and applying serum, camera slowly zooms in on the product texture, golden hour soft natural lighting, 60fps smooth fluid motion, hyperrealistic skin details.</p>
+                        </div>
+
+                        <div class="card" style="background:var(--bg3);padding:14px;margin-bottom:10px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <span style="font-size:.75rem;font-weight:800;color:var(--cyan);text-transform:uppercase;">🎥 Adegan 2 (00:03 - 00:07) — Macro Texture & Application</span>
+                                <button class="btn-secondary" style="font-size:.68rem;padding:2px 6px;" onclick="copyElemText(this)">Salin</button>
+                            </div>
+                            <p class="prompt-text prompt-code" style="color:#38bdf8;">Ultra 4K UHD, camera macro dolly in focusing on glowing skin reflection and product droplet flowing smoothly, commercial studio soft rim lighting, commercial depth of field, photorealistic 8k render.</p>
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px;">
+                                <span style="font-size:.65rem;color:var(--tx3);font-weight:800;text-transform:uppercase;display:block;">📐 Gerakan Kamera</span>
+                                <p style="font-size:.76rem;color:var(--tx2);">Smooth Slow Dolly In (Z-Axis), Tracking Product Motion.</p>
+                            </div>
+                            <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px;">
+                                <span style="font-size:.65rem;color:var(--tx3);font-weight:800;text-transform:uppercase;display:block;">💡 Pencahayaan</span>
+                                <p style="font-size:.76rem;color:var(--tx2);">Warm Golden Hour + 85mm Bokeh F/1.4 Diffusion.</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
         </div>
+
     </div>
 
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+    <span>✅</span>
+    <span id="toastMsg">Teks berhasil disalin ke clipboard!</span>
 </div>
 
 <!-- ═══ SCRIPT LOGIC ═══ -->
@@ -513,13 +619,13 @@
     function switchTab(tabId) {
         state.currentTab = tabId;
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        event.currentTarget.classList.add('active');
+        event?.currentTarget?.classList.add('active');
 
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
     }
 
-    // --- GOOGLE LABS FLOW: CHIPS TOGGLE ---
+    // --- CHIPS TOGGLE ---
     function toggleChip(elem, chipText) {
         elem.classList.toggle('active');
         if (elem.classList.contains('active')) {
@@ -538,7 +644,6 @@
         }
     }
 
-    // --- ASPECT RATIO SWITCHER (ANTI-DISTORTION) ---
     function setRatio(ratioStr, w, h, btnElem) {
         state.selectedRatio = ratioStr;
         state.targetW = w;
@@ -547,7 +652,6 @@
         btnElem.classList.add('active');
     }
 
-    // --- PREVIEW UPLOAD ---
     function previewUpload(input, targetImgId) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
@@ -560,7 +664,6 @@
         }
     }
 
-    // --- SMART PROMPT REFINER (GEMINI AI) ---
     async function refinePromptAI() {
         const apiKey = document.getElementById('geminiKeyInput').value.trim();
         const raw = document.getElementById('promptInput').value.trim();
@@ -589,7 +692,6 @@ Rules:
         }
     }
 
-    // --- GENERATE FLOW IMAGE (BANANA & FLUX ENGINE) ---
     function generateFlowImage(isReroll = false) {
         const promptText = document.getElementById('promptInput').value.trim();
         const model = document.getElementById('engineSelect').value;
@@ -669,7 +771,7 @@ Format output JSON murni:
 
     function copyCaption() {
         const text = document.getElementById('captionContent').textContent;
-        navigator.clipboard.writeText(text).then(() => alert('✅ Caption berhasil disalin!'));
+        navigator.clipboard.writeText(text).then(() => showToast('Caption berhasil disalin!'));
     }
 
     // --- TAB 3: STORYBOARD ---
@@ -736,6 +838,225 @@ Format output JSON murni:
         img.onload = () => { thumb.innerHTML = `<img src="${url}" alt="Scene ${num}">`; };
     }
 
+    // ═══════════════════════════════════════════════════════════════
+    // TAB 4: VIDEO REVERSE-ENGINEERING & PROMPT LOGIC (MERGED)
+    // ═══════════════════════════════════════════════════════════════
+    function handleVideoUpload(input) {
+        const file = input.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            document.getElementById('videoUploadPlaceholder').style.display = 'none';
+            const wrap = document.getElementById('videoPlayerWrap');
+            wrap.style.display = 'block';
+            const player = document.getElementById('uploadedVideoPlayer');
+            player.src = url;
+        }
+    }
+
+    async function executeVideoReverseEngineer() {
+        const container = document.getElementById('videoOutputContainer');
+        const engine = document.getElementById('videoTargetEngine').value;
+        const focus = document.getElementById('videoFocus').value;
+        const duration = document.getElementById('videoDuration').value;
+        const apiKey = document.getElementById('geminiKeyInput').value.trim();
+        const baseContext = document.getElementById('promptInput').value.trim();
+
+        container.innerHTML = `
+            <div style="text-align:center;padding:40px 0;">
+                <div class="loader-spinner" style="margin:0 auto 12px;border-top-color:var(--cyan);"></div>
+                <p style="font-weight:700;color:var(--cyan);">Sedang membedah gerakan video, pencahayaan & node partikel...</p>
+                <p style="font-size:.75rem;color:var(--tx3);margin-top:4px;">Target Engine: ${engine.toUpperCase()} • Fokus: ${focus.toUpperCase()}</p>
+            </div>
+        `;
+
+        const player = document.getElementById('uploadedVideoPlayer');
+        let frameBase64List = [];
+
+        // Extract frames if video is loaded
+        if (player.src && player.src.startsWith('blob:')) {
+            try {
+                frameBase64List = await captureVideoFrames(player, 2);
+            } catch (e) {
+                console.warn('Frame capture skipped:', e);
+            }
+        }
+
+        const prompt = `You are an Elite AI Video Reverse-Engineer specializing in Google Veo, Runway Gen-3 Alpha, OpenAI Sora, and Kling AI Pro.
+Target Engine: ${engine}
+Analysis Focus: ${focus}
+Estimated Duration: ${duration}
+Context / Product: ${baseContext}
+
+Analyze this video motion / scene structure and generate a comprehensive multi-scene reverse-engineered prompt breakdown in English.
+
+Format output as JSON:
+{
+  "scenes": [
+    {
+      "time": "00:00 - 00:03",
+      "title": "Trigger & Primary Node / Subject Focus",
+      "prompt": "Detailed cinematic prompt for the AI video generator..."
+    },
+    {
+      "time": "00:03 - 00:06",
+      "title": "Camera Motion & Interaction Flow",
+      "prompt": "Detailed prompt describing motion..."
+    },
+    {
+      "time": "00:06 - 00:08",
+      "title": "Climax & Outro Transition",
+      "prompt": "Detailed closing prompt..."
+    }
+  ],
+  "cameraMotion": "Description of camera motion physics and lenses",
+  "lightingStyle": "Description of lighting style, colors, and render aesthetic"
+}`;
+
+        try {
+            let resText = '';
+            if (apiKey) {
+                resText = await callGeminiMultimodal(apiKey, prompt, frameBase64List);
+            } else {
+                // Fallback smart generation
+                resText = await callGeminiAI(KEY_PARTS.join('.'), prompt);
+            }
+
+            const clean = resText.replace(/```json/g, '').replace(/```/g, '').trim();
+            const data = JSON.parse(clean);
+            renderVideoPrompts(data, engine);
+        } catch (e) {
+            console.error(e);
+            loadVideoPreset('ugc_product');
+        }
+    }
+
+    async function captureVideoFrames(videoElement, numFrames = 2) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const duration = videoElement.duration || 5;
+        const frames = [];
+        
+        canvas.width = 480;
+        canvas.height = 270;
+        
+        for (let i = 0; i < numFrames; i++) {
+            const time = (duration / (numFrames + 1)) * (i + 1);
+            videoElement.currentTime = time;
+            await new Promise(r => setTimeout(r, 300));
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            frames.push(dataUrl.split(',')[1]);
+        }
+        return frames;
+    }
+
+    async function callGeminiMultimodal(apiKey, promptText, base64Frames = []) {
+        const parts = [{ text: promptText }];
+        for (const b64 of base64Frames) {
+            parts.push({
+                inlineData: { mimeType: 'image/jpeg', data: b64 }
+            });
+        }
+
+        const models = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
+        for (const m of models) {
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: parts }] })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                }
+            } catch (e) {}
+        }
+        throw new Error('Koneksi multimodal AI sibuk.');
+    }
+
+    function renderVideoPrompts(data, engine) {
+        const container = document.getElementById('videoOutputContainer');
+        const scenesHtml = (data.scenes || []).map((s, idx) => `
+            <div class="card" style="background:var(--bg3);padding:14px;margin-bottom:10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:.75rem;font-weight:800;color:var(--cyan);text-transform:uppercase;">🎥 Adegan ${idx+1} (${s.time}) — ${s.title}</span>
+                    <button class="btn-secondary" style="font-size:.68rem;padding:2px 6px;" onclick="copyElemText(this)">Salin</button>
+                </div>
+                <p class="prompt-text prompt-code" style="color:#38bdf8;">${s.prompt}</p>
+            </div>
+        `).join('');
+
+        const paramsHtml = `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+                <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px;">
+                    <span style="font-size:.65rem;color:var(--tx3);font-weight:800;text-transform:uppercase;display:block;">📐 Gerakan Kamera (${engine.toUpperCase()})</span>
+                    <p style="font-size:.76rem;color:var(--tx2);">${data.cameraMotion || 'Continuous fluid camera motion with cinematic depth.'}</p>
+                </div>
+                <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px;">
+                    <span style="font-size:.65rem;color:var(--tx3);font-weight:800;text-transform:uppercase;display:block;">💡 Pencahayaan & Partikel</span>
+                    <p style="font-size:.76rem;color:var(--tx2);">${data.lightingStyle || 'Studio soft lighting with dynamic rim highlight reflection.'}</p>
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = scenesHtml + paramsHtml;
+    }
+
+    function loadVideoPreset(type) {
+        const presets = {
+            ugc_product: {
+                scenes: [
+                    { time: "00:00 - 00:03", title: "The Hook & Product Reveal", prompt: "Cinematic vertical video of an aesthetic Indonesian female influencer holding skincare serum, camera smoothly dolly-ins, soft golden hour lighting, 60fps fluid motion." },
+                    { time: "00:03 - 00:06", title: "Texture & Droplet Application", prompt: "Macro extreme close-up of glossy serum droplet landing on glowing skin, light reflection, Hasselblad 8k detail, cinematic slow motion." },
+                    { time: "00:06 - 00:08", title: "Glowing Result & CTA", prompt: "Influencer smiling radiant glass skin, holding product next to face, soft studio rim lighting, commercial outro." }
+                ],
+                cameraMotion: "Slow Dolly In with gentle tilt up focusing on hands and face.",
+                lightingStyle: "Warm sunset golden hour with subtle rim highlight."
+            },
+            workflow_pnl: {
+                scenes: [
+                    { time: "00:00 - 00:03", title: "Trigger & Node Utama", prompt: "A futuristic 3D macro cinematic animation on a dark glowing digital grid background, glowing orange time icon node connecting with pulsing light streams to period detection and data sheet nodes, smooth camera panning." },
+                    { time: "00:03 - 00:06", title: "Aliran Data & Spreadsheet", prompt: "Smooth camera zoom in tracking glowing neon data streams flowing into a green Google Sheets node, active data parsing, high-tech corporate software interface, 4k resolution." },
+                    { time: "00:06 - 00:08", title: "Output & Transisi Akhir", prompt: "Pulsing light particles converging into a final Slack communication node, glowing green rings expanding, professional motion graphics, cinematic fade out." }
+                ],
+                cameraMotion: "Continuous smooth panning & zooming across 3D node clusters.",
+                lightingStyle: "Dark digital grid with cyan and orange neon energy lines."
+            },
+            cfo_agent: {
+                scenes: [
+                    { time: "00:00 - 00:03", title: "Webhook Trigger", prompt: "Futuristic 3D cinematic animation of a WhatsApp webhook message node flashing green on a dark isometric grid, splitting data stream into table nodes." },
+                    { time: "00:03 - 00:06", title: "AI CFO Brain Node", prompt: "Glowing central AI neural core node analyzing financial balances, holographic charts floating in 3D space, high velocity data particles." }
+                ],
+                cameraMotion: "360-degree slow orbit around the central glowing AI node.",
+                lightingStyle: "Deep cyber blue with vibrant emerald green laser lines."
+            },
+            macro_shoes: {
+                scenes: [
+                    { time: "00:00 - 00:04", title: "Macro Footwear Texture", prompt: "Macro 4k slow motion tracking shot of luxury leather flatshoes ribbon bow detail, clean minimalist studio background, high fashion lighting." },
+                    { time: "00:04 - 00:08", title: "Model Catwalk Step", prompt: "Smooth low-angle tracking shot of female model walking gracefully on polished marble floor wearing elegant flatshoes, reflection on floor, 60fps." }
+                ],
+                cameraMotion: "Low-angle tracking dolly moving parallel with the model stride.",
+                lightingStyle: "Clean high-key commercial studio diffusion with soft floor reflections."
+            }
+        };
+
+        const data = presets[type] || presets.ugc_product;
+        renderVideoPrompts(data, document.getElementById('videoTargetEngine').value);
+    }
+
+    function copyElemText(btn) {
+        const text = btn.parentElement.nextElementSibling.innerText.trim();
+        navigator.clipboard.writeText(text).then(() => showToast('Prompt adegan disalin!'));
+    }
+
+    function copyAllVideoPrompts() {
+        const all = Array.from(document.querySelectorAll('#videoOutputContainer .prompt-code')).map(p => p.innerText.trim()).join('\n\n');
+        if (all) {
+            navigator.clipboard.writeText(all).then(() => showToast('Semua urutan prompt video disalin!'));
+        }
+    }
+
     // --- GEMINI HELPER ---
     async function callGeminiAI(apiKey, prompt) {
         const models = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
@@ -755,9 +1076,11 @@ Format output JSON murni:
         throw new Error('Koneksi AI sibuk.');
     }
 
-    function copyText(elemId) {
-        const text = document.getElementById(elemId).textContent.trim();
-        navigator.clipboard.writeText(text).then(() => alert('✅ Prompt video disalin!'));
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        document.getElementById('toastMsg').textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
     }
 
     function downloadImage(imgId, filename) {
@@ -771,7 +1094,7 @@ Format output JSON murni:
     }
 
     function download4k(imgId) {
-        alert('🌟 Menginisiasi rendering resolusi Ultra 4K...');
+        showToast('Menginisiasi render 4K Ultra...');
         const img = document.getElementById(imgId);
         if (!img) return;
         const canvas = document.createElement('canvas');
