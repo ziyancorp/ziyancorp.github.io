@@ -701,53 +701,44 @@
                 Ada bagian yang ingin Anda jelajahi lebih lanjut?`
             },
             {
-                pattern: /(produk apa|apa saja produk|layanan|jual apa|fitur apa|ekosistem)/i,
-                reply: `<b>ZIYAN CORP memiliki 4 Produk & Ekosistem Utama:</b><br><br>
-                1. 🛍️ <b>Ziyan UGC Affiliate Studio:</b> Generator 5-pose prompt visual + naskah video affiliate Shopee & TikTok.<br>
-                2. 🐾 <b>4K Media Studio (@4kscenicwildlife):</b> Pabrik video satwa liar 4K autopilot yang render via GPU Cloud Google.<br>
-                3. ⚡ <b>Omnichannel Bot Fleet:</b> Solusi bot otomatisasi distribusi konten ke Telegram, YouTube, FB Page, dan Instagram.<br>
-                4. 📚 <b>Ziyan Publishing House:</b> E-Book Blueprint 'Pabrik Konten AI 24 Jam' berformat majalah tech.<br><br>
-                Produk mana yang ingin Anda pelajari lebih detail?`
+                pattern: /(produk apa|apa saja produk|layanan|jual apa|fitur apa|ekosistem|ada apa aja)/i,
+                reply: `<b>ZIYAN CORP memiliki 4 Pilar Produk & Tool Unggulan:</b><br><br>
+                1. 📚 <b>AI E-Book Generator (SAAS TOOL TERBARU):</b> Tool generator buku otomatis dari link YouTube, artikel website, & PDF dengan 5 tema visual eksklusif. Bisa dicoba langsung di <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">/ebook-generator/</a> 🚀<br>
+                2. 🛍️ <b>Ziyan UGC Affiliate Studio:</b> Generator 5-pose prompt visual + naskah copywriting video Shopee & TikTok.<br>
+                3. 🐾 <b>4K Media Studio (@4kscenicwildlife):</b> Pabrik video satwa liar 4K autopilot yang render via GPU Cloud Google.<br>
+                4. ⚡ <b>Omnichannel Bot Fleet:</b> Solusi bot otomatisasi distribusi konten ke Telegram, YouTube, FB Page, dan Instagram.<br><br>
+                Produk mana yang ingin Anda pelajari atau coba sekarang?`
             },
             {
-                pattern: /(prompt aja|cuma prompt|hanya prompt|cuma naskah|video langsung|bukan prompt)/i,
-                reply: `<b>TIDAK HANYA PROMPT!</b> Ziyan UGC Studio memberikan <b>1 Paket Siap Pakai Lengkap</b>:<br><br>
-                ✨ <b>1. 5 Sudut Pose Visual:</b> Prompt detail untuk AI generator video (Kling, Sora 2, Luma).<br>
-                ✨ <b>2. Naskah Copywriting Viral:</b> Hook 3 detik + Story edukasi + Call To Action untuk meningkatkan penjualan produk.<br>
-                ✨ <b>3. Rekomendasi Suara & Musik:</b> Format dubbing Edge-TTS yang cocok untuk karakter produk.<br><br>
-                Jadi pengguna tidak perlu bingung menulis naskah atau merancang visual dari nol!`
+                pattern: /(ebook generator|tool ebook|generator ebook|bikin ebook|buat buku|buat ebook|convert youtube|notebooklm|cara kerja ebook|cara pakai ebook|mekanisme ebook)/i,
+                reply: `<b>📚 ZiyanCorp AI E-Book Generator</b> adalah produk SaaS inovatif yang mengubah sumber riset acak menjadi E-Book profesional siap baca & siap cetak! 🚀<br><br>
+                <b>🔹 Sumber yang Didukung:</b><br>
+                • 🎬 <b>YouTube:</b> Cukup tempel link video ➔ teks transkrip diserap otomatis.<br>
+                • 🌐 <b>Website:</b> Tempel link artikel ➔ teks bersih diekstrak tanpa iklan.<br>
+                • 📄 <b>PDF:</b> Upload file PDF ➔ dibaca langsung di browser HP/Laptop.<br>
+                • 📝 <b>Teks Bebas:</b> Tempel catatan atau draft manual.<br><br>
+                <b>🔹 Mekanisme Anti-Kolaps:</b><br>
+                • <b>Chunked Per-Chapter:</b> AI menulis bab demi bab secara bertahap agar tidak pernah kena timeout.<br>
+                • <b>Client-Side PDF Rendering:</b> PDF di-render di HP pengguna sehingga server 0% beban.<br>
+                • <b>BYOK (Bring Your Own Key):</b> Mendukung API Key Gemini gratis pengguna.<br><br>
+                👉 <b>Coba sekarang di:</b> <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">https://ziyancorp.github.io/ebook-generator/</a>`
             },
             {
-                pattern: /(cara pakai ugc|cara guna|tutorial|step by step|langkah)/i,
-                reply: `<b>Cara Menggunakan Ziyan UGC Affiliate Studio:</b><br><br>
-                1. <b>Upload Foto Produk:</b> Masukkan 1 foto produk Shopee/TikTok yang ingin Anda promosikan.<br>
-                2. <b>Pilih Kategori:</b> Tentukan jenis produk (Fashion, Gadget, Kosmetik, Home Living).<br>
-                3. <b>AI Meracik 5 Pose:</b> Sistem menghasilkan 5 sudut visual yang berbeda (Close-up, pemakaian, ekspresi, dll).<br>
-                4. <b>Copy Prompt & Naskah:</b> Tempelkan prompt ke generator video AI dan isi suara dengan naskah yang sudah dibuatkan!<br><br>
-                Sangat cepat dan menghemat waktu editing hingga 90%! 🚀`
-            },
-            {
-                pattern: /(satwa|wildlife|4k|paus|whale|youtube|scenic)/i,
-                reply: `Saluran <b>@4kscenicwildlife</b> adalah portofolio media resmi ZiyanCorp yang beroperasi <b>100% autopilot</b>:<br><br>
-                • <b>Resolusi:</b> 4K Ultra HD.<br>
-                • <b>Jadwal:</b> 3 Video per hari di jam emas Amerika Serikat.<br>
-                • <b>Retensi:</b> Didesain dengan Hook 3 detik dan Yellow Badge Subtitles agar retensi penonton di atas 85%!<br><br>
-                Anda bisa menonton benchmark videonya di YouTube Shorts @4kscenicwildlife.`
-            },
-            {
-                pattern: /(biaya|harga|berbayar|gratis|tarif|modal|rp 0)/i,
-                reply: `<b>Seluruh Arsitektur Dasar ZiyanCorp Berjalan dengan Modal Rp 0:</b><br><br>
-                • Ditenagai Google Gemini Free Tier & Google Colab Cloud GPU gratis.<br>
-                • Model <b>BYOK (Bring Your Own Key):</b> Klien/pengguna bisa memasukkan kunci Gemini gratis mereka sendiri tanpa membebani server.<br>
-                • Semua alat dasar bisa diakses secara terbuka!`
+                pattern: /(tema ebook|tema buku|ziyan tech chrome|pin ebook|password ebook|kunci tema)/i,
+                reply: `<b>🎨 Pilihan Tema di AI E-Book Generator:</b><br><br>
+                1. 🟢 <b>Clean Editorial:</b> Tampilan putih bersih bergaya editorial klasik.<br>
+                2. 🔵 <b>Obsidian Night:</b> Tampilan gelap elegan dengan aksen neon tech.<br>
+                3. 🌊 <b>Ocean Breeze:</b> Nuansa biru laut segar yang nyaman dibaca.<br>
+                4. 🌅 <b>Sunset Coral:</b> Warna hangat berkelas untuk buku inspirasi.<br>
+                5. 🔒 <b>Ziyan Tech Chrome (ADMIN ONLY):</b> Tema eksklusif ZiyanCorp berformat majalah teknologi dengan icon vektor SVG inline & diagram alur. Terkunci dengan PIN keamanan admin!<br><br>
+                Bisa diakses langsung di menu generator E-Book kita!`
             },
             {
                 pattern: /(ebook|buku|blueprint|pdf|panduan)/i,
-                reply: `E-Book Blueprint Resmi <b>'Pabrik Konten AI 24 Jam'</b> ZiyanCorp berisi:<br><br>
-                • Diagram alur otomatisasi konten dari A-Z.<br>
-                • Formula retensi video 4K & UGC Shopee/TikTok.<br>
-                • Arsitektur bot multi-platform gratisan.<br><br>
-                Formatnya dibuat dalam tata letak majalah teknologi dengan icon vektor SVG tajam!`
+                reply: `Di ZiyanCorp, kami memiliki 2 ekosistem E-Book:<br><br>
+                1. 🚀 <b>AI E-Book Generator Tool:</b> Aplikasi web pembuat E-Book instan dari YouTube, Web, dan PDF. Bisa diakses di <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">/ebook-generator/</a>.<br>
+                2. 📖 <b>Master Blueprint 'Pabrik Konten AI 24 Jam':</b> E-Book panduan resmi ZiyanCorp berformat majalah teknologi beresolusi tinggi.<br><br>
+                Mau coba buat E-Book sendiri sekarang?`
             }
         ];
 
