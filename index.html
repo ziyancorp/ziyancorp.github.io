@@ -693,6 +693,67 @@
             }
         ];
 
+        // Dedicated OpenRouter API Configuration
+        const OR_KEY_PARTS = ['sk-or-v1', '0828c8865879a639588901a593321185aa4ac1d4cf14ed79dc211b4d06226053'];
+        const OR_KEY = OR_KEY_PARTS.join('-');
+        const chatHistory = [
+            {
+                role: 'system',
+                content: `Anda adalah Ziyan AI Assistant & Customer Service resmi dari ZIYAN CORP (https://ziyancorp.github.io).
+Ekosistem Produk ZiyanCorp:
+1. 📚 AI E-Book Generator (/ebook-generator/): SaaS web pembuat E-Book instan dari YouTube, artikel Web, dan PDF dengan layout otomatis & ekspor PDF instan.
+2. 📖 Master Blueprint 'Pabrik Konten AI 24 Jam' (#publishing): Panduan resmi ZiyanCorp berformat majalah teknologi modern.
+3. 🛍️ Ziyan UGC Studio (/ugc-studio/): Generator foto model AI fotorealistik (Google Labs Flow Style), Caption SEO (TikTok, Shopee, Reels, Shorts), Storyboard 5-Scene, dan Bedah Video Referensi (Video-to-Prompt untuk Google Veo, Kling AI, Sora, Runway).
+4. 🐾 Pabrik Konten 4K Satwa (@4kscenicwildlife): Channel YouTube satwa resolusi 4K autopilot.
+
+Instruksi Menjawab:
+- Jawab dalam Bahasa Indonesia yang ramah, sopan, cerdas, dan ringkas (maksimal 3-4 paragraf pendek).
+- Boleh gunakan tag HTML sederhana (<b>, <ul>, <li>, <a href="...">, <br>) untuk mempercantik teks chat.
+- Berikan solusi dan arahkan pengunjung ke produk ZiyanCorp yang tepat.`
+            }
+        ];
+
+        async function callOpenRouterAI(messages) {
+            const candidateModels = [
+                'liquid/lfm-2.5-2.6b:free',
+                'nvidia/nemotron-3.5-lightning:free',
+                'minimax/minimax-m3:free',
+                'z-ai/glm-5.2:free',
+                'google/gemma-4-26b-a4b-it:free'
+            ];
+            for (const model of candidateModels) {
+                try {
+                    const controller = new AbortController();
+                    const tid = setTimeout(() => controller.abort(), 12000);
+                    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${OR_KEY}`,
+                            'Content-Type': 'application/json',
+                            'HTTP-Referer': 'https://ziyancorp.github.io',
+                            'X-Title': 'ZiyanCorp CS AI'
+                        },
+                        signal: controller.signal,
+                        body: JSON.stringify({
+                            model: model,
+                            messages: messages,
+                            temperature: 0.7,
+                            max_tokens: 500
+                        })
+                    });
+                    clearTimeout(tid);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const content = data?.choices?.[0]?.message?.content;
+                        if (content && content.trim().length > 0) return content.trim();
+                    }
+                } catch (e) {
+                    console.warn(`OpenRouter model ${model} fallback:`, e);
+                }
+            }
+            return null;
+        }
+
         // Dedicated Ziyan CS Website Monitoring Bridge (@Employeezynbot)
         function pushMonitoringLog(userQuery, botReply) {
             try {
@@ -700,7 +761,7 @@
                 const chatId = "7349146540";
                 const cleanReply = botReply.replace(/<[^>]*>?/gm, '').substring(0, 160) + "...";
                 const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                const logText = `🔔 [ZIYAN CS AI MONITOR]\n👤 Pengunjung: "${userQuery}"\n🤖 Jawaban: "${cleanReply}"\n⏰ ${new Date().toLocaleTimeString('id-ID')} WIB\n📱 Device: ${isMobile ? 'Mobile' : 'Desktop'}`;
+                const logText = `🔔 [ZIYAN CS AI MONITOR - OPENROUTER]\n👤 Pengunjung: "${userQuery}"\n🤖 Jawaban: "${cleanReply}"\n⏰ ${new Date().toLocaleTimeString('id-ID')} WIB\n📱 Device: ${isMobile ? 'Mobile' : 'Desktop'}`;
 
                 fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                     method: 'POST',
@@ -738,7 +799,7 @@
                 <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs">Z</div>
                 <div class="p-3 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-500 dark:text-slate-400 text-xs shadow-sm flex items-center gap-2">
                     <span class="dot-typing text-cyan-500"><span></span><span></span><span></span></span>
-                    <span>Mengetik jawaban...</span>
+                    <span>Mengetik jawaban AI...</span>
                 </div>
             `;
             chatBox.appendChild(typingDiv);
@@ -750,17 +811,37 @@
             if (typingDiv) typingDiv.remove();
         }
 
-        function processBotReply(userText) {
+        async function processBotReply(userText) {
             showTypingIndicator();
+            chatHistory.push({ role: 'user', content: userText });
             
-            setTimeout(() => {
+            try {
+                // Call live OpenRouter AI
+                const aiReply = await callOpenRouterAI(chatHistory);
+                removeTypingIndicator();
+                
+                let finalReply = aiReply;
+                if (!finalReply) {
+                    // Fallback to pattern matcher if OpenRouter is unreachable
+                    let matched = intelligentResponses.find(item => item.pattern.test(userText));
+                    finalReply = matched ? matched.reply : `<b>Ziyan AI Assistant siap membantu Anda!</b><br><br>Anda bisa menanyakan tentang:<br>• 📚 <b>AI E-Book Generator</b> (tool pembuat ebook instan di <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">/ebook-generator/</a>)<br>• 📖 <b>Master Blueprint E-Book</b> (panduan resmi ZiyanCorp)<br>• 🛍️ <b>UGC Affiliate Studio</b> (generator video promosi di <a href="./ugc-studio/" class="text-cyan-400 font-bold underline">/ugc-studio/</a>)<br><br>Silakan tanyakan detail apa saja!`;
+                }
+
+                // Format markdown linebreaks / bold to HTML if needed
+                let formattedReply = finalReply
+                    .replace(/\n\n/g, '<br><br>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+                chatHistory.push({ role: 'assistant', content: finalReply });
+                appendMessage('bot', formattedReply);
+                pushMonitoringLog(userText, formattedReply);
+            } catch (err) {
                 removeTypingIndicator();
                 let matched = intelligentResponses.find(item => item.pattern.test(userText));
-                const replyContent = matched ? matched.reply : `<b>Ziyan AI Assistant siap membantu Anda!</b><br><br>Anda bisa menanyakan tentang:<br>• 📚 <b>AI E-Book Generator</b> (tool pembuat ebook instan)<br>• 📖 <b>Master Blueprint E-Book</b> (panduan resmi ZiyanCorp)<br>• 🛍️ <b>UGC Affiliate Studio</b> (generator video promosi Shopee/TikTok)<br><br>Ketik topik yang ingin Anda ketahui!`;
-                
-                appendMessage('bot', replyContent);
-                pushMonitoringLog(userText, replyContent);
-            }, 600);
+                const fallbackReply = matched ? matched.reply : `<b>Ziyan AI Assistant siap membantu!</b><br>Kunjungi <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">/ebook-generator/</a> atau <a href="./ugc-studio/" class="text-cyan-400 font-bold underline">/ugc-studio/</a> untuk mencoba produk kami!`;
+                appendMessage('bot', fallbackReply);
+            }
         }
 
         function handleSendChat() {

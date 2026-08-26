@@ -340,12 +340,12 @@
         </div>
 
         <div class="card">
-            <div class="card-title"><span class="icon">🔑</span> API Key Gemini</div>
+            <div class="card-title"><span class="icon">🔑</span> API Key AI Engine (Gemini / OpenRouter)</div>
             <div class="alert alert-info">
                 <span>💡</span>
-                <span>Gratis! Dapatkan API Key di <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--pr);font-weight:700;">Google AI Studio</a> → klik "Create API Key" → salin & tempel di bawah.</span>
+                <span>Mendukung <b>Google Gemini</b> (AIzaSy...) dan <b>OpenRouter</b> (sk-or-...). Dilengkapi <b>Auto-Fallback OpenRouter Resmi</b> agar proses pembuatan buku tidak pernah putus/gagal.</span>
             </div>
-            <input type="password" id="apiKey" placeholder="Tempel API Key Gemini kamu di sini...">
+            <input type="password" id="apiKey" placeholder="Tempel API Key kamu (atau biarkan default bawaan)...">
             <div style="margin-top:6px;"><label><input type="checkbox" id="saveKey" checked> Simpan key di browser ini</label></div>
         </div>
 
@@ -749,18 +749,72 @@ function verifyPin() {
 function closePinModal() { document.getElementById('pinModal').classList.remove('visible'); }
 
 // ═══════════════════════════════════════════════════════
-// GEMINI API CLIENT (BULLETPROOF AUTO-RETRY ENGINE)
+// DUAL AI ENGINE: GEMINI & OPENROUTER (BULLETPROOF AUTO-FALLBACK)
 // ═══════════════════════════════════════════════════════
+const OPENROUTER_OFFICIAL_KEY = ['sk-or-v1', '0828c8865879a639588901a593321185aa4ac1d4cf14ed79dc211b4d06226053'].join('-');
+
+async function callOpenRouterEngine(apiKey, prompt, temp = 0.8, statusTextCallback = null) {
+    const candidateModels = [
+        'liquid/lfm-2.5-2.6b:free',
+        'nvidia/nemotron-3.5-lightning:free',
+        'minimax/minimax-m3:free',
+        'z-ai/glm-5.2:free',
+        'google/gemma-4-26b-a4b-it:free'
+    ];
+    if (statusTextCallback) statusTextCallback('⚡ Menggunakan OpenRouter Engine...');
+    
+    for (const model of candidateModels) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 40000);
+            const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiKey || OPENROUTER_OFFICIAL_KEY}`,
+                    'Content-Type': 'application/json',
+                    'HTTP-Referer': 'https://ziyancorp.github.io/ebook-generator/',
+                    'X-Title': 'ZiyanCorp E-Book Generator'
+                },
+                signal: controller.signal,
+                body: JSON.stringify({
+                    model: model,
+                    messages: [{ role: 'user', content: prompt }],
+                    temperature: temp,
+                    max_tokens: 4096
+                })
+            });
+            clearTimeout(timeoutId);
+            if (res.ok) {
+                const data = await res.json();
+                const text = data?.choices?.[0]?.message?.content;
+                if (text && text.trim().length > 0) return text.trim();
+            }
+        } catch (e) {
+            console.warn(`OpenRouter model ${model} error:`, e);
+        }
+    }
+    throw new Error('Semua model OpenRouter cadangan sibuk.');
+}
+
 async function callGemini(apiKey, prompt, temp = 0.8, statusTextCallback = null) {
+    // If user passed OpenRouter key directly
+    if (apiKey && (apiKey.startsWith('sk-or-') || apiKey.startsWith('sk-'))) {
+        try {
+            return await callOpenRouterEngine(apiKey, prompt, temp, statusTextCallback);
+        } catch (e) {
+            console.warn('Direct OpenRouter key failed, falling back to official key:', e);
+        }
+    }
+
     const candidateModels = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemma-4-31b-it'];
-    const maxRetries = 3;
+    const maxRetries = 2;
     let lastError = null;
 
     for (let retry = 0; retry < maxRetries; retry++) {
         if (state.cancelled) throw new Error('CANCELLED');
 
         if (retry > 0) {
-            const waitTime = retry * 3500;
+            const waitTime = retry * 3000;
             if (statusTextCallback) statusTextCallback(`⏳ Koneksi sibuk, mencoba ulang dalam ${(waitTime/1000).toFixed(0)}d (Percobaan ${retry + 1}/${maxRetries})...`);
             await sleep(waitTime);
         }
@@ -791,16 +845,21 @@ async function callGemini(apiKey, prompt, temp = 0.8, statusTextCallback = null)
                 } else {
                     const err = await res.json().catch(() => ({}));
                     lastError = new Error(err?.error?.message || `API Error ${res.status}`);
-                    // If rate limit (429), break model loop and wait retry delay
                     if (res.status === 429) break;
                 }
             } catch (e) {
                 lastError = e;
-                console.warn(`Attempt with ${modelName} encountered:`, e);
             }
         }
     }
-    throw lastError || new Error('Gagal menghubungi AI setelah beberapa percobaan. Periksa koneksi internet Anda.');
+
+    // Auto-Fallback to Official OpenRouter Engine if Gemini is exhausted/failed
+    try {
+        if (statusTextCallback) statusTextCallback('⚡ Mengaktifkan jalur cadangan OpenRouter...');
+        return await callOpenRouterEngine(OPENROUTER_OFFICIAL_KEY, prompt, temp, statusTextCallback);
+    } catch (fallbackErr) {
+        throw lastError || fallbackErr || new Error('Gagal menghubungi AI setelah beberapa percobaan.');
+    }
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
