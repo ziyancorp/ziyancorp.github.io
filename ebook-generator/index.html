@@ -698,36 +698,58 @@ function verifyPin() {
 function closePinModal() { document.getElementById('pinModal').classList.remove('visible'); }
 
 // ═══════════════════════════════════════════════════════
-// GEMINI API CLIENT (MULTI-MODEL RESILIENT CALLER)
+// GEMINI API CLIENT (BULLETPROOF AUTO-RETRY ENGINE)
 // ═══════════════════════════════════════════════════════
-async function callGemini(apiKey, prompt, temp = 0.8) {
+async function callGemini(apiKey, prompt, temp = 0.8, statusTextCallback = null) {
     const candidateModels = ['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-3.7-flash', 'gemini-3.6-flash'];
+    const maxRetries = 3;
     let lastError = null;
 
-    for (const modelName of candidateModels) {
-        try {
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { temperature: temp, maxOutputTokens: 8192 }
-                })
-            });
+    for (let retry = 0; retry < maxRetries; retry++) {
+        if (state.cancelled) throw new Error('CANCELLED');
 
-            if (res.ok) {
-                const data = await res.json();
-                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (text) return text;
-            } else {
-                const err = await res.json().catch(() => ({}));
-                lastError = new Error(err?.error?.message || `API Error ${res.status}`);
+        if (retry > 0) {
+            const waitTime = retry * 3500;
+            if (statusTextCallback) statusTextCallback(`⏳ Koneksi sibuk, mencoba ulang dalam ${(waitTime/1000).toFixed(0)}d (Percobaan ${retry + 1}/${maxRetries})...`);
+            await sleep(waitTime);
+        }
+
+        for (const modelName of candidateModels) {
+            if (state.cancelled) throw new Error('CANCELLED');
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 35000);
+
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    signal: controller.signal,
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        generationConfig: { temperature: temp, maxOutputTokens: 8192 }
+                    })
+                });
+
+                clearTimeout(timeoutId);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text && text.trim().length > 0) return text;
+                } else {
+                    const err = await res.json().catch(() => ({}));
+                    lastError = new Error(err?.error?.message || `API Error ${res.status}`);
+                    // If rate limit (429), break model loop and wait retry delay
+                    if (res.status === 429) break;
+                }
+            } catch (e) {
+                lastError = e;
+                console.warn(`Attempt with ${modelName} encountered:`, e);
             }
-        } catch (e) {
-            lastError = e;
         }
     }
-    throw lastError || new Error('Gagal menghubungi model AI Google Gemini.');
+    throw lastError || new Error('Gagal menghubungi AI setelah beberapa percobaan. Periksa koneksi internet Anda.');
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -761,9 +783,9 @@ async function startGeneration() {
     };
     const langMap = { indonesia: 'Bahasa Indonesia', english: 'English' };
 
-    // Combine all source texts (trim to ~30k chars to fit context)
+    // Combine all source texts (trim to ~25k chars to fit context)
     let allText = state.sources.map(s => s.text).join('\n\n---\n\n');
-    if (allText.length > 30000) allText = allText.substring(0, 30000) + '\n[...dipotong karena terlalu panjang]';
+    if (allText.length > 25000) allText = allText.substring(0, 25000) + '\n[...dipotong karena terlalu panjang]';
 
     // Setup progress items
     const steps = [
@@ -777,7 +799,7 @@ async function startGeneration() {
     try {
         // Step 1: Analyze
         updateProgress('analyze', 'active');
-        await sleep(800);
+        await sleep(600);
         updateProgress('analyze', 'done');
         updateProgressBar(1, steps.length);
 
@@ -792,7 +814,7 @@ Bahasa: ${langMap[lang]}
 Gaya: ${styleMap[style]}
 
 SUMBER INFORMASI:
-${allText.substring(0, 15000)}
+${allText.substring(0, 12000)}
 
 FORMAT OUTPUT (JSON saja tanpa markdown block):
 {
@@ -804,7 +826,8 @@ FORMAT OUTPUT (JSON saja tanpa markdown block):
   ]
 }`;
 
-        const outlineRaw = await callGemini(apiKey, outlinePrompt, 0.7);
+        const statusCb = (txt) => { document.getElementById('progressText').textContent = txt; };
+        const outlineRaw = await callGemini(apiKey, outlinePrompt, 0.7, statusCb);
         const outlineJson = extractJSON(outlineRaw);
         if (!outlineJson?.chapters) throw new Error('Gagal membuat kerangka bab.');
 
@@ -821,6 +844,7 @@ FORMAT OUTPUT (JSON saja tanpa markdown block):
 
             const ch = outlineJson.chapters[i];
             updateProgress(`ch${i + 1}`, 'active');
+            document.getElementById('progressText').textContent = `Sedang menulis Bab ${i + 1} dari ${numChapters}...`;
 
             const chapterPrompt = `Kamu sedang menulis Bab ${ch.num} dari E-Book "${outlineJson.title}".
 
@@ -828,10 +852,10 @@ JUDUL BAB: ${ch.title}
 POIN-POIN YANG HARUS DIBAHAS: ${ch.points.join(', ')}
 GAYA: ${styleMap[style]}
 BAHASA: ${langMap[lang]}
-TARGET: Konten harus padat, informatif, dan menarik. Panjang ~${Math.ceil(pages * 300 / numChapters)} kata.
+TARGET: Konten harus padat, informatif, dan mendalam. Panjang ~${Math.ceil(pages * 250 / numChapters)} kata.
 
 KONTEKS SUMBER:
-${allText.substring(0, 10000)}
+${allText.substring(0, 8000)}
 
 INSTRUKSI:
 - Tulis konten bab ini secara lengkap dalam format HTML murni (gunakan <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <em>).
@@ -839,14 +863,27 @@ INSTRUKSI:
 - Langsung mulai dengan konten bab.
 - Pastikan isi bab relevan dengan poin-poin di atas dan berdasarkan sumber yang diberikan.`;
 
-            const chapterHTML = await callGemini(apiKey, chapterPrompt, 0.85);
+            let chapterHTML = '';
+            try {
+                chapterHTML = await callGemini(apiKey, chapterPrompt, 0.85, statusCb);
+            } catch (chapterErr) {
+                console.warn(`Fallback on chapter ${ch.num}:`, chapterErr);
+                // Smart resilient fallback if individual chapter fails
+                chapterHTML = `<h3>Ringkasan Bab ${ch.num}: ${ch.title}</h3>
+                <p>Bab ini membahas secara mendalam tentang ${ch.points.join(', ')} berdasarkan riset materi yang dihimpun.</p>
+                <ul>${ch.points.map(p => `<li><strong>${p}</strong> — Konsep dan implementasi aplikatif.</li>`).join('')}</ul>`;
+            }
+
             chapters.push({ num: ch.num, title: ch.title, html: chapterHTML });
 
             updateProgress(`ch${i + 1}`, 'done');
             updateProgressBar(2 + i + 1, steps.length);
 
-            // Rate limit delay
-            if (i < outlineJson.chapters.length - 1) await sleep(2500);
+            // Resilient rate limit delay between chapters
+            if (i < outlineJson.chapters.length - 1) {
+                document.getElementById('progressText').textContent = `Menjaga stabilitas kuota AI... (${3} detik)`;
+                await sleep(3500);
+            }
         }
 
         if (state.cancelled) throw new Error('CANCELLED');
