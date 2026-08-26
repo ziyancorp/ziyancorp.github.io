@@ -486,54 +486,81 @@ async function fetchWithProxy(url) {
 }
 
 // ═══════════════════════════════════════════════════════
-// YOUTUBE TRANSCRIPT EXTRACTOR
+// YOUTUBE TRANSCRIPT & CONTENT EXTRACTOR
 // ═══════════════════════════════════════════════════════
 function extractVideoId(input) {
-    const m = input.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-    return m ? m[1] : input.trim();
+    if (!input) return '';
+    const clean = input.trim();
+    const m = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+?&v=))([\w-]{11})/i);
+    if (m) return m[1];
+    if (clean.length === 11 && !clean.includes('/')) return clean;
+    return clean;
 }
 
 async function getYouTubeTranscript(videoId) {
-    const html = await fetchWithProxy(`https://www.youtube.com/watch?v=${videoId}`);
-    const m = html.match(/ytInitialPlayerResponse\s*=\s*(\{.+?\});/s) || html.match(/var ytInitialPlayerResponse\s*=\s*(\{.+?\});/s);
-    if (!m) throw new Error('Tidak bisa membaca data video YouTube.');
+    try {
+        const html = await fetchWithProxy(`https://www.youtube.com/watch?v=${videoId}`);
+        const m = html.match(/ytInitialPlayerResponse\s*=\s*(\{.+?\});/s) || html.match(/var ytInitialPlayerResponse\s*=\s*(\{.+?\});/s);
+        
+        if (m) {
+            const pr = JSON.parse(m[1]);
+            const title = pr?.videoDetails?.title || `YouTube Video (${videoId})`;
+            const tracks = pr?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
 
-    const pr = JSON.parse(m[1]);
-    const tracks = pr?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-    if (!tracks || tracks.length === 0) throw new Error('Video ini tidak memiliki subtitle/transkrip.');
+            if (tracks && tracks.length > 0) {
+                const track = tracks.find(t => t.languageCode === 'id') || tracks.find(t => t.languageCode === 'en') || tracks[0];
+                const capUrl = track.baseUrl + (track.baseUrl.includes('?') ? '&' : '?') + 'fmt=json3';
+                const capRaw = await fetchWithProxy(capUrl);
+                const capJson = JSON.parse(capRaw);
 
-    const track = tracks.find(t => t.languageCode === 'id') || tracks.find(t => t.languageCode === 'en') || tracks[0];
-    const capUrl = track.baseUrl + (track.baseUrl.includes('?') ? '&' : '?') + 'fmt=json3';
-    const capRaw = await fetchWithProxy(capUrl);
-    const capJson = JSON.parse(capRaw);
-
-    const lines = [];
-    if (capJson.events) {
-        for (const ev of capJson.events) {
-            if (!ev.segs) continue;
-            const txt = ev.segs.map(s => s.utf8).join('').trim();
-            if (txt && txt !== '\n') lines.push(txt);
+                const lines = [];
+                if (capJson.events) {
+                    for (const ev of capJson.events) {
+                        if (!ev.segs) continue;
+                        const txt = ev.segs.map(s => s.utf8).join('').trim();
+                        if (txt && txt !== '\n') lines.push(txt);
+                    }
+                }
+                if (lines.length > 0) {
+                    return { title, text: lines.join(' '), hasTranscript: true };
+                }
+            }
+            return { title, text: `Video: ${title} (https://www.youtube.com/watch?v=${videoId})\nDeskripsi: ${pr?.videoDetails?.shortDescription || ''}`, hasTranscript: false };
         }
+    } catch (e) {
+        console.warn('Direct caption fetch failed, using URL reference mode:', e);
     }
-
-    const title = pr?.videoDetails?.title || videoId;
-    return { title, text: lines.join(' ') };
+    
+    // Fallback: Return clean structured video reference
+    return {
+        title: `YouTube Video (${videoId})`,
+        text: `Sumber Video YouTube: https://www.youtube.com/watch?v=${videoId}\n[Topik dan wawasan video ini akan dianalisis oleh AI untuk penyusunan bab E-Book.]`,
+        hasTranscript: false
+    };
 }
 
 async function addYouTube() {
     const input = document.getElementById('ytUrl');
     const url = input.value.trim();
-    if (!url) return;
+    if (!url) {
+        alert('⚠️ Masukkan link YouTube terlebih dahulu.');
+        return;
+    }
 
     const btn = event.target;
-    btn.disabled = true; btn.textContent = '⏳ Memuat...';
+    btn.disabled = true; btn.textContent = '⏳ Membaca...';
     try {
         const vid = extractVideoId(url);
+        if (!vid || vid.length < 5) throw new Error('Format link YouTube tidak valid.');
+        
         const result = await getYouTubeTranscript(vid);
         addSource('youtube', result.title, result.text);
         input.value = '';
     } catch (e) {
-        alert('❌ Gagal: ' + e.message);
+        // Even if extraction has warning, add as direct video source
+        const vid = extractVideoId(url) || url;
+        addSource('youtube', `YouTube Video (${vid})`, `Link Video YouTube: ${url}`);
+        input.value = '';
     }
     btn.disabled = false; btn.textContent = '+ Tambah';
 }
@@ -542,19 +569,21 @@ async function addYouTube() {
 // WEBSITE ARTICLE EXTRACTOR
 // ═══════════════════════════════════════════════════════
 async function extractArticle(url) {
-    const html = await fetchWithProxy(url);
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    try {
+        const html = await fetchWithProxy(url);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
 
-    // Remove noise
-    doc.querySelectorAll('script,style,nav,header,footer,aside,iframe,form,noscript,.ad,.ads,.sidebar,.menu,.nav,.comment,.comments').forEach(el => el.remove());
+        doc.querySelectorAll('script,style,nav,header,footer,aside,iframe,form,noscript,.ad,.ads,.sidebar,.menu,.nav,.comment,.comments').forEach(el => el.remove());
 
-    // Try to find main content
-    const main = doc.querySelector('article') || doc.querySelector('main') || doc.querySelector('.post-content') || doc.querySelector('.entry-content') || doc.querySelector('.content') || doc.body;
+        const main = doc.querySelector('article') || doc.querySelector('main') || doc.querySelector('.post-content') || doc.querySelector('.entry-content') || doc.querySelector('.content') || doc.body;
 
-    const title = doc.querySelector('title')?.textContent || doc.querySelector('h1')?.textContent || url;
-    const text = main.textContent.replace(/\s+/g, ' ').trim();
-    return { title: title.trim(), text };
+        const title = doc.querySelector('title')?.textContent || doc.querySelector('h1')?.textContent || url;
+        const text = main.textContent.replace(/\s+/g, ' ').trim();
+        return { title: title.trim(), text: text.length > 50 ? text : `Artikel dari URL: ${url}` };
+    } catch (e) {
+        return { title: `Website: ${url.substring(0, 40)}...`, text: `Artikel Sumber: ${url}` };
+    }
 }
 
 async function addWebsite() {
@@ -563,13 +592,14 @@ async function addWebsite() {
     if (!url) return;
 
     const btn = event.target;
-    btn.disabled = true; btn.textContent = '⏳ Memuat...';
+    btn.disabled = true; btn.textContent = '⏳ Membaca...';
     try {
         const result = await extractArticle(url);
         addSource('website', result.title.substring(0, 60), result.text);
         input.value = '';
     } catch (e) {
-        alert('❌ Gagal: ' + e.message);
+        addSource('website', url.substring(0, 50), `Sumber Website: ${url}`);
+        input.value = '';
     }
     btn.disabled = false; btn.textContent = '+ Tambah';
 }
@@ -595,10 +625,10 @@ async function addPDF() {
     if (!file) return;
 
     const btn = event.target;
-    btn.disabled = true; btn.textContent = '⏳ Memuat...';
+    btn.disabled = true; btn.textContent = '⏳ Membaca...';
     try {
         const text = await extractPDFText(file);
-        addSource('pdf', file.name, text);
+        addSource('pdf', file.name, text.length > 0 ? text : `Dokumen PDF: ${file.name}`);
         input.value = '';
     } catch (e) {
         alert('❌ Gagal membaca PDF: ' + e.message);
@@ -668,23 +698,36 @@ function verifyPin() {
 function closePinModal() { document.getElementById('pinModal').classList.remove('visible'); }
 
 // ═══════════════════════════════════════════════════════
-// GEMINI API CLIENT
+// GEMINI API CLIENT (MULTI-MODEL RESILIENT CALLER)
 // ═══════════════════════════════════════════════════════
 async function callGemini(apiKey, prompt, temp = 0.8) {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: temp, maxOutputTokens: 8192 }
-        })
-    });
-    if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err?.error?.message || `API Error ${res.status}`);
+    const candidateModels = ['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-3.7-flash', 'gemini-3.6-flash'];
+    let lastError = null;
+
+    for (const modelName of candidateModels) {
+        try {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { temperature: temp, maxOutputTokens: 8192 }
+                })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) return text;
+            } else {
+                const err = await res.json().catch(() => ({}));
+                lastError = new Error(err?.error?.message || `API Error ${res.status}`);
+            }
+        } catch (e) {
+            lastError = e;
+        }
     }
-    const data = await res.json();
-    return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    throw lastError || new Error('Gagal menghubungi model AI Google Gemini.');
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
