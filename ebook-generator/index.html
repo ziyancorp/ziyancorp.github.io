@@ -167,6 +167,26 @@
             .add-type-btns { gap: 6px; }
         }
 
+        /* ── HEADER DROPDOWN ── */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-menu {
+            position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px;
+            background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r);
+            box-shadow: var(--sh3); padding: 6px; display: none; flex-direction: column; gap: 2px; z-index: 60;
+        }
+        .dropdown-menu.show { display: flex; animation: fadeIn .2s ease; }
+        .dropdown-item {
+            padding: 8px 12px; border-radius: 8px; font-size: .82rem; font-weight: 600;
+            color: var(--tx); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: .15s;
+        }
+        .dropdown-item:hover { background: var(--bg3); color: var(--pr); }
+        .btn-nav {
+            padding: 7px 12px; border-radius: var(--r); font-size: .78rem; font-weight: 700;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+            background: var(--bg3); border: 1px solid var(--bd); color: var(--tx); transition: .2s;
+        }
+        .btn-nav:hover { background: var(--bd); color: var(--pr); }
+
         /* ── HIDE SECTIONS ── */
         .hidden { display: none !important; }
     </style>
@@ -175,11 +195,31 @@
 
 <!-- ═══ HEADER ═══ -->
 <div class="header">
-    <div class="logo">
-        <div class="logo-icon">📚</div>
-        <span>E-Book Generator</span>
+    <div style="display:flex;align-items:center;gap:12px;">
+        <a href="../" class="btn-nav" title="Kembali ke Halaman Utama">
+            <span>←</span> <span class="hidden-xs">Beranda</span>
+        </a>
+        <a href="../" class="logo" style="text-decoration:none;color:inherit;" title="ZiyanCorp Home">
+            <div class="logo-icon">📚</div>
+            <span>E-Book Generator</span>
+        </a>
     </div>
     <div class="header-actions">
+        <!-- Dropdown Menu Ekosistem -->
+        <div class="dropdown">
+            <button class="btn-nav" onclick="toggleDropdown()" id="dropdownBtn" aria-label="Menu Ekosistem">
+                <span>🌐 Menu</span> ▾
+            </button>
+            <div class="dropdown-menu" id="navDropdown">
+                <a href="../" class="dropdown-item">🏠 Portal Utama ZiyanCorp</a>
+                <a href="../#saas" class="dropdown-item">🛍️ UGC Affiliate Studio</a>
+                <a href="../#media" class="dropdown-item">🐾 4K Media Studio (@4kscenicwildlife)</a>
+                <a href="../#automation" class="dropdown-item">⚡ Omnichannel Bot Fleet</a>
+                <a href="../#publishing" class="dropdown-item">📖 Tech Publishing House</a>
+                <a href="../#demo" class="dropdown-item">🔥 Live Hook Generator</a>
+            </div>
+        </div>
+
         <button class="btn-icon" onclick="toggleMode()" title="Dark/Light Mode" id="modeBtn">🌙</button>
     </div>
 </div>
@@ -413,6 +453,19 @@ function toggleMode() {
     localStorage.setItem('ebook_mode', next);
     document.getElementById('modeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
 }
+
+function toggleDropdown() {
+    const menu = document.getElementById('navDropdown');
+    menu.classList.toggle('show');
+}
+
+window.addEventListener('click', (e) => {
+    const btn = document.getElementById('dropdownBtn');
+    const menu = document.getElementById('navDropdown');
+    if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('show');
+    }
+});
 
 // ═══════════════════════════════════════════════════════
 // STEP NAVIGATION
