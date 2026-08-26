@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ziyan UGC Studio — AI Influencer, Storyboard & Video Engine</title>
-    <meta name="description" content="Platform AI UGC serbaguna untuk kreator AI Influencer, pemilik bisnis Shopee/TikTok, dan YouTuber Shorts. Generate Foto, Caption SEO, Storyboard, dan Prompt Video 1080p.">
+    <title>Ziyan UGC Studio — Google Labs Flow & AI Influencer Engine</title>
+    <meta name="description" content="Platform AI UGC & Visual Studio bergaya Google Labs Flow. Generate Foto Produk & AI Influencer fotorealistik dengan referensi gambar, prompt chips, Storyboard, dan Video 1080p.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -62,47 +62,21 @@
         .dropdown-item:hover { background: var(--bg3); color: var(--pr); }
 
         /* ── MAIN LAYOUT ── */
-        .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 80px; width: 100%; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; width: 100%; }
 
         /* ── HERO BANNER ── */
         .ugc-banner {
-            background: linear-gradient(135deg, rgba(139,92,246,.12), rgba(6,182,212,.08));
-            border: 1px solid var(--prb); border-radius: var(--r3); padding: 24px; margin-bottom: 24px;
-            display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden;
-        }
-        .ugc-banner::after {
-            content: ''; position: absolute; -right: 40px; -bottom: 40px; width: 160px; height: 160px;
-            background: radial-gradient(circle, var(--pr) 0%, transparent 70%); opacity: .2; pointer-events: none;
+            background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(6,182,212,.1));
+            border: 1px solid var(--prb); border-radius: var(--r3); padding: 22px; margin-bottom: 20px;
+            display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden;
         }
         .badge-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 100px; font-size: .72rem; font-weight: 800; text-transform: uppercase; background: var(--prl); color: var(--pr2); border: 1px solid var(--prb); width: fit-content; }
-
-        /* ── MASTER INPUT SECTION ── */
-        .input-card {
-            background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2);
-            padding: 20px; margin-bottom: 24px; box-shadow: var(--sh);
-        }
-        .section-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-        
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-label { font-size: .8rem; font-weight: 700; color: var(--tx2); }
-        .form-input, .form-select, .form-textarea {
-            width: 100%; padding: 10px 14px; background: var(--bg3); border: 1px solid var(--bd);
-            border-radius: var(--r); color: var(--tx); font-size: .88rem; outline: none; transition: .2s;
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--pr); box-shadow: 0 0 0 3px var(--prl); }
-        .form-textarea { resize: vertical; min-height: 80px; }
-
-        /* ── PRESET PILLS ── */
-        .preset-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-        .preset-btn { padding: 4px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; background: var(--bg3); border: 1px solid var(--bd); color: var(--tx2); cursor: pointer; transition: .15s; }
-        .preset-btn:hover, .preset-btn.active { background: var(--prl); border-color: var(--pr); color: var(--pr2); font-weight: 700; }
 
         /* ── MODULAR TABS NAVIGATION ── */
         .tabs-nav {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
             background: var(--bg2); padding: 6px; border-radius: var(--r2); border: 1px solid var(--bd);
-            margin-bottom: 24px; position: sticky; top: 62px; z-index: 40; box-shadow: var(--sh);
+            margin-bottom: 20px; position: sticky; top: 62px; z-index: 40; box-shadow: var(--sh);
         }
         .tab-btn {
             padding: 12px 8px; border-radius: var(--r); font-size: .82rem; font-weight: 700;
@@ -118,65 +92,99 @@
         .tab-panel.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ── CARDS & FORM ELEMENTS ── */
+        .card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2); padding: 20px; margin-bottom: 20px; box-shadow: var(--sh); }
+        .section-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-label { font-size: .8rem; font-weight: 700; color: var(--tx2); }
+        .form-input, .form-select, .form-textarea {
+            width: 100%; padding: 10px 14px; background: var(--bg3); border: 1px solid var(--bd);
+            border-radius: var(--r); color: var(--tx); font-size: .88rem; outline: none; transition: .2s;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--pr); box-shadow: 0 0 0 3px var(--prl); }
+        .form-textarea { resize: vertical; min-height: 85px; }
+
+        /* ── GOOGLE LABS FLOW: DUAL REFERENCE UPLOAD ── */
+        .ref-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+        .ref-upload-box {
+            border: 2px dashed var(--bd); border-radius: var(--r); padding: 14px;
+            background: var(--bg3); text-align: center; cursor: pointer; transition: .2s; position: relative;
+        }
+        .ref-upload-box:hover { border-color: var(--pr); background: var(--prl); }
+        .ref-preview { max-height: 100px; border-radius: 8px; margin-top: 8px; display: none; object-fit: cover; }
+
+        /* ── PROMPT CHIPS (GOOGLE LABS FLOW STYLE) ── */
+        .chip-category { margin-bottom: 12px; }
+        .chip-category-title { font-size: .75rem; font-weight: 800; color: var(--tx3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+        .chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip-pill {
+            padding: 5px 11px; border-radius: 100px; font-size: .74rem; font-weight: 600;
+            background: var(--bg3); border: 1px solid var(--bd); color: var(--tx2); cursor: pointer; transition: .15s; user-select: none;
+        }
+        .chip-pill:hover { border-color: var(--pr); color: var(--tx); }
+        .chip-pill.active { background: var(--prl); border-color: var(--pr); color: var(--pr2); font-weight: 800; box-shadow: 0 0 10px var(--prb); }
+
+        /* ── RATIO SWITCHER PILLS ── */
+        .ratio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 6px; }
+        .ratio-btn {
+            padding: 10px 6px; text-align: center; border: 2px solid var(--bd); border-radius: var(--r);
+            background: var(--bg3); color: var(--tx2); font-size: .76rem; font-weight: 700; cursor: pointer; transition: .2s;
+        }
+        .ratio-btn.active { border-color: var(--pr); background: var(--prl); color: var(--pr2); }
+
         /* ── BUTTONS ── */
         .btn-primary {
-            padding: 12px 20px; border-radius: var(--r); font-size: .9rem; font-weight: 800;
+            padding: 12px 22px; border-radius: var(--r); font-size: .9rem; font-weight: 800;
             background: linear-gradient(135deg, var(--pr), var(--pr2)); border: none; color: #fff;
             cursor: pointer; transition: .2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px var(--prb);
         }
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(139,92,246,.5); }
-        .btn-primary:active { transform: translateY(1px); }
         .btn-secondary {
-            padding: 10px 16px; border-radius: var(--r); font-size: .82rem; font-weight: 700;
+            padding: 9px 14px; border-radius: var(--r); font-size: .8rem; font-weight: 700;
             background: var(--bg3); border: 1px solid var(--bd); color: var(--tx);
             cursor: pointer; transition: .2s; display: inline-flex; align-items: center; gap: 6px;
         }
         .btn-secondary:hover { background: var(--bd); color: var(--pr); }
 
-        /* ── IMAGE GALLERY GRID ── */
-        .image-preview-box {
-            background: var(--bg3); border: 2px dashed var(--bd); border-radius: var(--r2);
-            min-height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 16px; position: relative; overflow: hidden;
+        /* ── DYNAMIC ANTI-DISTORTION PREVIEW CONTAINER ── */
+        .image-preview-wrapper {
+            background: #000; border: 1px solid var(--bd); border-radius: var(--r2);
+            min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 16px; position: relative; overflow: hidden; box-shadow: var(--sh2);
         }
-        .generated-img { width: 100%; max-width: 480px; border-radius: var(--r); box-shadow: var(--sh2); object-fit: cover; aspect-ratio: 9/16; }
-        .img-actions-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; justify-content: center; }
+        .image-preview-wrapper img {
+            max-width: 100%; max-height: 520px; width: auto; height: auto;
+            border-radius: 12px; object-fit: contain; box-shadow: 0 8px 30px rgba(0,0,0,.7); transition: .3s ease;
+        }
+        .img-actions-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; justify-content: center; width: 100%; }
 
-        /* ── STORYBOARD TIMELINE ── */
-        .storyboard-grid { display: flex; flex-direction: column; gap: 16px; }
+        /* ── STORYBOARD & CAPTION ── */
+        .storyboard-grid { display: flex; flex-direction: column; gap: 14px; }
         .scene-card {
             background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2);
-            padding: 18px; display: grid; grid-template-columns: 80px 1fr 180px; gap: 16px; align-items: start;
+            padding: 16px; display: grid; grid-template-columns: 80px 1fr 160px; gap: 14px; align-items: start;
         }
-        .scene-badge {
-            background: var(--prl); border: 1px solid var(--prb); color: var(--pr2);
-            padding: 8px; border-radius: var(--r); text-align: center; font-weight: 800; font-size: .82rem;
-        }
-        .scene-content h4 { font-size: .95rem; font-weight: 800; margin-bottom: 6px; color: var(--tx); }
-        .scene-content p { font-size: .82rem; color: var(--tx2); line-height: 1.5; margin-bottom: 8px; }
-        .scene-content .script-box { background: var(--bg3); padding: 8px 12px; border-radius: 8px; border-left: 3px solid var(--cyan); font-size: .8rem; font-style: italic; color: var(--tx); }
-        .scene-preview-thumb { width: 100%; aspect-ratio: 9/16; border-radius: 10px; background: var(--bg3); border: 1px solid var(--bd); display: flex; align-items: center; justify-content: center; font-size: .75rem; color: var(--tx3); text-align: center; overflow: hidden; }
+        .scene-badge { background: var(--prl); border: 1px solid var(--prb); color: var(--pr2); padding: 8px; border-radius: var(--r); text-align: center; font-weight: 800; font-size: .8rem; }
+        .scene-preview-thumb { width: 100%; max-height: 160px; aspect-ratio: 9/16; border-radius: 10px; background: var(--bg3); border: 1px solid var(--bd); display: flex; align-items: center; justify-content: center; font-size: .72rem; color: var(--tx3); text-align: center; overflow: hidden; }
         .scene-preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ── CAPTION PLATFORM TABS ── */
-        .platform-nav { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
+        .platform-nav { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; }
         .platform-btn { padding: 8px 14px; border-radius: 100px; font-size: .78rem; font-weight: 700; background: var(--bg3); border: 1px solid var(--bd); color: var(--tx2); cursor: pointer; white-space: nowrap; }
         .platform-btn.active { background: var(--cyanl); border-color: var(--cyan); color: var(--cyan); }
         .caption-box { background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r); padding: 16px; font-size: .85rem; line-height: 1.6; white-space: pre-wrap; color: var(--tx); }
 
-        /* ── VIDEO ENGINE PROMPT CARDS ── */
-        .video-card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2); padding: 20px; margin-bottom: 16px; }
+        .video-card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r2); padding: 18px; margin-bottom: 14px; }
         .prompt-code { background: var(--bg3); border: 1px solid var(--bd); border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: #38bdf8; word-break: break-all; margin: 10px 0; }
 
-        /* ── LOADERS & ALERTS ── */
-        .loader-spinner { width: 36px; height: 36px; border: 3px solid var(--bd); border-top-color: var(--pr); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 12px; }
+        .loader-spinner { width: 40px; height: 40px; border: 3px solid var(--bd); border-top-color: var(--pr); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 12px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             .tabs-nav { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .ref-upload-grid { grid-template-columns: 1fr; }
             .scene-card { grid-template-columns: 1fr; }
-            .scene-preview-thumb { max-width: 140px; }
+            .ratio-grid { grid-template-columns: repeat(2, 1fr); }
             .header { padding: 10px 14px; }
         }
     </style>
@@ -215,74 +223,22 @@
 
     <!-- HERO BANNER -->
     <div class="ugc-banner">
-        <div class="badge-pill">⚡ Next-Gen UGC & AI Influencer Engine</div>
-        <h1 style="font-size:1.6rem;font-weight:900;">Pabrik Visual AI Influencer & Video Promosi</h1>
-        <p style="font-size:.88rem;color:var(--tx2);max-width:800px;line-height:1.5;">
-            Bangun persona <b>AI Influencer</b>, generate foto produk fotorealistik (Banana & Flux Free), racik <b>Storyboard 5-Scene</b>, dan siapkan prompt video 1080p/4K untuk Shopee Video, TikTok & YouTube Shorts.
+        <div class="badge-pill">⚡ Google Labs Flow & Multi-Engine Architecture</div>
+        <h1 style="font-size:1.5rem;font-weight:900;">Visual Control Studio & Video UGC Generator</h1>
+        <p style="font-size:.85rem;color:var(--tx2);max-width:850px;line-height:1.5;">
+            Sistem visual kontrol presisi: Upload referensi karakter & produk, pilih keyword chips sinematik, generate foto fotorealistik <b>Anti-Distorsi</b> (Flux & Banana Free), racik Storyboard 5-Scene, dan ekspor prompt video 1080p/4K.
         </p>
-    </div>
-
-    <!-- ═══ MASTER INPUT SECTION ═══ -->
-    <div class="input-card">
-        <div class="section-title">
-            <span>⚙️</span> Profil Karakter & Data Produk
-        </div>
-        
-        <div class="form-grid">
-            <!-- Karakter / AI Influencer -->
-            <div class="form-group">
-                <label class="form-label">👤 Karakter / AI Influencer</label>
-                <input type="text" id="characterPrompt" class="form-input" placeholder="Contoh: Wanita Asia 23th, kulit glowing, outfit casual minimalis, rambut hitam sebahu" value="Wanita Indonesia 22 tahun, cantik natural, kulit bersih glowing, gaya busana casual aesthetic">
-                <div class="preset-pills">
-                    <span class="preset-btn active" onclick="setCharPreset('skincare')">✨ Skincare Girl</span>
-                    <span class="preset-btn" onclick="setCharPreset('hijab')">🧕 Hijab Fashion</span>
-                    <span class="preset-btn" onclick="setCharPreset('tech')">🎧 Tech Reviewer</span>
-                    <span class="preset-btn" onclick="setCharPreset('casual')">☕ Gen-Z Cafe</span>
-                    <span class="preset-btn" onclick="setCharPreset('fitness')">🏃‍♀️ Fitness & Gym</span>
-                </div>
-            </div>
-
-            <!-- Detail Produk -->
-            <div class="form-group">
-                <label class="form-label">📦 Nama & Kategori Produk</label>
-                <input type="text" id="productName" class="form-input" placeholder="Contoh: Serum Vitamin C Brightening / Botol Tumbler Stainless" value="Serum Brightening Niacinamide 10%">
-                <div class="preset-pills">
-                    <span class="preset-btn active" onclick="setProdPreset('beauty')">💄 Beauty & Skincare</span>
-                    <span class="preset-btn" onclick="setProdPreset('fashion')">👗 Fashion & OOTD</span>
-                    <span class="preset-btn" onclick="setProdPreset('gadget')">📱 Gadget & Aksesoris</span>
-                    <span class="preset-btn" onclick="setProdPreset('home')">🏠 Home & Living</span>
-                </div>
-            </div>
-
-            <!-- Deskripsi & Selling Point -->
-            <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">💡 Keunggulan Utama & Target Masalah (USP)</label>
-                <textarea id="productUSP" class="form-textarea" placeholder="Contoh: Mencerahkan noda hitam dalam 7 hari, tekstur ringan tidak lengket, promo beli 1 gratis 1 di keranjang kuning.">Mencerahkan flek hitam & kulit kusam dalam 7 hari, tekstur seringan air cepat meresap, BPOM approved, harga promo kilat Rp 49.000 hanya di keranjang kuning!</textarea>
-            </div>
-
-            <!-- API Key Gemini (BYOK) -->
-            <div class="form-group" style="grid-column: 1 / -1; display:flex; flex-direction:row; align-items:center; justify-content:space-between; background:var(--bg3); padding:10px 14px; border-radius:var(--r); border:1px solid var(--bd);">
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:1.1rem;">🔑</span>
-                    <div>
-                        <p style="font-size:.78rem;font-weight:700;">Google Gemini API Key (BYOK Free Tier)</p>
-                        <p style="font-size:.7rem;color:var(--tx3);">Untuk generate naskah, caption SEO & storyboard (Tersimpan aman di HP).</p>
-                    </div>
-                </div>
-                <input type="password" id="geminiKey" class="form-input" style="max-width:240px;" placeholder="AIzaSy..." onchange="localStorage.setItem('ebook_apikey', this.value)">
-            </div>
-        </div>
     </div>
 
     <!-- ═══ MODULAR 4-TAB NAVIGATION ═══ -->
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab('tab-photo')">
             <span class="icon">🖼️</span>
-            <span>Studio Foto AI</span>
+            <span>Studio Foto AI (Flow)</span>
         </button>
         <button class="tab-btn" onclick="switchTab('tab-caption')">
             <span class="icon">📝</span>
-            <span>Caption SEO</span>
+            <span>Caption SEO Multi-App</span>
         </button>
         <button class="tab-btn" onclick="switchTab('tab-storyboard')">
             <span class="icon">🎬</span>
@@ -290,70 +246,154 @@
         </button>
         <button class="tab-btn" onclick="switchTab('tab-video')">
             <span class="icon">🎥</span>
-            <span>Studio Video</span>
+            <span>Studio Video (1080p/4K)</span>
         </button>
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════════
-         TAB 1: STUDIO FOTO AI (BANANA & FLUX FREE ENGINES)
+         TAB 1: STUDIO FOTO AI (GOOGLE LABS FLOW WORKSPACE)
     ═══════════════════════════════════════════════════════════════ -->
     <div class="tab-panel active" id="tab-photo">
-        <div class="input-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
-                <div>
-                    <h3 style="font-size:1.1rem;font-weight:800;">Studio Foto AI Influencer & Produk</h3>
-                    <p style="font-size:.8rem;color:var(--tx2);">Generate foto realistis model AI memegang produk tanpa biaya kredit (100% Free Engine).</p>
+        
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+            
+            <!-- LEFT COLUMN: FLOW CONTROLS & PROMPT CHIPS -->
+            <div class="card">
+                <div class="section-title">
+                    <span>🎛️</span> Google Labs Flow Workspace
                 </div>
-                
-                <!-- Model Switcher & Aspect Ratio -->
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                    <select id="photoModel" class="form-select" style="width:auto;">
-                        <option value="flux">⚡ Flux.1 Schnell (Fotorealistik Tinggi)</option>
-                        <option value="flux-realism">✨ Flux Realism (Tekstur Kulit Asli)</option>
-                        <option value="turbo">🍌 Banana / Turbo (Kecepatan Kilat)</option>
-                    </select>
 
-                    <select id="photoRatio" class="form-select" style="width:auto;">
-                        <option value="9:16">📱 9:16 (TikTok / Reels / Shorts)</option>
-                        <option value="1:1">⬜ 1:1 (Feed IG / Shopee)</option>
-                        <option value="16:9">🖥️ 16:9 (Landscape YouTube)</option>
-                    </select>
+                <!-- 1. DUAL REFERENCE UPLOAD BOXES -->
+                <div class="form-label" style="margin-bottom:6px;">📸 Upload Referensi Visual (Karakter & Produk)</div>
+                <div class="ref-upload-grid">
+                    <!-- Ref Karakter -->
+                    <div class="ref-upload-box" onclick="document.getElementById('charFileInput').click()">
+                        <span style="font-size:1.4rem;">👤</span>
+                        <p style="font-size:.75rem;font-weight:700;margin-top:4px;">Foto Wajah / Model</p>
+                        <p style="font-size:.65rem;color:var(--tx3);">Klik untuk upload referensi</p>
+                        <input type="file" id="charFileInput" accept="image/*" style="display:none;" onchange="previewUpload(this, 'charPreviewImg')">
+                        <img id="charPreviewImg" class="ref-preview" alt="Karakter">
+                    </div>
 
-                    <button class="btn-primary" onclick="generatePhoto()">
-                        <span>⚡ Generate Foto Baru</span>
-                    </button>
+                    <!-- Ref Produk -->
+                    <div class="ref-upload-box" onclick="document.getElementById('prodFileInput').click()">
+                        <span style="font-size:1.4rem;">📦</span>
+                        <p style="font-size:.75rem;font-weight:700;margin-top:4px;">Foto Produk Asli</p>
+                        <p style="font-size:.65rem;color:var(--tx3);">Klik untuk upload referensi</p>
+                        <input type="file" id="prodFileInput" accept="image/*" style="display:none;" onchange="previewUpload(this, 'prodPreviewImg')">
+                        <img id="prodPreviewImg" class="ref-preview" alt="Produk">
+                    </div>
                 </div>
+
+                <!-- 2. MASTER PROMPT TEXTAREA & SMART REFINER -->
+                <div class="form-group">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <label class="form-label">✍️ Tulis Prompt Gambar Bebas</label>
+                        <button type="button" class="btn-secondary" style="font-size:.7rem;padding:4px 8px;" onclick="refinePromptAI()">✨ Perluas Prompt AI</button>
+                    </div>
+                    <textarea id="promptInput" class="form-textarea" placeholder="Ketik prompt visual di sini atau klik chip di bawah untuk menambahkan detail otomatis...">Photorealistic commercial shot of an attractive Indonesian female influencer happily holding and applying serum, authentic dewy glowing skin texture, soft indoor studio lighting, commercial 8k resolution.</textarea>
+                </div>
+
+                <!-- 3. INTERACTIVE KEYWORD CHIPS (GOOGLE LABS FLOW STYLE) -->
+                <div class="chip-category">
+                    <div class="chip-category-title">💡 Pencahayaan (Lighting)</div>
+                    <div class="chips-wrap">
+                        <span class="chip-pill" onclick="toggleChip(this, 'golden hour warm lighting')">🌅 Golden Hour</span>
+                        <span class="chip-pill active" onclick="toggleChip(this, 'soft natural studio light')">💡 Studio Soft</span>
+                        <span class="chip-pill" onclick="toggleChip(this, 'dramatic rim lighting')">⚡ Rim Light</span>
+                        <span class="chip-pill" onclick="toggleChip(this, 'neon cyber reflection')">🟣 Neon Cyber</span>
+                        <span class="chip-pill" onclick="toggleChip(this, 'bright sunbeam flare')">☀️ Sunbeam</span>
+                    </div>
+                </div>
+
+                <div class="chip-category">
+                    <div class="chip-category-title">📸 Sudut Lensa (Camera Angle)</div>
+                    <div class="chips-wrap">
+                        <span class="chip-pill" onclick="toggleChip(this, 'macro close-up texture shot')">🔍 Macro Texture</span>
+                        <span class="chip-pill active" onclick="toggleChip(this, 'eye-level portrait shot')">👁️ Eye-Level Portrait</span>
+                        <span class="chip-pill" onclick="toggleChip(this, '85mm lens portrait shallow depth of field')">📷 85mm Bokeh F/1.4</span>
+                        <span class="chip-pill" onclick="toggleChip(this, 'low angle hero product view')">📐 Low-Angle Hero</span>
+                    </div>
+                </div>
+
+                <div class="chip-category">
+                    <div class="chip-category-title">🎨 Estetika & Kualitas</div>
+                    <div class="chips-wrap">
+                        <span class="chip-pill active" onclick="toggleChip(this, 'raw commercial photography, authentic skin pores')">✨ Raw Realism</span>
+                        <span class="chip-pill" onclick="toggleChip(this, 'vogue luxury magazine cover editorial')">💎 Vogue Magazine</span>
+                        <span class="chip-pill" onclick="toggleChip(this, 'clean minimalist aesthetic backdrop')">🤍 Clean Minimalist</span>
+                        <span class="chip-pill" onclick="toggleChip(this, '35mm analog film aesthetic')">🎞️ 35mm Film</span>
+                    </div>
+                </div>
+
+                <!-- 4. ENGINE & ASPECT RATIO -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+                    <div class="form-group">
+                        <label class="form-label">🤖 Engine Model (100% Free)</label>
+                        <select id="engineSelect" class="form-select">
+                            <option value="flux">⚡ Flux.1 Schnell (Realism)</option>
+                            <option value="flux-realism">✨ Flux Realism (Kulit Asli)</option>
+                            <option value="turbo">🍌 Banana / Turbo (Kilat)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">🔑 Gemini Key (BYOK)</label>
+                        <input type="password" id="geminiKeyInput" class="form-input" placeholder="AIzaSy..." onchange="localStorage.setItem('ebook_apikey', this.value)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">📐 Format Aspek Rasio (Anti-Tarik)</label>
+                    <div class="ratio-grid">
+                        <div class="ratio-btn active" onclick="setRatio('9:16', 720, 1280, this)">📱 9:16<br><span style="font-size:.65rem;">TikTok/Shorts</span></div>
+                        <div class="ratio-btn" onclick="setRatio('1:1', 1024, 1024, this)">⬜ 1:1<br><span style="font-size:.65rem;">Feed/Shopee</span></div>
+                        <div class="ratio-btn" onclick="setRatio('4:5', 864, 1080, this)">📸 4:5<br><span style="font-size:.65rem;">Portrait IG</span></div>
+                        <div class="ratio-btn" onclick="setRatio('16:9', 1280, 720, this)">🖥️ 16:9<br><span style="font-size:.65rem;">YouTube Wide</span></div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" style="width:100%;margin-top:10px;" onclick="generateFlowImage()">
+                    <span>⚡ Generate Foto Sesuai Flow (Anti-Distorsi)</span>
+                </button>
             </div>
 
-            <!-- Preview Box -->
-            <div class="image-preview-box" id="photoPreviewBox">
-                <img id="mainPhotoImg" class="generated-img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=720&h=1280" alt="Generated AI Influencer">
-                
-                <div class="img-actions-bar" id="photoActionsBar">
-                    <button class="btn-secondary" onclick="downloadImage('mainPhotoImg', 'Ziyan_UGC_HD.jpg')">📥 Download HD</button>
-                    <button class="btn-secondary" onclick="download4k('mainPhotoImg')">🌟 Download 4K Upscale</button>
+            <!-- RIGHT COLUMN: DYNAMIC PREVIEW & DOWNLOADS -->
+            <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
+                <div class="section-title">
+                    <span>🖼️</span> Hasil Rendering Resolusi Asli
+                </div>
+
+                <div class="image-preview-wrapper" id="flowPreviewBox">
+                    <img id="flowImageResult" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=720&h=1280" alt="Generated UGC Photo">
+                </div>
+
+                <div class="img-actions-bar" id="flowActionsBar">
+                    <button class="btn-secondary" onclick="downloadImage('flowImageResult', 'Ziyan_UGC_HD.jpg')">📥 Download HD Asli</button>
+                    <button class="btn-secondary" onclick="download4k('flowImageResult')">🌟 Download 4K Upscale</button>
+                    <button class="btn-secondary" onclick="generateFlowImage(true)">🎲 Acak Variasi (Re-Roll)</button>
                     <button class="btn-secondary" onclick="sendToVideoTab()">🎥 Jadikan Referensi Video</button>
                 </div>
             </div>
+
         </div>
+
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════════
-         TAB 2: CAPTION SEO MULTI-PLATFORM
+         TAB 2: CAPTION SEO MULTI-APP
     ═══════════════════════════════════════════════════════════════ -->
     <div class="tab-panel" id="tab-caption">
-        <div class="input-card">
+        <div class="card">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
                 <div>
                     <h3 style="font-size:1.1rem;font-weight:800;">Caption SEO & Copywriting Viral</h3>
-                    <p style="font-size:.8rem;color:var(--tx2);">Naskah copywriting berstruktur Hook 3 Detik + Call-To-Action + 15 Hashtag SEO tertarget.</p>
+                    <p style="font-size:.8rem;color:var(--tx2);">Naskah copywriting Hook 3 Detik + Call-To-Action + 15 Hashtag Algoritma.</p>
                 </div>
                 <button class="btn-primary" onclick="generateCaptions()">
                     <span>✨ Generate Semua Caption</span>
                 </button>
             </div>
 
-            <!-- Platform Switcher -->
             <div class="platform-nav">
                 <button class="platform-btn active" onclick="switchPlatform('tiktok')">🎵 TikTok</button>
                 <button class="platform-btn" onclick="switchPlatform('shopee')">🛍️ Shopee Video</button>
@@ -361,7 +401,6 @@
                 <button class="platform-btn" onclick="switchPlatform('shorts')">📺 YouTube Shorts</button>
             </div>
 
-            <!-- Dynamic Caption Area -->
             <div class="caption-box" id="captionContent">Klik tombol "Generate Semua Caption" untuk meracik naskah viral dan hashtag SEO yang dioptimasi khusus untuk produk Anda.</div>
 
             <div style="display:flex;gap:8px;margin-top:12px;">
@@ -374,7 +413,7 @@
          TAB 3: STORYBOARD STUDIO (5-SCENE FLOW)
     ═══════════════════════════════════════════════════════════════ -->
     <div class="tab-panel" id="tab-storyboard">
-        <div class="input-card">
+        <div class="card">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
                 <div>
                     <h3 style="font-size:1.1rem;font-weight:800;">Storyboard Studio (5 Alur Scene)</h3>
@@ -395,7 +434,7 @@
          TAB 4: STUDIO VIDEO (IMAGE-TO-VIDEO & CAMERA PROMPTS)
     ═══════════════════════════════════════════════════════════════ -->
     <div class="tab-panel" id="tab-video">
-        <div class="input-card">
+        <div class="card">
             <div style="margin-bottom:16px;">
                 <h3 style="font-size:1.1rem;font-weight:800;">Studio Prompt Video (1080p & 4K Camera Direction)</h3>
                 <p style="font-size:.8rem;color:var(--tx2);">Prompt terstruktur dengan instruksi gerakan kamera (Pan, Zoom, Tilt, Lighting) yang siap disalin ke engine video AI.</p>
@@ -431,20 +470,21 @@
 
 <!-- ═══ SCRIPT LOGIC ═══ -->
 <script>
-    // --- STATE MANAGEMENT ---
+    const KEY_PARTS = ['AQ', 'Ab8RN6IqlDYc63LpoZDn9lNdWxAzTcdtGsKYFc74ivHuJwzQdA'];
     const state = {
         currentTab: 'tab-photo',
         currentPlatform: 'tiktok',
+        selectedRatio: '9:16',
+        targetW: 720,
+        targetH: 1280,
         captions: {},
         storyboard: [],
-        generatedImageURL: ''
+        activeChips: new Set(['soft natural studio light', 'eye-level portrait shot', 'raw commercial photography, authentic skin pores'])
     };
 
-    // Auto load API key from local storage
-    const KEY_PARTS = ['AQ', 'Ab8RN6IqlDYc63LpoZDn9lNdWxAzTcdtGsKYFc74ivHuJwzQdA'];
     (function init() {
         const savedKey = localStorage.getItem('ebook_apikey') || KEY_PARTS.join('.');
-        if (savedKey) document.getElementById('geminiKey').value = savedKey;
+        if (savedKey) document.getElementById('geminiKeyInput').value = savedKey;
 
         const mode = localStorage.getItem('ugc_mode') || 'dark';
         document.documentElement.setAttribute('data-mode', mode);
@@ -470,34 +510,6 @@
         }
     });
 
-    // --- PRESETS ---
-    function setCharPreset(type) {
-        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        const map = {
-            skincare: 'Wanita Indonesia 22 tahun, cantik natural, kulit bersih glowing, gaya busana casual aesthetic',
-            hijab: 'Wanita Muslimah Indonesia 24 tahun, berhijab modern stylish, senyum ramah, kulit cerah terawat',
-            tech: 'Pria muda 25 tahun, gaya smart casual, memakai kacamata modern, pembawaan antusias dan profesional',
-            casual: 'Gadis muda 20 tahun, aesthetic cafe vibe, makeup natural dewy, gaya santai Gen-Z',
-            fitness: 'Wanita sporty 24 tahun, pakaian atletik aktif, bugar dan berenergi tinggi'
-        };
-        if (map[type]) document.getElementById('characterPrompt').value = map[type];
-    }
-
-    function setProdPreset(type) {
-        const map = {
-            beauty: { name: 'Serum Brightening Niacinamide 10%', usp: 'Mencerahkan flek hitam & kulit kusam dalam 7 hari, tekstur seringan air cepat meresap, BPOM approved, harga promo Rp 49.000 di keranjang kuning!' },
-            fashion: { name: 'Cardigan Knit Oversize Premium', usp: 'Bahan rajut halus tebal tidak panas, cuttingan jatuh bikin badan ramping, 6 pilihan warna pastel aesthetic, diskon 40% hari ini!' },
-            gadget: { name: 'TWS Bluetooth 5.3 Noise Cancelling', usp: 'Bass nendang, baterai tahan 30 jam, latensi rendah buat gaming & dengerin musik, garansi ganti baru 1 tahun!' },
-            home: { name: 'Humidifier Aromaterapi Api Mini', usp: 'Bikin ruangan wangi dan rileks, efek api visual estetik, otomatis mati saat air habis, cocok untuk meja kerja & kamar tidur.' }
-        };
-        if (map[type]) {
-            document.getElementById('productName').value = map[type].name;
-            document.getElementById('productUSP').value = map[type].usp;
-        }
-    }
-
-    // --- TAB SWITCHER ---
     function switchTab(tabId) {
         state.currentTab = tabId;
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -507,47 +519,99 @@
         document.getElementById(tabId).classList.add('active');
     }
 
-    // --- TAB 1: GENERATE FOTO (BANANA & FLUX FREE ENGINE) ---
-    async function generatePhoto() {
-        const char = document.getElementById('characterPrompt').value.trim();
-        const prod = document.getElementById('productName').value.trim();
-        const model = document.getElementById('photoModel').value;
-        const ratio = document.getElementById('photoRatio').value;
+    // --- GOOGLE LABS FLOW: CHIPS TOGGLE ---
+    function toggleChip(elem, chipText) {
+        elem.classList.toggle('active');
+        if (elem.classList.contains('active')) {
+            state.activeChips.add(chipText);
+        } else {
+            state.activeChips.delete(chipText);
+        }
+        updatePromptWithChips();
+    }
 
-        const box = document.getElementById('photoPreviewBox');
+    function updatePromptWithChips() {
+        const base = document.getElementById('promptInput').value.split(' | ')[0];
+        const chips = Array.from(state.activeChips).join(', ');
+        if (chips) {
+            document.getElementById('promptInput').value = `${base} | ${chips}`;
+        }
+    }
+
+    // --- ASPECT RATIO SWITCHER (ANTI-DISTORTION) ---
+    function setRatio(ratioStr, w, h, btnElem) {
+        state.selectedRatio = ratioStr;
+        state.targetW = w;
+        state.targetH = h;
+        document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+        btnElem.classList.add('active');
+    }
+
+    // --- PREVIEW UPLOAD ---
+    function previewUpload(input, targetImgId) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.getElementById(targetImgId);
+                img.src = e.target.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // --- SMART PROMPT REFINER (GEMINI AI) ---
+    async function refinePromptAI() {
+        const apiKey = document.getElementById('geminiKeyInput').value.trim();
+        const raw = document.getElementById('promptInput').value.trim();
+        if (!apiKey) { alert('Masukkan API Key Gemini terlebih dahulu.'); return; }
+
+        const btn = event.target;
+        btn.textContent = '⏳ Memperluas...';
+
+        const prompt = `You are a Google Labs ImageFX / Midjourney Master Prompt Engineer.
+Convert this simple prompt into a stunning, photorealistic 8K cinematic commercial prompt for AI Influencer & product advertisement:
+"${raw}"
+
+Rules:
+- Include specific camera lighting (Hasselblad, soft diffused studio light, rim glow).
+- Include skin texture details (authentic skin pores, micro-details, dewy finish).
+- Include product aesthetics and bokeh background.
+- Return ONLY the enhanced English prompt string without any quotes or markdown.`;
+
+        try {
+            const enhanced = await callGeminiAI(apiKey, prompt);
+            if (enhanced) document.getElementById('promptInput').value = enhanced.trim();
+        } catch (e) {
+            alert('Gagal memperluas prompt: ' + e.message);
+        } finally {
+            btn.textContent = '✨ Perluas Prompt AI';
+        }
+    }
+
+    // --- GENERATE FLOW IMAGE (BANANA & FLUX ENGINE) ---
+    function generateFlowImage(isReroll = false) {
+        const promptText = document.getElementById('promptInput').value.trim();
+        const model = document.getElementById('engineSelect').value;
+        const box = document.getElementById('flowPreviewBox');
+
         box.innerHTML = `
             <div class="loader-spinner"></div>
-            <p style="font-weight:700;color:var(--pr);">Sedang me-render foto AI Influencer & Produk...</p>
-            <p style="font-size:.75rem;color:var(--tx3);margin-top:4px;">Menggunakan Engine: ${model.toUpperCase()} (100% Free)</p>
+            <p style="font-weight:700;color:var(--pr);">Sedang me-render Foto Flow AI...</p>
+            <p style="font-size:.75rem;color:var(--tx3);margin-top:4px;">Aspek Rasio: ${state.selectedRatio} (${state.targetW}x${state.targetH}) • Engine: ${model.toUpperCase()}</p>
         `;
 
-        // Dimensions map
-        let w = 720, h = 1280;
-        if (ratio === '1:1') { w = 1024; h = 1024; }
-        else if (ratio === '16:9') { w = 1280; h = 720; }
+        const seed = Math.floor(Math.random() * 10000000);
+        const encodedPrompt = encodeURIComponent(promptText);
+        const imgUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=${model}&width=${state.targetW}&height=${state.targetH}&nologo=true&seed=${seed}`;
 
-        // Construct high-converting photorealistic prompt
-        const prompt = `Photorealistic commercial photography, an attractive ${char}, happily holding and showcasing ${prod}, aesthetic modern indoor studio background, soft natural cinematic lighting, sharp focus on face and product, 8k resolution, authentic skin texture, beautiful eyes, professional color grading.`;
-        const seed = Math.floor(Math.random() * 1000000);
-        const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?model=${model}&width=${w}&height=${h}&nologo=true&seed=${seed}`;
-
-        state.generatedImageURL = imgUrl;
-
-        // Preload image
         const img = new Image();
         img.src = imgUrl;
         img.onload = () => {
-            box.innerHTML = `
-                <img id="mainPhotoImg" class="generated-img" src="${imgUrl}" alt="Generated AI Influencer">
-                <div class="img-actions-bar" id="photoActionsBar">
-                    <button class="btn-secondary" onclick="downloadImage('mainPhotoImg', 'Ziyan_UGC_HD.jpg')">📥 Download HD</button>
-                    <button class="btn-secondary" onclick="download4k('mainPhotoImg')">🌟 Download 4K Upscale</button>
-                    <button class="btn-secondary" onclick="sendToVideoTab()">🎥 Jadikan Referensi Video</button>
-                </div>
-            `;
+            box.innerHTML = `<img id="flowImageResult" src="${imgUrl}" alt="Generated Flow Image">`;
         };
         img.onerror = () => {
-            box.innerHTML = `<p style="color:var(--red);">Gagal memuat gambar. Coba ganti model ke Banana/Turbo.</p>`;
+            box.innerHTML = `<p style="color:var(--red);">Gagal memuat gambar. Coba pilih model Banana/Turbo.</p>`;
         };
     }
 
@@ -555,40 +619,35 @@
         document.querySelectorAll('.tab-btn')[3].click();
     }
 
-    // --- TAB 2: GENERATE CAPTIONS (GEMINI API) ---
+    // --- TAB 2: CAPTIONS ---
     async function generateCaptions() {
-        const apiKey = document.getElementById('geminiKey').value.trim();
-        const char = document.getElementById('characterPrompt').value.trim();
-        const prod = document.getElementById('productName').value.trim();
-        const usp = document.getElementById('productUSP').value.trim();
-
+        const apiKey = document.getElementById('geminiKeyInput').value.trim();
+        const promptText = document.getElementById('promptInput').value.trim();
         if (!apiKey) { alert('Masukkan API Key Gemini terlebih dahulu.'); return; }
 
         document.getElementById('captionContent').textContent = '⏳ Sedang meracik caption SEO viral untuk TikTok, Shopee, Reels, dan Shorts...';
 
-        const prompt = `Kamu adalah pakar Copywriting Viral & SEO media sosial nomor 1 di Indonesia.
-Produk: ${prod}
-Karakter Kreator: ${char}
-Keunggulan Produk (USP): ${usp}
+        const prompt = `Pakar Copywriting Viral & SEO media sosial Indonesia.
+Berdasarkan konteks produk: "${promptText}".
 
-Buatkan 4 variasi caption SEO lengkap untuk masing-masing platform:
+Buatkan 4 variasi caption SEO lengkap untuk:
 1. TikTok
 2. Shopee Video
 3. Instagram Reels
 4. YouTube Shorts
 
 Setiap caption HARUS memiliki:
-- Hook 3 detik pertama yang bikin berhenti scroll
-- Pembahasan masalah & solusi nyata
+- Hook 3 detik pertama pencegah scroll
+- Pembahasan solusi & rasa penasaran
 - Call To Action (ajakan klik keranjang kuning / beli sekarang)
 - 15 Hashtag SEO tertarget
 
-Format output JSON murni tanpa markdown block:
+Format output JSON murni:
 {
-  "tiktok": "isi caption tiktok...",
-  "shopee": "isi caption shopee...",
-  "reels": "isi caption reels...",
-  "shorts": "isi caption shorts..."
+  "tiktok": "caption...",
+  "shopee": "caption...",
+  "reels": "caption...",
+  "shorts": "caption..."
 }`;
 
         try {
@@ -597,7 +656,7 @@ Format output JSON murni tanpa markdown block:
             state.captions = JSON.parse(clean);
             switchPlatform(state.currentPlatform);
         } catch (e) {
-            document.getElementById('captionContent').textContent = '❌ Gagal menghasilkan caption: ' + e.message;
+            document.getElementById('captionContent').textContent = '❌ Gagal: ' + e.message;
         }
     }
 
@@ -605,47 +664,33 @@ Format output JSON murni tanpa markdown block:
         state.currentPlatform = plat;
         document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
         event?.target?.classList.add('active');
-
-        const text = state.captions[plat] || 'Belum ada caption untuk platform ini. Klik tombol "Generate Semua Caption" di atas.';
-        document.getElementById('captionContent').textContent = text;
+        document.getElementById('captionContent').textContent = state.captions[plat] || 'Belum ada caption. Klik tombol "Generate Semua Caption" di atas.';
     }
 
     function copyCaption() {
         const text = document.getElementById('captionContent').textContent;
-        navigator.clipboard.writeText(text).then(() => alert('✅ Caption berhasil disalin ke Clipboard!'));
+        navigator.clipboard.writeText(text).then(() => alert('✅ Caption berhasil disalin!'));
     }
 
-    // --- TAB 3: GENERATE STORYBOARD (GEMINI API) ---
+    // --- TAB 3: STORYBOARD ---
     async function generateStoryboard() {
-        const apiKey = document.getElementById('geminiKey').value.trim();
-        const char = document.getElementById('characterPrompt').value.trim();
-        const prod = document.getElementById('productName').value.trim();
-        const usp = document.getElementById('productUSP').value.trim();
-
+        const apiKey = document.getElementById('geminiKeyInput').value.trim();
+        const promptText = document.getElementById('promptInput').value.trim();
         if (!apiKey) { alert('Masukkan API Key Gemini terlebih dahulu.'); return; }
 
         const container = document.getElementById('storyboardContainer');
-        container.innerHTML = '<p style="text-align:center;padding:30px 0;">⏳ Sedang menyusun 5 adegan Storyboard terstruktur...</p>';
+        container.innerHTML = '<p style="text-align:center;padding:30px 0;">⏳ Sedang menyusun 5 scene Storyboard...</p>';
 
-        const prompt = `Kamu adalah sutradara video iklan pendek profesional.
-Buat Storyboard 5 Scene berdurasi total 25 detik untuk mempromosikan produk: ${prod}.
-Karakter: ${char}
-Keunggulan: ${usp}
+        const prompt = `Sutradara video iklan pendek.
+Buat Storyboard 5 Scene berdurasi 25 detik untuk iklan produk: "${promptText}".
 
-Struktur 5 Scene:
-- Scene 1: The Hook (3s) - Menarik perhatian
-- Scene 2: The Problem (5s) - Masalah yang dialami penonton
-- Scene 3: The Solution / Detail Produk (6s) - Penjelasan produk
-- Scene 4: Real Action / Pemakaian (6s) - Bukti hasil pemakaian
-- Scene 5: Closing CTA (5s) - Ajakan beli di keranjang kuning
-
-Format output JSON murni tanpa markdown block:
+Format output JSON murni:
 {
   "scenes": [
     {
       "num": 1,
       "title": "The 3-Second Hook",
-      "visual": "Deskripsi visual adegan untuk prompt gambar/video",
+      "visual": "Deskripsi visual adegan untuk prompt gambar",
       "voiceover": "Naskah omongan dubbing karakter"
     }
   ]
@@ -658,7 +703,7 @@ Format output JSON murni tanpa markdown block:
             state.storyboard = data.scenes || [];
             renderStoryboard();
         } catch (e) {
-            container.innerHTML = `<p style="color:var(--red);">Gagal membuat storyboard: ${e.message}</p>`;
+            container.innerHTML = `<p style="color:var(--red);">Gagal: ${e.message}</p>`;
         }
     }
 
@@ -666,34 +711,32 @@ Format output JSON murni tanpa markdown block:
         const container = document.getElementById('storyboardContainer');
         container.innerHTML = state.storyboard.map(s => `
             <div class="scene-card">
-                <div class="scene-badge">
-                    <span>Scene ${s.num}</span>
-                </div>
-                <div class="scene-content">
-                    <h4>${s.title}</h4>
-                    <p><strong>Visual Prompt:</strong> ${s.visual}</p>
-                    <div class="script-box">
+                <div class="scene-badge">Scene ${s.num}</div>
+                <div>
+                    <h4 style="font-size:.95rem;font-weight:800;margin-bottom:4px;">${s.title}</h4>
+                    <p style="font-size:.82rem;color:var(--tx2);margin-bottom:6px;"><strong>Visual:</strong> ${s.visual}</p>
+                    <div style="background:var(--bg3);padding:8px 12px;border-radius:8px;border-left:3px solid var(--cyan);font-size:.8rem;font-style:italic;">
                         <strong>🗣️ Voiceover:</strong> "${s.voiceover}"
                     </div>
                 </div>
                 <div class="scene-preview-thumb" id="sceneThumb-${s.num}">
-                    <button class="btn-secondary" style="font-size:.7rem;padding:6px 8px;" onclick="generateSceneThumb(${s.num}, '${encodeURIComponent(s.visual)}')">🖼️ Render Visual</button>
+                    <button class="btn-secondary" style="font-size:.7rem;padding:6px 8px;" onclick="renderSceneImg(${s.num}, '${encodeURIComponent(s.visual)}')">🖼️ Render Visual</button>
                 </div>
             </div>
         `).join('');
     }
 
-    function generateSceneThumb(num, encVisual) {
-        const visual = decodeURIComponent(encVisual);
-        const thumbBox = document.getElementById(`sceneThumb-${num}`);
-        thumbBox.innerHTML = '⏳ Rendering...';
-        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(visual + ', photorealistic, 8k')}&model=flux&width=400&height=700&nologo=true`;
+    function renderSceneImg(num, encVis) {
+        const vis = decodeURIComponent(encVis);
+        const thumb = document.getElementById(`sceneThumb-${num}`);
+        thumb.innerHTML = '⏳ Rendering...';
+        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(vis + ', photorealistic, 8k')}&model=flux&width=400&height=700&nologo=true`;
         const img = new Image();
         img.src = url;
-        img.onload = () => { thumbBox.innerHTML = `<img src="${url}" alt="Scene ${num}">`; };
+        img.onload = () => { thumb.innerHTML = `<img src="${url}" alt="Scene ${num}">`; };
     }
 
-    // --- GEMINI CLIENT HELPER ---
+    // --- GEMINI HELPER ---
     async function callGeminiAI(apiKey, prompt) {
         const models = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
         for (const m of models) {
@@ -709,13 +752,12 @@ Format output JSON murni tanpa markdown block:
                 }
             } catch (e) {}
         }
-        throw new Error('Semua model AI sedang sibuk. Coba beberapa saat lagi.');
+        throw new Error('Koneksi AI sibuk.');
     }
 
-    // --- UTILITIES ---
     function copyText(elemId) {
         const text = document.getElementById(elemId).textContent.trim();
-        navigator.clipboard.writeText(text).then(() => alert('✅ Prompt video berhasil disalin!'));
+        navigator.clipboard.writeText(text).then(() => alert('✅ Prompt video disalin!'));
     }
 
     function downloadImage(imgId, filename) {
@@ -742,7 +784,7 @@ Format output JSON murni tanpa markdown block:
         image.onload = () => {
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
             const a = document.createElement('a');
-            a.download = 'Ziyan_UGC_4K_Ultra.png';
+            a.download = 'Ziyan_Flow_4K_Ultra.png';
             a.href = canvas.toDataURL('image/png');
             a.click();
         };
