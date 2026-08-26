@@ -915,24 +915,34 @@ async function startGeneration() {
 
         if (state.cancelled) throw new Error('CANCELLED');
 
-        // Step 2: Generate Outline
+        // Step 2: Generate Outline (Master Curriculum Engineering Skill)
         updateProgress('outline', 'active');
-        const outlinePrompt = `Kamu adalah penulis E-Book profesional. Berdasarkan sumber informasi berikut, buatkan kerangka (outline) E-Book dengan ${numChapters} bab.
+        const outlinePrompt = `Anda adalah Master Instructional Designer & Executive Book Editor standar industri penerbitan teknologi dunia.
+Tugas Anda adalah membedah dan merekonstruksi sumber tutorial/informasi mentah berikut menjadi sebuah Master Blueprint E-Book berkualitas premium dengan tepat ${numChapters} Bab.
 
-${customTitle ? `Judul buku: "${customTitle}"` : 'Tentukan judul buku yang menarik berdasarkan isi sumber.'}
+Prinsip Rekonstruksi Kurikulum:
+1. JANGAN sekadar meringkas secara dangkal. Rekonstruksi alur materi menjadi kurikulum edukasi bernilai jual tinggi.
+2. Struktur Alur Bab Wajib:
+   - Bab Awal: Fondasi, Akar Masalah & Mengapa Topik Ini Krusial (The Hook & Context).
+   - Bab Persiapan: Prasyarat, Alat & Konfigurasi Lingkungan (Tools & Setup).
+   - Bab Inti: Panduan Langkah-Demi-Langkah Praktik Nyata & Arsitektur (Step-by-Step Execution).
+   - Bab Antisipasi: Troubleshooting, Jebakan Umum & Solusi Ahli (Pitfalls & Pro Solutions).
+   - Bab Penutup: Checklist Aksi, SOP & Rencana Penerapan (Action Plan & Takeaways).
+
+${customTitle ? `Judul Buku Utama: "${customTitle}"` : 'Rancanglah Judul Buku yang Magnetik, Tajam, dan Menggugah Minat Baca berdasarkan esensi sumber.'}
 Bahasa: ${langMap[lang]}
-Gaya: ${styleMap[style]}
+Gaya Penulisan: ${styleMap[style]}
 
-SUMBER INFORMASI:
-${allText.substring(0, 12000)}
+SUMBER INFORMASI MENTAH:
+${allText.substring(0, 14000)}
 
-FORMAT OUTPUT (JSON saja tanpa markdown block):
+FORMAT OUTPUT (Wajib JSON murni tanpa pembuka/penutup markdown):
 {
-  "title": "Judul E-Book",
-  "subtitle": "Subtitel Deskriptif",
+  "title": "Judul E-Book Magnetik",
+  "subtitle": "Subtitel Deskriptif & Action-Oriented",
   "chapters": [
-    {"num": 1, "title": "Judul Bab 1", "points": ["Poin A", "Poin B", "Poin C"]},
-    {"num": 2, "title": "Judul Bab 2", "points": ["Poin A", "Poin B", "Poin C"]}
+    {"num": 1, "title": "Judul Bab 1", "points": ["Poin Detail A", "Poin Detail B", "Poin Detail C"]},
+    {"num": 2, "title": "Judul Bab 2", "points": ["Poin Detail A", "Poin Detail B", "Poin Detail C"]}
   ]
 }`;
 
@@ -941,13 +951,13 @@ FORMAT OUTPUT (JSON saja tanpa markdown block):
         const outlineJson = extractJSON(outlineRaw);
         if (!outlineJson?.chapters) throw new Error('Gagal membuat kerangka bab.');
 
-        state.generatedTitle = customTitle || outlineJson.title || 'E-Book AI';
+        state.generatedTitle = customTitle || outlineJson.title || 'E-Book AI Masterpiece';
         updateProgress('outline', 'done');
         updateProgressBar(2, steps.length);
 
         if (state.cancelled) throw new Error('CANCELLED');
 
-        // Step 3: Generate each chapter
+        // Step 3: Generate each chapter (Deep Tactical Writing & Rich HTML Formatting)
         const chapters = [];
         for (let i = 0; i < outlineJson.chapters.length; i++) {
             if (state.cancelled) throw new Error('CANCELLED');
@@ -956,32 +966,42 @@ FORMAT OUTPUT (JSON saja tanpa markdown block):
             updateProgress(`ch${i + 1}`, 'active');
             document.getElementById('progressText').textContent = `Sedang menulis Bab ${i + 1} dari ${numChapters}...`;
 
-            const chapterPrompt = `Kamu sedang menulis Bab ${ch.num} dari E-Book "${outlineJson.title}".
+            const chapterPrompt = `Anda adalah Master Book Writer & Technical Educator profesional.
+Anda sedang menulis Bab ${ch.num} untuk E-Book Master: "${outlineJson.title}".
 
-JUDUL BAB: ${ch.title}
-POIN-POIN YANG HARUS DIBAHAS: ${ch.points.join(', ')}
-GAYA: ${styleMap[style]}
+JUDUL BAB ${ch.num}: ${ch.title}
+SUB-TOPIK & POIN YANG HARUS DIKUPAS TUNTAS:
+${ch.points.map(p => `- ${p}`).join('\n')}
+
+GAYA PENULISAN: ${styleMap[style]}
 BAHASA: ${langMap[lang]}
-TARGET: Konten harus padat, informatif, dan mendalam. Panjang ~${Math.ceil(pages * 250 / numChapters)} kata.
+TARGET PANJANG: Sangat komprehensif, mendalam, dan aplikatif (~${Math.max(400, Math.ceil(pages * 300 / numChapters))} kata).
 
-KONTEKS SUMBER:
-${allText.substring(0, 8000)}
+KONTEKS MATERI SUMBER:
+${allText.substring(0, 9000)}
 
-INSTRUKSI:
-- Tulis konten bab ini secara lengkap dalam format HTML murni (gunakan <h2>, <h3>, <p>, <ul>, <li>, <blockquote>, <strong>, <em>).
-- JANGAN sertakan tag <html>, <head>, <body>, atau <style>.
-- Langsung mulai dengan konten bab.
-- Pastikan isi bab relevan dengan poin-poin di atas dan berdasarkan sumber yang diberikan.`;
+ATURAN STRUKTUR PENULISAN (WAJIB DIIKUTI):
+1. Tulis konten Bab ini secara LENGKAP dan MENDALAM dalam format HTML murni.
+2. WAJIB sertakan elemen visual formatting berikut:
+   - Gunakan <h3> untuk membagi setiap sub-topik.
+   - Gunakan paragraf <p> yang terstruktur rapi dan informatif.
+   - WAJIB sertakan minimal 1 Callout Tips: <div class="callout tip">💡 <strong>TIPS PRO:</strong> (wawasan atau trik praktis tingkat lanjut)...</div>
+   - WAJIB sertakan minimal 1 Callout Warning/Jebakan: <div class="callout warning">⚠️ <strong>PERINGATAN & JEBAKAN UMUM:</strong> (kesalahan yang sering terjadi dan cara menghindarinya)...</div>
+   - WAJIB sertakan minimal 1 Callout Action Blueprint: <div class="callout blueprint">📌 <strong>ACTION STEP:</strong> (langkah konkret yang harus segera dieksekusi pembaca)...</div>
+   - Jika ada kode/perintah teknis, gunakan <pre><code>perintah...</code></pre>.
+   - Gunakan <ul>/<li> atau <ol>/<li> untuk daftar langkah atau poin penting.
+3. JANGAN sertakan tag <html>, <head>, <body>, <style>, atau tag <h1>.
+4. Langsung mulai dari konten bab (misalnya pembuka atau <h3>).`;
 
             let chapterHTML = '';
             try {
                 chapterHTML = await callGemini(apiKey, chapterPrompt, 0.85, statusCb);
             } catch (chapterErr) {
                 console.warn(`Fallback on chapter ${ch.num}:`, chapterErr);
-                // Smart resilient fallback if individual chapter fails
                 chapterHTML = `<h3>Ringkasan Bab ${ch.num}: ${ch.title}</h3>
-                <p>Bab ini membahas secara mendalam tentang ${ch.points.join(', ')} berdasarkan riset materi yang dihimpun.</p>
-                <ul>${ch.points.map(p => `<li><strong>${p}</strong> — Konsep dan implementasi aplikatif.</li>`).join('')}</ul>`;
+                <p>Bab ini membahas secara mendalam tentang implementasi praktis materi kurikulum berdasarkan sumber tutorial.</p>
+                <div class="callout blueprint">📌 <strong>ACTION STEP:</strong> Terapkan konsep inti: ${ch.points.join(', ')}.</div>
+                <ul>${ch.points.map(p => `<li><strong>${p}</strong> — Prinsip fundamental dan eksekusi.</li>`).join('')}</ul>`;
             }
 
             chapters.push({ num: ch.num, title: ch.title, html: chapterHTML });
@@ -989,10 +1009,10 @@ INSTRUKSI:
             updateProgress(`ch${i + 1}`, 'done');
             updateProgressBar(2 + i + 1, steps.length);
 
-            // Resilient rate limit delay between chapters
+            // Resilient delay
             if (i < outlineJson.chapters.length - 1) {
-                document.getElementById('progressText').textContent = `Menjaga stabilitas kuota AI... (${3} detik)`;
-                await sleep(3500);
+                document.getElementById('progressText').textContent = `Menjaga stabilitas kuota AI... (3 detik)`;
+                await sleep(3200);
             }
         }
 
@@ -1139,6 +1159,12 @@ a{color:${t.accent}}
 .chapter li{margin-bottom:6px}
 .chapter blockquote{border-left:4px solid ${t.accent};padding:12px 20px;margin:16px 0;background:${t.accent}08;border-radius:0 8px 8px 0;font-style:italic}
 .chapter strong{color:${t.heading}}
+.callout{padding:14px 18px;border-radius:10px;margin:18px 0;font-size:.92rem;line-height:1.6}
+.callout.tip{background:rgba(16,185,129,.08);border-left:4px solid #10b981;color:inherit}
+.callout.warning{background:rgba(239,68,68,.08);border-left:4px solid #ef4444;color:inherit}
+.callout.blueprint{background:rgba(37,99,235,.08);border-left:4px solid #2563eb;color:inherit}
+pre{background:#0f172a;color:#f8fafc;padding:14px;border-radius:8px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.82rem;margin:14px 0}
+code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:rgba(0,0,0,.06);padding:2px 6px;border-radius:4px}
 .footer{text-align:center;padding:40px;font-size:.8rem;color:${t.text}80;border-top:1px solid ${t.text}15}
 ${isZiyan ? `
 .icon-card{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:${t.accent}10;border:1px solid ${t.accent}30;border-radius:12px;margin:4px;color:${t.accent}}
