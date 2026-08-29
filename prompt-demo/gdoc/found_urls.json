@@ -1,0 +1,44 @@
+[
+  {
+    "type": "video",
+    "uid": "3beb7336-f138-4289-8ae0-c7f10a1c48d5",
+    "urls": [
+      "https://www.gstatic.com/recaptcha/api2/logo_48.png"
+    ]
+  },
+  {
+    "type": "video",
+    "uid": "87c88f01-0540-4f7e-a804-e3c6f5031b33",
+    "urls": [
+      "https://www.gstatic.com/recaptcha/api2/logo_48.png"
+    ]
+  },
+  {
+    "type": "image",
+    "uid": "668e2d16-278e-44cb-bcaa-e6e7822b6519",
+    "urls": [
+      "https://www.gstatic.com/recaptcha/api2/logo_48.png"
+    ]
+  },
+  {
+    "type": "image",
+    "uid": "71f73bc5-92a5-459a-bb11-c72b06e5b522",
+    "urls": [
+      "https://www.gstatic.com/recaptcha/api2/logo_48.png"
+    ]
+  },
+  {
+    "type": "image",
+    "uid": "d16d3817-da40-4233-b84a-8375dba9526b",
+    "urls": [
+      "https://www.gstatic.com/recaptcha/api2/logo_48.png"
+    ]
+  },
+  {
+    "type": "video",
+    "uid": "cc327416-8842-472e-b0da-9b97377ccc27",
+    "urls": [
+      "https://www.gstatic.com/recaptcha/api2/logo_48.png"
+    ]
+  }
+]
