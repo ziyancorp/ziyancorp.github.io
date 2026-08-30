@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zaki Mubarrak Fresh Mart Punggur - Pembukuan & Kasir AI</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js & QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animated Aurora Glow -->
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Top App Bar (Google Material Header) -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="brand-badge">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>ZAKI MUBARRAK FRESH MART</h1>
+                    <p class="subtitle">PUNGGUR • PERIODE 2026-2027 • CLOUD SYNC</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-glass" onclick="window.print()" title="Cetak Laporan ke Kertas A4 / Legal / PDF">
+                    <i class="fa-solid fa-print text-cyan"></i> <span>Cetak Laporan</span>
+                </button>
+                <button class="btn btn-glass" id="themeToggleBtn" onclick="toggleTheme()" title="Ganti Mode Gelap/Terang">
+                    <i class="fa-solid fa-sun text-amber"></i> <span id="themeText">Mode Terang</span>
+                </button>
+                <button class="btn btn-glass" onclick="syncGoogleSheets()" title="Sinkronkan dengan Google Sheets">
+                    <i class="fa-solid fa-rotate text-emerald"></i> <span>Sync Sheets</span>
+                </button>
+                <button class="btn btn-primary" onclick="openInputModal()">
+                    <i class="fa-solid fa-plus"></i> <span>Input Kas Harian</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="material-nav">
+            <button class="nav-tab active" onclick="switchTab('dashboard')">
+                <i class="fa-solid fa-chart-pie"></i> Dashboard & Rekap
+            </button>
+            <button class="nav-tab" onclick="switchTab('daily')">
+                <i class="fa-solid fa-calendar-days"></i> Buku Kas Harian
+            </button>
+            <button class="nav-tab" onclick="switchTab('debts')">
+                <i class="fa-solid fa-truck-ramp-box"></i> Buku Hutang Sales
+            </button>
+            <button class="nav-tab" onclick="switchTab('ocr')">
+                <i class="fa-solid fa-camera"></i> Scan Foto AI
+            </button>
+        </nav>
+
+        <!-- TAB 1: DASHBOARD & BUKU BESAR -->
+        <section id="tab-dashboard" class="tab-content active">
+            <!-- KPI Summary Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card glow-blue">
+                    <div class="kpi-icon"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">TOTAL PENDAPATAN (YTD)</span>
+                        <h3 id="kpi-total-pendapatan">Rp 3.147.787.000</h3>
+                        <span class="kpi-sub">8 Bulan Periode 2026</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card glow-green">
+                    <div class="kpi-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">ESTIMASI PROFIT 10%</span>
+                        <h3 id="kpi-est-profit">Rp 251.822.960</h3>
+                        <span class="kpi-sub">Target Akumulatif</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card glow-amber">
+                    <div class="kpi-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">TOTAL UANG SIMPAN</span>
+                        <h3 id="kpi-uang-simpan">Rp 194.000.000</h3>
+                        <span class="kpi-sub">Dana Cadangan & Tabungan</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card glow-purple">
+                    <div class="kpi-icon"><i class="fa-solid fa-coins"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">SISA PROFIT BERSIH</span>
+                        <h3 id="kpi-sisa-profit">Rp 45.171.100</h3>
+                        <span class="kpi-sub">Surplus Bersih Toko</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="card glass-panel chart-card">
+                <div class="card-header">
+                    <div>
+                        <h2><i class="fa-solid fa-chart-simple text-cyan"></i> TRADE CHART: KINERJA BULANAN</h2>
+                        <p>Perbandingan Pendapatan, Estimasi Profit, dan Uang Simpanan</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="tradeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Buku Besar Tahunan Table -->
+            <div class="card glass-panel" id="bukuBesarPrintArea">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-book text-emerald"></i> BUKU BESAR - REKAPITULASI 2026</h2>
+                    <button class="btn btn-sm btn-outline no-print" onclick="window.print()">
+                        <i class="fa-solid fa-print"></i> Cetak Buku Besar
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="material-table" id="bukuBesarTable">
+                        <thead>
+                            <tr>
+                                <th>BULAN</th>
+                                <th>PENDAPATAN</th>
+                                <th>EST. PROFIT 10%</th>
+                                <th>UANG SIMPAN</th>
+                                <th>SISA PROFIT</th>
+                                <th>PERTUMBUHAN (%)</th>
+                                <th class="no-print">AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bukuBesarBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                        <tfoot id="bukuBesarFoot">
+                            <!-- Injected by JS -->
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Print Signature Footer -->
+                <div class="print-signatures print-only">
+                    <div class="sig-box">
+                        <p>Dibuat Oleh:</p>
+                        <br><br><br>
+                        <strong>( Kasir / Keuangan )</strong>
+                    </div>
+                    <div class="sig-box">
+                        <p>Punggur, Akhir Periode Operasional</p>
+                        <p>Mengetahui & Menyetujui:</p>
+                        <br><br>
+                        <strong>( Arijal Meutuwah / Owner )</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: BUKU KAS HARIAN -->
+        <section id="tab-daily" class="tab-content">
+            <!-- Filter Month Bar -->
+            <div class="month-selector-bar card glass-panel">
+                <div class="selector-title">
+                    <i class="fa-solid fa-filter text-amber"></i> Pilih Bulan Kas:
+                </div>
+                <div class="month-pills" id="monthPills">
+                    <!-- Injected by JS (Jan - Des) -->
+                </div>
+            </div>
+
+            <!-- Daily Summary Banner -->
+            <div class="daily-kpi-row">
+                <div class="mini-kpi">
+                    <span>Omset Bulan Ini:</span>
+                    <strong id="daily-month-omset">Rp 0</strong>
+                </div>
+                <div class="mini-kpi">
+                    <span>Rata-rata Harian:</span>
+                    <strong id="daily-month-avg">Rp 0</strong>
+                </div>
+                <div class="mini-kpi">
+                    <span>Total QRIS:</span>
+                    <strong id="daily-month-qris" class="text-cyan">Rp 0</strong>
+                </div>
+                <div class="mini-kpi">
+                    <span>Celengan Karyawan:</span>
+                    <strong id="daily-month-celengan" class="text-emerald">Rp 0</strong>
+                </div>
+            </div>
+
+            <!-- Daily Table -->
+            <div class="card glass-panel">
+                <div class="card-header table-actions-header">
+                    <h2 id="daily-table-title"><i class="fa-solid fa-calendar-check text-blue"></i> Transaksi Harian</h2>
+                    <button class="btn btn-sm btn-outline no-print" onclick="openInputModal()">
+                        <i class="fa-solid fa-plus"></i> Tambah Transaksi
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="material-table daily-table" id="dailyTable">
+                        <thead>
+                            <tr>
+                                <th>TANGGAL</th>
+                                <th>MASUK (OMSET)</th>
+                                <th>KELUAR</th>
+                                <th>BAKI SEMALAM</th>
+                                <th>CASH MONEY</th>
+                                <th>UANG SIMPAN</th>
+                                <th>%</th>
+                                <th>CELENGAN</th>
+                                <th>QRIS</th>
+                                <th>ARIJAL</th>
+                                <th>RIYAN</th>
+                                <th>M AZRAFI</th>
+                                <th>RUMAH</th>
+                                <th>TOKO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dailyTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: BUKU HUTANG SALES & SUPPLIER -->
+        <section id="tab-debts" class="tab-content">
+            <!-- Hutang Sales Summary Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card glow-amber">
+                    <div class="kpi-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">TOTAL SISA HUTANG KE SALES</span>
+                        <h3 id="debts-total-sales" class="text-amber">Rp 0</h3>
+                        <span class="kpi-sub">Faktur Tempo Barang Belum Lunas</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card glow-green">
+                    <div class="kpi-icon"><i class="fa-solid fa-file-circle-check"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">TOTAL SUDAH DISETOR KE SALES</span>
+                        <h3 id="debts-total-lunas" class="text-emerald">Rp 0</h3>
+                        <span class="kpi-sub">Setoran Pembayaran Berhasil</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hutang Sales Section -->
+            <div class="card glass-panel">
+                <div class="card-header table-actions-header">
+                    <div>
+                        <h2><i class="fa-solid fa-handshake text-amber"></i> BUKU HUTANG SALES & DISTRIBUTOR (TEMPO BARANG)</h2>
+                        <p>Daftar tagihan faktur konsinyasi & tempo dari sales (Sanford, PT Pan Barune, Sasa, PBD, Top Baker, dll.)</p>
+                    </div>
+                    <button class="btn btn-primary no-print" onclick="openSalesModal()">
+                        <i class="fa-solid fa-plus"></i> Tambah Faktur Sales
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="material-table" id="salesDebtTable">
+                        <thead>
+                            <tr>
+                                <th>NAMA SALES</th>
+                                <th>PERUSAHAAN / DISTRIBUTOR</th>
+                                <th>NO. FAKTUR</th>
+                                <th>TOTAL TAGIHAN</th>
+                                <th>SUDAH DISETOR</th>
+                                <th>SISA HUTANG</th>
+                                <th>JATUH TEMPO</th>
+                                <th>STATUS</th>
+                                <th class="no-print">AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesDebtBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: SCAN FOTO AI -->
+        <section id="tab-ocr" class="tab-content">
+            <div class="card glass-panel ocr-card">
+                <div class="ocr-header">
+                    <div class="ocr-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI VISION OCR</div>
+                    <h2>Scan Foto Kertas Catatan Kasir</h2>
+                    <p>Ambil foto kertas catatan tulis tangan atau nota belanja toko. AI akan otomatis mengekstrak seluruh rincian item, supplier, dan totalnya!</p>
+                </div>
+
+                <div class="ocr-upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <input type="file" id="fileInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelect(event)">
+                    <div class="upload-icon-box">
+                        <i class="fa-solid fa-camera-retro"></i>
+                    </div>
+                    <h3>Klik untuk Ambil Foto Kamera HP atau Upload Gambar</h3>
+                    <p>Mendukung foto kertas catatan, buku kas fisik, dan nota supplier</p>
+                </div>
+
+                <!-- Preview and OCR Result Section -->
+                <div id="ocrResultSection" class="ocr-result-container" style="display: none;">
+                    <div class="ocr-grid">
+                        <div class="ocr-preview-box">
+                            <h4><i class="fa-solid fa-image"></i> Foto Catatan</h4>
+                            <img id="imagePreview" src="" alt="Pratinjau Foto">
+                        </div>
+                        <div class="ocr-extracted-box">
+                            <div class="extracted-header">
+                                <h4><i class="fa-solid fa-check-circle text-emerald"></i> Hasil Ekstraksi AI</h4>
+                                <span class="ai-badge">Gemini 3.6 Vision</span>
+                            </div>
+                            <div id="ocrLoading" class="ocr-loading" style="display: none;">
+                                <div class="spinner"></div>
+                                <p>AI sedang membaca tulisan tangan dan menghitung kalkulasi...</p>
+                            </div>
+                            <div id="ocrDataDisplay" class="ocr-data-display">
+                                <!-- Data injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ocr-actions">
+                        <button class="btn btn-success btn-lg" onclick="applyOcrToForm()">
+                            <i class="fa-solid fa-floppy-disk"></i> Masukkan & Simpan ke Buku Kas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL 1: FORM INPUT TRANSAKSI HARIAN -->
+    <div class="modal-overlay" id="inputModal">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-pen-to-square text-blue"></i> Input Transaksi Kas Harian</h2>
+                <button class="btn-close" onclick="closeInputModal()">&times;</button>
+            </div>
+            <form id="dailyForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Tanggal (DD/MM/YYYY):</label>
+                        <input type="text" id="form-date" required placeholder="Contoh: 31/08/2026">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kas Masuk (Omset):</label>
+                        <input type="number" id="form-masuk" value="0" oninput="calculateBalance()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kas Keluar (Total Belanja):</label>
+                        <input type="number" id="form-keluar" value="0" oninput="calculateBalance()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Baki Semalam (Kas Kemarin):</label>
+                        <input type="number" id="form-baki" value="0" oninput="calculateBalance()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cash Money (Laci/Tangan):</label>
+                        <input type="number" id="form-cash" value="0" class="input-highlight">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Uang Simpanan:</label>
+                        <input type="number" id="form-simpan" value="1000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Celengan Karyawan:</label>
+                        <input type="number" id="form-celengan" value="300000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>QRIS (Non-Tunai):</label>
+                        <input type="number" id="form-qris" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tarikan Arijal:</label>
+                        <input type="number" id="form-arijal" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tarikan Riyan:</label>
+                        <input type="number" id="form-riyan" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tarikan M Azrafi:</label>
+                        <input type="number" id="form-azrafi" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keperluan Rumah:</label>
+                        <input type="number" id="form-rumah" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keperluan Toko:</label>
+                        <input type="number" id="form-toko" value="0">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-glass" onclick="closeInputModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Simpan Transaksi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: TAMBAH FAKTUR SALES -->
+    <div class="modal-overlay" id="salesModal">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-truck-ramp-box text-amber"></i> Catat Faktur Tempo Sales Baru</h2>
+                <button class="btn-close" onclick="closeSalesModal()">&times;</button>
+            </div>
+            <form id="salesForm" onsubmit="handleSalesSubmit(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nama Sales / Kontak:</label>
+                        <input type="text" id="sales-name" required placeholder="Contoh: Sales Sanford (Mas Danu)">
+                    </div>
+                    <div class="form-group">
+                        <label>Perusahaan / Supplier:</label>
+                        <input type="text" id="sales-company" required placeholder="Contoh: PT. Sanford, PT. Pan Barune, Sasa, PBD">
+                    </div>
+                    <div class="form-group">
+                        <label>No. Faktur / Nota Pengiriman:</label>
+                        <input type="text" id="sales-inv" placeholder="Contoh: INV-PB-717 / SNF-042">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Tagihan Faktur (Rp):</label>
+                        <input type="number" id="sales-amount" required placeholder="Contoh: 3500000">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Faktur Masuk:</label>
+                        <input type="text" id="sales-date" required placeholder="DD/MM/YYYY (Contoh: 30/08/2026)">
+                    </div>
+                    <div class="form-group">
+                        <label>Jatuh Tempo / Jadwal Sales Datang:</label>
+                        <input type="text" id="sales-due" placeholder="DD/MM/YYYY (Contoh: 10/09/2026)">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Catatan Barang / Keterangan:</label>
+                        <input type="text" id="sales-notes" placeholder="Contoh: Stok Minyak Goreng, Bumbu Sasa, Galon Sanford">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-glass" onclick="closeSalesModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Simpan Faktur Sales</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: SETOR / BAYAR KE SALES -->
+    <div class="modal-overlay" id="paySalesModal">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h2 id="paySalesTitle"><i class="fa-solid fa-money-bill-wave text-emerald"></i> Setor / Bayar ke Sales</h2>
+                <button class="btn-close" onclick="closePaySalesModal()">&times;</button>
+            </div>
+            <form id="paySalesForm" onsubmit="handlePaySalesSubmit(event)">
+                <input type="hidden" id="paySales-id">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Sales / Supplier:</label>
+                        <input type="text" id="paySales-target" readonly style="background: rgba(255,255,255,0.02); color: #94a3b8;">
+                    </div>
+                    <div class="form-group">
+                        <label>Sisa Hutang Saat Ini:</label>
+                        <input type="text" id="paySales-remaining" readonly style="color: var(--amber); font-weight: 700;">
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah yang Disetorkan (Rp):</label>
+                        <input type="number" id="paySales-amount" required placeholder="Nominal setoran kasir">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Setoran (DD/MM/YYYY):</label>
+                        <input type="text" id="paySales-date" required placeholder="Contoh: 31/08/2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Sumber Dana:</label>
+                        <input type="text" id="paySales-method" value="Kas Toko">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-glass" onclick="closePaySalesModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Proses Setoran ke Sales</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
