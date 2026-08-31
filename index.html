@@ -1,787 +1,768 @@
 <!DOCTYPE html>
-<html lang="id" class="dark scroll-smooth">
+<html lang="id" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZIYAN CORP — The Next-Gen AI Automation & Media Studio</title>
-    <meta name="description" content="Pusat ekosistem automasi AI, pabrik konten video 4K autopilot, dan platform SaaS modern ZiyanCorp.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN with custom config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', '-apple-system', 'sans-serif'],
-                        display: ['Cabinet Grotesk', 'Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        obsidian: '#070A11',
-                        obsidianCard: '#0E1424',
-                        geminiCyan: '#06B6D4',
-                        geminiBlue: '#3B82F6',
-                        geminiViolet: '#8B5CF6',
-                        geminiCoral: '#F43F5E',
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NarasiKilat Studio v15 - AI Copywriting & UGC Suite</title>
+  
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#030712">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          animation: {
+            'spin-slow': 'spin 1.5s linear infinite',
+            'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'fade-in': 'fadeIn 0.25s ease-out forwards'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(6px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
             }
+          }
         }
-    </script>
+      }
+    }
+  </script>
 
-    <style>
-        /* Modern Glassmorphism & GPU Acceleration */
-        .glass-dark {
-            background: rgba(14, 20, 36, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .glass-light {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(226, 232, 240, 0.85);
-        }
-
-        /* Glowing Border Animation */
-        .radiant-card {
-            position: relative;
-            border-radius: 1.5rem;
-            padding: 1.5px;
-            overflow: hidden;
-        }
-        .radiant-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, #06B6D4, #3B82F6, #8B5CF6, #F43F5E, transparent 70%);
-            animation: spin 6s linear infinite;
-        }
-        .radiant-inner {
-            position: relative;
-            border-radius: calc(1.5rem - 1.5px);
-            height: 100%;
-        }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Subtle ambient glow */
-        .ambient-glow {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: min(650px, 90vw);
-            height: min(650px, 90vw);
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(139, 92, 246, 0.1) 45%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-            filter: blur(70px);
-        }
-
-        /* Custom Scrollbar for Chat */
-        .chat-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .chat-scroll::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .chat-scroll::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
-            border-radius: 10px;
-        }
-
-        /* Typing Dots Animation */
-        .dot-typing {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-        }
-        .dot-typing span {
-            width: 4px;
-            height: 4px;
-            background-color: currentColor;
-            border-radius: 50%;
-            animation: dotPulse 1.4s infinite ease-in-out both;
-        }
-        .dot-typing span:nth-child(1) { animation-delay: -0.32s; }
-        .dot-typing span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes dotPulse {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-    </style>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    html:not(.dark) .glass-card { background: rgba(255, 255, 255, 0.88); border: 1px solid rgba(0, 0, 0, 0.08); }
+    .tap-scale:active { transform: scale(0.97); transition: transform 0.1s ease; }
+    .glow-emerald { box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25); }
+    .glow-blue { box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25); }
+    .glow-purple { box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.25); }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.3); border-radius: 9999px; }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white transition-colors duration-300 overflow-x-hidden antialiased">
+<body class="dark:bg-slate-950 bg-slate-50 dark:text-slate-100 text-slate-900 min-h-screen selection:bg-emerald-500 selection:text-white flex flex-col">
 
-    <!-- Ambient Glow Background -->
-    <div class="ambient-glow"></div>
-
-    <!-- ========================================================
-         STICKY NAVIGATION BAR (ULTRA-RESPONSIVE)
-    ======================================================== -->
-    <header class="sticky top-0 z-40 transition-colors duration-300 border-b border-slate-200/80 dark:border-white/5 bg-white/80 dark:bg-obsidian/80 backdrop-blur-2xl px-4 sm:px-8 py-3.5">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <div>
-                    <span class="font-display font-black text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-                        ZIYAN CORP <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 uppercase font-bold">2026</span>
-                    </span>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Autonomous Systems & Media</p>
-                </div>
-            </a>
-
-            <!-- Desktop Menu -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                <a href="./ugc-studio/" class="hover:text-cyan-500 dark:hover:text-cyan-400 text-purple-400 font-bold transition-colors">🛍️ UGC Studio (Live)</a>
-                <a href="./ebook-generator/" class="hover:text-cyan-500 dark:hover:text-cyan-400 text-amber-500 font-bold transition-colors">📚 E-Book Generator</a>
-                <a href="#publishing" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">📖 E-Book Blueprint</a>
-                <a href="#demo" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">🔥 Live Demo</a>
-            </nav>
-
-            <!-- Actions: Theme Toggle, CS AI Trigger & CTA -->
-            <div class="flex items-center gap-2.5">
-                
-                <!-- Dark / Light Mode Switcher Button -->
-                <button id="themeToggle" aria-label="Toggle Dark/Light Mode" class="w-10 h-10 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 transition-all cursor-pointer">
-                    <!-- Sun Icon (shown in dark mode) -->
-                    <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <!-- Moon Icon (shown in light mode) -->
-                    <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                </button>
-
-                <!-- CS Chat Trigger Button Navbar -->
-                <button onclick="toggleCsChat(true)" class="px-4 py-2.5 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold text-xs flex items-center gap-2 transition-all">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="hidden sm:inline">CS Virtual AI</span>
-                    <span class="sm:hidden">CS</span>
-                </button>
-
-                <!-- Mobile Hamburger Button -->
-                <button id="mobileMenuBtn" aria-label="Open Mobile Menu" class="md:hidden w-10 h-10 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
-                    </svg>
-                </button>
-            </div>
+  <div class="max-w-3xl mx-auto w-full min-h-screen flex flex-col border-x dark:border-slate-800/80 border-slate-200/80 pb-28">
+    
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 dark:bg-slate-950/80 bg-white/80 backdrop-blur-xl border-b dark:border-slate-800/80 border-slate-200/80 px-5 py-3.5 flex items-center justify-between transition-all">
+      <div class="flex items-center gap-3 cursor-pointer tap-scale" onclick="switchMode('home')">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+          <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
         </div>
-
-        <!-- Mobile Drawer Menu -->
-        <div id="mobileMenu" class="hidden md:hidden pt-4 pb-2 border-t border-slate-200 dark:border-white/5 mt-3 space-y-3">
-            <a href="./ugc-studio/" class="block px-3 py-2 rounded-xl text-sm font-bold text-purple-400 hover:bg-purple-500/10">🛍️ Ziyan UGC Studio (Live)</a>
-            <a href="./ebook-generator/" class="block px-3 py-2 rounded-xl text-sm font-bold text-amber-500 hover:bg-amber-500/10">📚 AI E-Book Generator Tool (Live)</a>
-            <a href="#publishing" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">📖 E-Book Blueprint ZiyanCorp</a>
-            <a href="#demo" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">🔥 Live Demo Hook AI</a>
-            <button onclick="toggleCsChat(true)" class="w-full text-center py-3 rounded-xl bg-cyan-500 text-white font-bold text-sm">💬 Buka Chat CS AI 24 Jam</button>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-base font-black tracking-tight bg-gradient-to-r dark:from-white from-slate-900 to-slate-500 bg-clip-text text-transparent">NarasiKilat</h1>
+            <span class="text-[10px] font-black uppercase px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">v15 MATRIX</span>
+          </div>
+          <p class="text-[10px] font-semibold text-slate-500 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="header-prov-badge">Smart Dynamic Matrix</span>
+          </p>
         </div>
+      </div>
+      
+      <div class="flex items-center gap-2">
+        <button onclick="toggleTheme()" class="p-2.5 dark:bg-slate-900/90 bg-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl tap-scale transition-colors">
+          <i id="theme-icon" data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
+        </button>
+        <button onclick="switchMode('settings')" class="p-2.5 dark:bg-slate-900/90 bg-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl tap-scale transition-colors flex items-center gap-1.5">
+          <i data-lucide="key" class="w-4 h-4 text-emerald-500"></i>
+        </button>
+      </div>
     </header>
 
-    <!-- ========================================================
-         HERO SECTION (NEXT-GEN POWERHOUSE)
-    ======================================================== -->
-    <section class="relative z-10 pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
-        <div class="text-center max-w-3xl mx-auto space-y-6">
-            
-            <!-- Status Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider">
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                ZiyanCorp AI Studio • 2026 Standard
+    <!-- VIEW: HOME (DASHBOARD) -->
+    <main id="view-home" class="p-5 flex-1 flex flex-col justify-center space-y-4 animate-fade-in">
+      <div class="mb-2">
+        <h2 class="text-xl font-extrabold tracking-tight">Studio Konten Kreator AI</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Pilih generator AI yang ingin kamu gunakan untuk jualan viral:</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-3.5">
+        <!-- Card 1: Naskah Jualan Matrix -->
+        <div onclick="switchMode('naskah')" class="glass-card p-5 rounded-3xl cursor-pointer hover:border-emerald-500/50 tap-scale transition-all group glow-emerald">
+          <div class="flex items-start justify-between">
+            <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
+              <i data-lucide="mic" class="w-5 h-5"></i>
             </div>
-
-            <!-- Main Punchy Headline -->
-            <h1 class="font-display font-black text-4xl sm:text-6xl md:text-7xl tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-                Bukan Sekadar AI.<br>
-                <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                    Ini Mesin Konten Siap Jual.
-                </span>
-            </h1>
-
-            <!-- Punchy Subtitle -->
-            <p class="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
-                Kami membangun produk AI inovatif untuk kreator & bisnis: dari Generator Konten UGC Affiliate Shopee/TikTok & AI Influencer, Generator E-Book otomatis multi-sumber, hingga Blueprint teknologi industri.
-            </p>
-
-            <!-- Hero Action Buttons -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <a href="./ugc-studio/" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-xl shadow-purple-500/25 active:scale-95 transition-all text-center">
-                    🛍️ Buka Ziyan UGC Studio ➔
-                </a>
-                <a href="./ebook-generator/" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-extrabold text-sm shadow-xl shadow-orange-500/25 active:scale-95 transition-all text-center">
-                    📚 Buka E-Book Generator Tool
-                </a>
-            </div>
-
-            <!-- KPI Metric Bar -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-10 text-left">
-                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
-                    <p class="text-2xl font-black text-cyan-500 dark:text-cyan-400 font-display">100%</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Multi-Source Ingestion</p>
-                </div>
-                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
-                    <p class="text-2xl font-black text-blue-500 dark:text-blue-400 font-display">5 Poses</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">UGC Visual Engine</p>
-                </div>
-                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
-                    <p class="text-2xl font-black text-amber-500 dark:text-amber-400 font-display">Vector</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">SVG Tech E-Book</p>
-                </div>
-                <div class="p-4 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-obsidianCard/60 backdrop-blur-xl">
-                    <p class="text-2xl font-black text-emerald-500 dark:text-emerald-400 font-display">Rp 0</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">BYOK Free Model</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ========================================================
-         DIVISI 1: 4K SCENIC WILDLIFE & MEDIA ENGINE
-    <!-- ========================================================
-         PRODUK 01: ZIYAN UGC AFFILIATE STUDIO (SAAS TOOL)
-    ======================================================== -->
-    <section id="saas" class="relative z-10 py-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
-        <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
-            <span class="text-xs font-mono font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest">Produk Komersial 01 • SaaS Tool</span>
-            <h2 class="font-display font-black text-3xl sm:text-5xl text-slate-900 dark:text-white">
-                Ziyan UGC Affiliate Studio
-            </h2>
-            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-                Aplikasi web bertenaga AI untuk mengubah 1 foto produk Shopee / TikTok menjadi 5 variasi video promosi fotorealistik dengan naskah copywriting siap closing.
-            </p>
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">10 Hook + 8 Strategi</span>
+          </div>
+          <h3 class="text-base font-bold mt-3 mb-1 group-hover:text-emerald-400 transition-colors">Studio Naskah Jualan (Matrix v15)</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">4 variasi script VO lisan dengan 10 jenis Hook psikologis & 8 strategi jualan modern. Dilengkapi preview audio suara langsung.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <!-- Card 1 -->
-            <div class="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-500 dark:text-purple-400 flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">5-Pose Multi-Angle Engine</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Menghasilkan 5 sudut pengambilan gambar otomatis: model memegang produk, detail interaksi tekstur makro, unboxing estetik, aksi nyata pemakaian, hingga ekspresi kepuasan.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 text-xs text-purple-500 font-bold">
-                    Standar Video Affiliate 2026 ➔
-                </div>
+        <!-- Card 2: UGC Fashion Video Studio -->
+        <div onclick="switchMode('ugc')" class="glass-card p-5 rounded-3xl cursor-pointer hover:border-teal-500/50 tap-scale transition-all group">
+          <div class="flex items-start justify-between">
+            <div class="w-11 h-11 rounded-2xl bg-teal-500/10 text-teal-400 flex items-center justify-center border border-teal-500/20 group-hover:scale-110 transition-transform">
+              <i data-lucide="video" class="w-5 h-5"></i>
             </div>
-
-            <!-- Card 2 -->
-            <div class="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">Viral Copywriting & Voiceover</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Otomatis menyusun kalimat Hook pembuka 3 detik pencegah scroll, pembahasan masalah & solusi, hingga Call-To-Action terarah ke keranjang kuning Shopee/TikTok.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 text-xs text-cyan-500 font-bold">
-                    Hook + Script + Closing ➔
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">BYOK Free Model (Rp 0)</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Mendukung model Bring-Your-Own-Key sehingga kreator bisa memakai kuota gratis Gemini mereka sendiri tanpa perlu biaya langganan kredit server yang mahal.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 text-xs text-emerald-500 font-bold">
-                    Zero Operational Cost ➔
-                </div>
-            </div>
-
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">Storyboard UGC</span>
+          </div>
+          <h3 class="text-base font-bold mt-3 mb-1 group-hover:text-teal-400 transition-colors">UGC AI Video & Storyboard Studio</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Paket lengkap adegan model AI (Hijab/Casual/Korea), prompt image-to-video kamera handheld, dan naskah per scene.</p>
         </div>
 
-        <div class="mt-10 max-w-xl mx-auto text-center">
-            <a href="./ugc-studio/" class="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 rounded-2xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-xl shadow-purple-500/25 active:scale-95 transition-all">
-                <span>🛍️ Buka Ziyan UGC Studio Sekarang ➔</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- ========================================================
-         PRODUK 02 & 03: E-BOOK GENERATOR & TECH PUBLISHING
-    ======================================================== -->
-    <section id="publishing" class="relative z-10 py-16 px-4 sm:px-8 max-w-7xl mx-auto w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <!-- Box 1: Live AI E-Book Generator Tool -->
-            <div class="p-6 sm:p-10 rounded-3xl border border-amber-500/30 bg-white dark:bg-obsidianCard shadow-2xl shadow-amber-500/10 space-y-6 flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono text-xs font-bold uppercase">
-                        Produk Komersial 02 • SaaS Tool
-                    </div>
-                    <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">AI E-Book Generator</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Ubah materi acak dari link video YouTube, artikel website, maupun dokumen PDF menjadi E-Book berstruktur rapi lengkap dengan bab, gaya penulisan, dan tata letak majalah teknologi modern.
-                    </p>
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-xs font-bold">
-                            📎 Multi-Source Ingestion (YT, Web, PDF)
-                        </div>
-                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-xs font-bold">
-                            📄 Instant Client-Side PDF & HTML Export
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4 border-t border-slate-100 dark:border-white/5">
-                    <a href="./ebook-generator/" class="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-extrabold text-sm transition-all shadow-lg shadow-orange-500/20">
-                        📚 Buka Aplikasi E-Book Generator Sekarang ➔
-                    </a>
-                </div>
+        <!-- Card 3: Prompt Visual -->
+        <div onclick="switchMode('prompt')" class="glass-card p-5 rounded-3xl cursor-pointer hover:border-blue-500/50 tap-scale transition-all group glow-blue">
+          <div class="flex items-start justify-between">
+            <div class="w-11 h-11 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+              <i data-lucide="image" class="w-5 h-5"></i>
             </div>
-
-            <!-- Box 2: Master Blueprint Tech E-Book -->
-            <div class="p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/5 bg-white dark:bg-obsidianCard shadow-lg space-y-6 flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-mono text-xs font-bold uppercase">
-                        Produk Komersial 03 • Digital Publishing
-                    </div>
-                    <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">Master Blueprint: Pabrik Konten AI</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Buku panduan digital resmi karya ZiyanCorp yang membongkar arsitektur produksi konten autopilot berformat visual interaktif: icon vektor SVG, diagram alur pipeline, dan layout majalah teknologi.
-                    </p>
-                    <div class="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 space-y-2">
-                        <p class="font-bold text-xs text-cyan-700 dark:text-cyan-300">Format Desain VIP Ziyan Tech Chrome</p>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Didesain khusus dengan tipografi tajam, infografis data komprehensif, dan standar industri penerbitan modern.</p>
-                    </div>
-                </div>
-                <div class="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
-                    <span class="text-xs text-slate-500 font-medium">Digital Product Edition</span>
-                    <button onclick="toggleCsChat(true)" class="px-5 py-2.5 rounded-xl border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold text-xs transition-all">
-                        Tanya Detail Buku ➔
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ========================================================
-         INTERACTIVE LIVE AI HOOK GENERATOR DEMO
-    ======================================================== -->
-    <section id="demo" class="relative z-10 py-16 px-4 sm:px-8 max-w-4xl mx-auto w-full">
-        <div class="p-6 sm:p-10 rounded-3xl border border-cyan-500/30 bg-white dark:bg-obsidianCard shadow-2xl shadow-cyan-500/10 space-y-6">
-            <div class="text-center space-y-2">
-                <span class="text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest">Interactive Client Tool</span>
-                <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">Coba Generator Hook Viral ZiyanCorp</h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Pilih kategori konten dan saksikan AI meracik hook 3 detik pembuka video Anda.</p>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-                <select id="demoCategory" class="px-4 py-3.5 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-slate-900 text-sm font-semibold text-slate-800 dark:text-white focus:outline-none focus:border-cyan-500">
-                    <option value="wildlife">🐾 4K Scenic Wildlife & Misteri Laut</option>
-                    <option value="affiliate">🛍️ Shopee/TikTok UGC Produk Affiliate</option>
-                    <option value="automation">⚡ Bisnis Automasi & n8n Agency</option>
-                </select>
-                <button id="generateHookBtn" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm hover:opacity-95 active:scale-95 transition-all">
-                    Generate Hook Instan ➔
-                </button>
-            </div>
-
-            <!-- Result Box -->
-            <div id="hookResult" class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 font-mono text-xs sm:text-sm text-slate-800 dark:text-cyan-300 leading-relaxed min-h-[70px] flex items-center">
-                ✨ Klik tombol di atas untuk menguji kecerdasan generator ZiyanCorp.
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================================
-         CONTACT & FOOTER
-    ======================================================== -->
-    <footer id="contact" class="relative z-10 border-t border-slate-200 dark:border-white/5 bg-white dark:bg-slate-950 pt-16 pb-12 px-4 sm:px-8 mt-12 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            
-            <div class="md:col-span-2 space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-xl bg-cyan-500 flex items-center justify-center text-white font-black text-sm">Z</div>
-                    <span class="font-display font-black text-xl text-slate-900 dark:text-white">ZIYAN CORP</span>
-                </div>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
-                    Membangun masa depan media dan automasi tanpa batas. Ditenagai oleh Google Material 3 Expressive, Cloud GPU, dan infrastruktur zero-touch.
-                </p>
-            </div>
-
-            <div class="space-y-3 text-xs">
-                <h4 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider">Ekosistem</h4>
-                <p><a href="#media" class="text-slate-500 hover:text-cyan-500">4K Scenic Wildlife</a></p>
-                <p><a href="#saas" class="text-slate-500 hover:text-cyan-500">UGC Affiliate Studio</a></p>
-                <p><a href="#automation" class="text-slate-500 hover:text-cyan-500">Omnichannel Bots</a></p>
-                <p><a href="#publishing" class="text-slate-500 hover:text-cyan-500">Ziyan Publishing</a></p>
-            </div>
-
-            <div class="space-y-3 text-xs">
-                <h4 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider">Official Links</h4>
-                <p><a href="https://ziyancorp.github.io" class="text-slate-500 hover:text-cyan-500">ziyancorp.github.io</a></p>
-                <p><a href="https://youtube.com/@4kscenicwildlife" target="_blank" class="text-slate-500 hover:text-cyan-500">YouTube @4kscenicwildlife</a></p>
-                <p><a href="https://github.com/ziyancorp" target="_blank" class="text-slate-500 hover:text-cyan-500">GitHub @ziyancorp</a></p>
-            </div>
-
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Image & Video AI</span>
+          </div>
+          <h3 class="text-base font-bold mt-3 mb-1 group-hover:text-blue-400 transition-colors">Generator Prompt Visual</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Prompt teks siap pakai & JSON terstruktur. Atur scene latar, sudut kamera, dan pencahayaan sinematik.</p>
         </div>
 
-        <div class="max-w-7xl mx-auto pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4 text-center sm:text-left">
-            <span>© 2026 ZIYAN CORP (Ziyan Automation Systems). All Rights Reserved.</span>
-            <span class="font-mono text-[11px]">Powered by Google Cloud & GitHub Pages</span>
+        <!-- Card 4: Caption & SEO Generator -->
+        <div onclick="switchMode('seo')" class="glass-card p-5 rounded-3xl cursor-pointer hover:border-purple-500/50 tap-scale transition-all group glow-purple">
+          <div class="flex items-start justify-between">
+            <div class="w-11 h-11 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">SEO & Tag Cloud</span>
+          </div>
+          <h3 class="text-base font-bold mt-3 mb-1 group-hover:text-purple-400 transition-colors">Caption & SEO Generator</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Judul SEO produk, storytelling deskripsi, hashtag tren, dan deretan 10+ SEO search keywords siap copy.</p>
         </div>
-    </footer>
+      </div>
+    </main>
 
-    <!-- ========================================================
-         24/7 AI CUSTOMER SERVICE FLOATING WIDGET (ZIYAN CS AI)
-    ======================================================== -->
-    <div id="csWidget" class="fixed bottom-4 right-4 z-50 flex flex-col items-end">
-        
-        <!-- Floating Trigger Button (Auto Hides when Chat is Open) -->
-        <button id="csTriggerBtn" onclick="toggleCsChat(true)" class="group relative flex items-center gap-3 px-4 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white shadow-2xl shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all cursor-pointer">
-            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-obsidian rounded-full animate-ping"></span>
-            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-obsidian rounded-full"></span>
-            
-            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-            </svg>
-            <span class="font-bold text-xs pr-1 hidden sm:inline">CS Virtual Ziyan AI</span>
+    <!-- VIEW: SETTINGS -->
+    <main id="view-settings" class="hidden p-5 flex-1 space-y-5 animate-fade-in">
+      <div class="flex items-center justify-between">
+        <button onclick="switchMode('home')" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5 tap-scale">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali
         </button>
-
-        <!-- Chat Modal Window (Mobile Clean Responsive) -->
-        <div id="csModal" class="hidden w-[94vw] sm:w-[400px] h-[560px] max-h-[85vh] rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950 shadow-2xl overflow-hidden flex flex-col transition-all">
-            
-            <!-- Chat Header -->
-            <div class="p-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-700 text-white flex items-center justify-between shadow-md">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center font-bold text-base shadow-inner">
-                        🤖
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm leading-tight flex items-center gap-1.5">
-                            Ziyan AI Assistant <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-                        </h4>
-                        <p class="text-[10px] text-cyan-100 font-medium">Customer Service & Panduan Sistem 24/7</p>
-                    </div>
-                </div>
-                <button onclick="toggleCsChat(false)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white text-sm font-bold transition-all">
-                    ✕
-                </button>
-            </div>
-
-            <!-- Chat Message Stream -->
-            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto chat-scroll space-y-3.5 text-xs bg-slate-50 dark:bg-slate-900/60">
-                
-                <!-- Bot Welcome -->
-                <div class="flex items-start gap-2.5">
-                    <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs">Z</div>
-                    <div class="p-3.5 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 shadow-sm leading-relaxed space-y-2">
-                        <p>Halo! Selamat datang di <b>ZIYAN CORP</b> 👋</p>
-                        <p>Saya <b>Ziyan AI CS</b>. Kami punya 4 ekosistem utama:</p>
-                        <ul class="list-disc pl-4 space-y-1 text-[11px] text-slate-600 dark:text-slate-300">
-                            <li>🛍️ <b>UGC Affiliate Studio:</b> Generator video 5-pose + naskah Shopee/TikTok.</li>
-                            <li>🐾 <b>4K Media Studio:</b> Saluran satwa autopilot @4kscenicwildlife.</li>
-                            <li>⚡ <b>Omnichannel Bots:</b> Bot Telegram, YouTube, IG & FB.</li>
-                            <li>📚 <b>Publishing:</b> E-Book Blueprint Otomatisasi 2026.</li>
-                        </ul>
-                        <p class="pt-1">Ada yang ingin ditanyakan seputar website atau produk kami?</p>
-                    </div>
-                </div>
-
-                <!-- Quick Suggestion Buttons -->
-                <div id="quickSuggestions" class="space-y-1.5 pt-1">
-                    <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider pl-9">Pilihan Pertanyaan Cepat:</p>
-                    <div class="flex flex-wrap gap-1.5 pl-9">
-                        <button onclick="sendQuickQuery('Ini website apa sih?')" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/25 text-cyan-700 dark:text-cyan-300 text-[11px] font-medium transition-all">
-                            🌐 Ini website apa?
-                        </button>
-                        <button onclick="sendQuickQuery('Apa saja produk dan layanan di ZiyanCorp?')" class="px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/25 text-blue-700 dark:text-blue-300 text-[11px] font-medium transition-all">
-                            ✨ Produk ZiyanCorp
-                        </button>
-                        <button onclick="sendQuickQuery('Apakah UGC Studio cuma menghasilkan prompt saja atau ada video dan naskahnya juga?')" class="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/25 text-purple-700 dark:text-purple-300 text-[11px] font-medium transition-all">
-                            🛍️ UGC Studio cuma prompt?
-                        </button>
-                        <button onclick="sendQuickQuery('Bagaimana cara kerja sistem video 4K @4kscenicwildlife?')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/25 text-emerald-700 dark:text-emerald-300 text-[11px] font-medium transition-all">
-                            🐾 Pabrik Video 4K Satwa
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Chat Input Bar -->
-            <div class="p-3 border-t border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950 flex items-center gap-2">
-                <input id="chatInput" type="text" placeholder="Tanyakan apa saja seputar produk ZiyanCorp..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-slate-900 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-cyan-500">
-                <button id="sendChatBtn" onclick="handleSendChat()" class="p-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-md active:scale-95 transition-all">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                    </svg>
-                </button>
-            </div>
-
+        <span class="text-xs font-bold text-slate-500">Pengaturan Sistem</span>
+      </div>
+      
+      <div class="glass-card p-5 rounded-3xl border-emerald-500/30 border space-y-4 glow-emerald">
+        <h2 class="font-bold text-sm flex items-center gap-2 text-emerald-400">
+          <i data-lucide="cpu" class="w-4 h-4"></i> Konfigurasi Mesin AI (BYOK / Local)
+        </h2>
+        
+        <div>
+          <label class="text-xs font-bold text-slate-300 block mb-1.5">Mode Mesin AI:</label>
+          <select id="api-provider" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 transition-all font-medium">
+            <option value="local">NarasiKilat Matrix Engine (Lokal Cepat - Tanpa API Key)</option>
+            <option value="gemini">Google Gemini 2.5 Flash (Gratis & Ultra Kreatif)</option>
+            <option value="openrouter">OpenRouter (Multi-Model)</option>
+          </select>
         </div>
 
+        <div id="box-api-key">
+          <label class="text-xs font-bold text-slate-300 block mb-1.5">API Key (Opsional jika pakai Gemini/OpenRouter):</label>
+          <input type="password" id="api-key" placeholder="Masukkan Kunci (AIzaSy... atau sk-or-...)" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 font-mono text-xs transition-all">
+          <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">Kunci kamu disimpan secara aman di LocalStorage browser HP/Laptopmu. Tidak pernah dikirim ke server pihak ketiga.</p>
+        </div>
+
+        <button onclick="saveKey()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl tap-scale shadow-lg shadow-emerald-500/20 text-sm">
+          Simpan Konfigurasi
+        </button>
+      </div>
+    </main>
+
+    <!-- VIEW: NASKAH JUALAN MATRIX -->
+    <main id="view-naskah" class="hidden p-5 flex-1 space-y-5 animate-fade-in">
+      <div class="flex items-center justify-between">
+        <button onclick="switchMode('home')" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5 tap-scale">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Menu Utama
+        </button>
+        <span class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Studio VO v15</span>
+      </div>
+      
+      <div class="glass-card p-5 rounded-3xl border-emerald-500/30 border space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><i data-lucide="mic" class="w-4 h-4"></i></div>
+          <h2 class="text-base font-extrabold text-emerald-400">Generator Naskah Jualan Viral (Matrix)</h2>
+        </div>
+        
+        <div class="space-y-3.5">
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Produk / Penawaran / Link Toko:</label>
+            <textarea id="n-prod" rows="3" placeholder="Misal: Gamis crinkle airflow premium cuttingan anggun adem, diskon 40% gratis ongkir hari ini..." class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-xs focus:border-emerald-500 focus:outline-none transition-all"></textarea>
+          </div>
+
+          <!-- Kategori & Tipe Hook -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">🛍️ Kategori Produk:</label>
+              <select id="n-cat" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-emerald-500 focus:outline-none">
+                <option value="auto">🔍 Deteksi Otomatis (AI)</option>
+                <option value="fashion">👗 Fashion & Pakaian</option>
+                <option value="skincare">💄 Skincare & Beauty</option>
+                <option value="shoes">👠 Sepatu & Sandal</option>
+                <option value="gadget">📱 Gadget & Aksesoris</option>
+                <option value="home">🍳 Home Living & Dapur</option>
+                <option value="food">🍟 Makanan & Herbal</option>
+                <option value="general">📦 Produk Umum / Lainnya</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">🎯 Tipe Hook Pembuka:</label>
+              <select id="n-hook" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-emerald-500 focus:outline-none">
+                <option value="auto">🎲 Campur Acak (4 Gaya Berbeda)</option>
+                <option value="warning">🛑 1. Anti-Mainstream / Warning Hook</option>
+                <option value="pain">💔 2. Relatable Pain Point Hook</option>
+                <option value="shock">😲 3. Shock & Unboxing Hook</option>
+                <option value="secret">🤫 4. Secret Spill / Confession Hook</option>
+                <option value="fomo">⏳ 5. FOMO & Stock Alert Hook</option>
+                <option value="story">☕ 6. Storytelling / Mini Drama Hook</option>
+                <option value="debunk">💡 7. Debunking Mitos / Edukasi Hook</option>
+                <option value="niche">🎯 8. Niche Calling / Direct Target Hook</option>
+                <option value="battle">⚔️ 9. Battle of Quality Hook</option>
+                <option value="transform">✨ 10. Transformation / Before-After Hook</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">💼 Strategi Jualan:</label>
+              <select id="n-strat" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-emerald-500 focus:outline-none">
+                <option value="AIDA (Penjualan Kilat)">⚡ AIDA (Penjualan Cepat)</option>
+                <option value="PASP (Problem, Agitate, Solve, Proof)">🎯 PASP (Masalah & Bukti)</option>
+                <option value="Value Stacking & Anchoring">💰 Value Stacking (Bandingkan Nilai)</option>
+                <option value="Storytelling & Soft Sell">☕ Soft Storytelling (Pengalaman Tulus)</option>
+                <option value="FOMO & Flash Deal">⏳ Flash Deal (Diskon Terbatas)</option>
+                <option value="Social Proof & Testimoni">🌟 Social Proof (Ribuan Review)</option>
+                <option value="Risk Reversal & Garansi">🛡️ Risk Reversal (Garansi Retur)</option>
+                <option value="Lifestyle & Status">💎 Lifestyle (Aspirational Selling)</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">⏱️ Durasi Video:</label>
+              <select id="n-dur" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-emerald-500 focus:outline-none">
+                <option value="6">6 Detik (Super Fast Hook)</option>
+                <option value="8">8 Detik (Fast Hook)</option>
+                <option value="10" selected>10 Detik (Standar TikTok)</option>
+                <option value="15">15 Detik (Sedang & Detail)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="btn-naskah" onclick="genNaskahMatrix()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl tap-scale shadow-lg shadow-emerald-500/20 text-xs flex items-center justify-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4"></i> GENERATE 4 VARIASI NASKAH MATRIX
+          </button>
+        </div>
+      </div>
+
+      <!-- Hasil 4 Naskah Variasi Matrix -->
+      <div id="res-naskah" class="hidden space-y-3.5 animate-fade-in">
+        
+        <!-- Variasi 1 -->
+        <div class="glass-card p-4 rounded-2xl border border-emerald-500/40">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-emerald-400 flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Variasi 1: Hook Tajam & Direct Conversion
+            </h3>
+            <div class="flex items-center gap-1.5">
+              <button onclick="playTTS('txt-n1')" class="text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded-lg tap-scale flex items-center gap-1"><i data-lucide="volume-2" class="w-3 h-3"></i> Suara</button>
+              <button onclick="copy('txt-n1')" class="text-[11px] font-bold bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+            </div>
+          </div>
+          <p id="txt-n1" class="text-xs leading-relaxed dark:text-slate-200 text-slate-800"></p>
+        </div>
+
+        <!-- Variasi 2 -->
+        <div class="glass-card p-4 rounded-2xl border border-teal-500/40">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-teal-400 flex items-center gap-1.5">
+              <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i> Variasi 2: Hook Masalah & Solusi (Empathy)
+            </h3>
+            <div class="flex items-center gap-1.5">
+              <button onclick="playTTS('txt-n2')" class="text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded-lg tap-scale flex items-center gap-1"><i data-lucide="volume-2" class="w-3 h-3"></i> Suara</button>
+              <button onclick="copy('txt-n2')" class="text-[11px] font-bold bg-teal-500/20 text-teal-300 hover:bg-teal-500/30 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+            </div>
+          </div>
+          <p id="txt-n2" class="text-xs leading-relaxed dark:text-slate-200 text-slate-800"></p>
+        </div>
+
+        <!-- Variasi 3 -->
+        <div class="glass-card p-4 rounded-2xl border border-cyan-500/40">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-cyan-400 flex items-center gap-1.5">
+              <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Variasi 3: Hook Storytelling & Social Proof
+            </h3>
+            <div class="flex items-center gap-1.5">
+              <button onclick="playTTS('txt-n3')" class="text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded-lg tap-scale flex items-center gap-1"><i data-lucide="volume-2" class="w-3 h-3"></i> Suara</button>
+              <button onclick="copy('txt-n3')" class="text-[11px] font-bold bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+            </div>
+          </div>
+          <p id="txt-n3" class="text-xs leading-relaxed dark:text-slate-200 text-slate-800"></p>
+        </div>
+
+        <!-- Variasi 4 -->
+        <div class="glass-card p-4 rounded-2xl border border-amber-500/40">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-amber-400 flex items-center gap-1.5">
+              <i data-lucide="flame" class="w-3.5 h-3.5"></i> Variasi 4: Hook Urgensi & Nilai Hemat (FOMO)
+            </h3>
+            <div class="flex items-center gap-1.5">
+              <button onclick="playTTS('txt-n4')" class="text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded-lg tap-scale flex items-center gap-1"><i data-lucide="volume-2" class="w-3 h-3"></i> Suara</button>
+              <button onclick="copy('txt-n4')" class="text-[11px] font-bold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+            </div>
+          </div>
+          <p id="txt-n4" class="text-xs leading-relaxed dark:text-slate-200 text-slate-800"></p>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- VIEW: UGC FASHION VIDEO STUDIO -->
+    <main id="view-ugc" class="hidden p-5 flex-1 space-y-5 animate-fade-in">
+      <div class="flex items-center justify-between">
+        <button onclick="switchMode('home')" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5 tap-scale">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Menu Utama
+        </button>
+        <span class="text-[11px] font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded-full border border-teal-500/20">UGC Fashion Studio</span>
+      </div>
+      
+      <div class="glass-card p-5 rounded-3xl border-teal-500/30 border space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center"><i data-lucide="video" class="w-4 h-4"></i></div>
+          <h2 class="text-base font-extrabold text-teal-400">Studio Storyboard UGC Model AI</h2>
+        </div>
+        
+        <div class="space-y-3.5">
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Nama / Detail Pakaian:</label>
+            <input type="text" id="u-prod" placeholder="Misal: Gamis Abaya Silk Turkish warna Sage Green..." class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-xs focus:border-teal-500 focus:outline-none">
+          </div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">Gaya Model:</label>
+              <select id="u-model" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-teal-500 focus:outline-none">
+                <option value="Hijab Casual Modern">Hijab Casual Modern</option>
+                <option value="Hijab Syari Anggun">Hijab Syar'i Anggun</option>
+                <option value="Korean Aesthetic Look">Korean Aesthetic Look</option>
+                <option value="Professional Office Look">Professional Office Look</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">Jumlah Adegan:</label>
+              <select id="u-scenes" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-teal-500 focus:outline-none">
+                <option value="2" selected>2 Adegan (Hook + CTA)</option>
+                <option value="3">3 Adegan (Hook + Detail + CTA)</option>
+                <option value="1">1 Adegan Kilat (Flash Review)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="btn-ugc" onclick="genUGCStudio()" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl tap-scale shadow-lg shadow-teal-500/20 text-xs flex items-center justify-center gap-2">
+            <i data-lucide="video" class="w-4 h-4"></i> GENERATE STORYBOARD UGC
+          </button>
+        </div>
+      </div>
+
+      <!-- Hasil UGC Studio -->
+      <div id="res-ugc" class="hidden space-y-4 animate-fade-in">
+        <div class="glass-card p-4 rounded-2xl border border-teal-500/30">
+          <h3 class="text-xs font-bold text-teal-400 mb-1">Analisis Visual & Strategi:</h3>
+          <p id="txt-u-analysis" class="text-xs text-slate-300 mb-2"></p>
+          <p id="txt-u-strategy" class="text-xs text-slate-400"></p>
+        </div>
+        <div id="ugc-scenes-container" class="space-y-3"></div>
+      </div>
+    </main>
+
+    <!-- VIEW: PROMPT VISUAL -->
+    <main id="view-prompt" class="hidden p-5 flex-1 space-y-5 animate-fade-in">
+      <div class="flex items-center justify-between">
+        <button onclick="switchMode('home')" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5 tap-scale">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Menu Utama
+        </button>
+        <span class="text-[11px] font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full border border-blue-500/20">Studio Visual</span>
+      </div>
+      
+      <div class="glass-card p-5 rounded-3xl border-blue-500/30 border space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center"><i data-lucide="image" class="w-4 h-4"></i></div>
+          <h2 class="text-base font-extrabold text-blue-400">Generator Prompt Visual</h2>
+        </div>
+        
+        <div class="space-y-3.5">
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Fokus Objek / Produk:</label>
+            <input type="text" id="p-obj" placeholder="Misal: Jam tangan pria stainless steel dial hitam dengan tetesan air..." class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-xs focus:border-blue-500 focus:outline-none">
+          </div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">Latar Scene:</label>
+              <select id="p-scene" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-blue-500 focus:outline-none">
+                <option value="Modern Minimalist Studio">Studio Minimalis Modern</option>
+                <option value="Aesthetic Cafe Outdoor">Cafe Outdoor Estetik</option>
+                <option value="Cozy Warm Bedroom">Kamar Tidur Hangat</option>
+                <option value="Nature Green Hills">Alam Perbukitan Hijau</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-300 block mb-1">Kamera & Angle:</label>
+              <select id="p-cam" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-2.5 text-xs focus:border-blue-500 focus:outline-none">
+                <option value="Eye level 85mm portrait shot">Eye Level 85mm Portrait</option>
+                <option value="Handheld iPhone 15 Pro tracking">Handheld iPhone Tracking</option>
+                <option value="Macro close-up detail shot">Macro Close-Up Detail</option>
+                <option value="Cinematic slow push in">Cinematic Slow Push-In</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="btn-prompt" onclick="genPrompt()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl tap-scale shadow-lg shadow-blue-500/20 text-xs flex items-center justify-center gap-2">
+            <i data-lucide="image" class="w-4 h-4"></i> GENERATE PROMPT
+          </button>
+        </div>
+      </div>
+
+      <div id="res-prompt" class="hidden space-y-3.5 animate-fade-in">
+        <div class="glass-card p-4 rounded-2xl border border-blue-500/30">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-blue-400">Prompt Midjourney / Video AI:</h3>
+            <button onclick="copy('txt-pt')" class="text-[11px] font-bold bg-blue-500/20 text-blue-300 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+          </div>
+          <p id="txt-pt" class="text-xs font-mono leading-relaxed dark:text-slate-200 text-slate-800 break-words"></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW: CAPTION & SEO GENERATOR -->
+    <main id="view-seo" class="hidden p-5 flex-1 space-y-5 animate-fade-in">
+      <div class="flex items-center justify-between">
+        <button onclick="switchMode('home')" class="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5 tap-scale">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Menu Utama
+        </button>
+        <span class="text-[11px] font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-full border border-purple-500/20">Studio SEO</span>
+      </div>
+      
+      <div class="glass-card p-5 rounded-3xl border-purple-500/30 border space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4"></i></div>
+          <h2 class="text-base font-extrabold text-purple-400">Caption & SEO Generator</h2>
+        </div>
+        
+        <div class="space-y-3.5">
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Detail Produk & Link Affiliate:</label>
+            <textarea id="s-prod" rows="3" placeholder="Misal: https://vt.tokopedia.com/t/ZSxxxx/ Blouse floral vintage casual bahan katun jepang premium..." class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-xs focus:border-purple-500 focus:outline-none"></textarea>
+          </div>
+          
+          <button id="btn-seo" onclick="genSEO()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3.5 rounded-xl tap-scale shadow-lg shadow-purple-500/20 text-xs flex items-center justify-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4"></i> GENERATE CAPTION & SEO
+          </button>
+        </div>
+      </div>
+
+      <div id="res-seo" class="hidden space-y-3.5 animate-fade-in">
+        <div class="glass-card p-4 rounded-2xl border border-purple-500/30">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-purple-400">Postingan Siap Publish (FB / IG / Threads):</h3>
+            <button onclick="copy('txt-post-ready')" class="text-[11px] font-bold bg-purple-500/20 text-purple-300 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+          </div>
+          <p id="txt-post-ready" class="text-xs whitespace-pre-line leading-relaxed dark:text-slate-200 text-slate-800"></p>
+        </div>
+        <div class="glass-card p-4 rounded-2xl border border-pink-500/30">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-xs text-pink-400">Keyword Pencarian SEO TikTok:</h3>
+            <button onclick="copy('txt-seo-keys')" class="text-[11px] font-bold bg-pink-500/20 text-pink-300 px-2.5 py-1 rounded-lg tap-scale">Salin</button>
+          </div>
+          <p id="txt-seo-keys" class="text-xs font-mono leading-relaxed dark:text-slate-300 text-slate-700"></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- FLOATING BOTTOM NAVIGATION BAR -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 p-3 pointer-events-none flex justify-center">
+      <div class="max-w-md w-full bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-xl border border-slate-800/80 rounded-full p-1.5 shadow-2xl flex items-center justify-between pointer-events-auto">
+        <button id="nav-home" onclick="switchMode('home')" class="flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-emerald-400 bg-emerald-500/10 transition-all tap-scale">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span class="text-[9px]">Home</span>
+        </button>
+        <button id="nav-naskah" onclick="switchMode('naskah')" class="flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition-all tap-scale">
+          <i data-lucide="mic" class="w-4 h-4"></i>
+          <span class="text-[9px]">Naskah</span>
+        </button>
+        <button id="nav-ugc" onclick="switchMode('ugc')" class="flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition-all tap-scale">
+          <i data-lucide="video" class="w-4 h-4"></i>
+          <span class="text-[9px]">UGC</span>
+        </button>
+        <button id="nav-prompt" onclick="switchMode('prompt')" class="flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition-all tap-scale">
+          <i data-lucide="image" class="w-4 h-4"></i>
+          <span class="text-[9px]">Visual</span>
+        </button>
+        <button id="nav-seo" onclick="switchMode('seo')" class="flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition-all tap-scale">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span class="text-[9px]">SEO</span>
+        </button>
+        <button id="nav-settings" onclick="switchMode('settings')" class="flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition-all tap-scale">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+          <span class="text-[9px]">Setup</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 dark:bg-slate-900 bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl border border-slate-700 transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+      <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+      <span id="toast-text">Teks disalin!</span>
     </div>
 
-    <!-- ========================================================
-         SCRIPTS: THEME TOGGLE, MOBILE MENU, INTERACTIVE DEMO, CS BOT
-    ======================================================== -->
-    <script>
-        // 1. Dark / Light Mode Switcher with LocalStorage
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const htmlElement = document.documentElement;
+  </div>
 
-        if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            htmlElement.classList.remove('dark');
+  <script>
+    lucide.createIcons();
+    
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+      lucide.createIcons();
+    }
+
+    let API_KEY = localStorage.getItem('nk_api_key') || '';
+    let API_PROV = localStorage.getItem('nk_api_provider') || 'local';
+    
+    if(API_KEY) document.getElementById('api-key').value = API_KEY;
+    document.getElementById('api-provider').value = API_PROV;
+    updateBadge();
+
+    function updateBadge() {
+      const badge = document.getElementById('header-prov-badge');
+      if(badge) {
+        if(API_PROV === 'gemini') badge.innerText = 'Gemini 2.5 Flash';
+        else if(API_PROV === 'openrouter') badge.innerText = 'OpenRouter Engine';
+        else badge.innerText = 'Smart Dynamic Matrix';
+      }
+    }
+
+    function switchMode(m) {
+      ['view-home','view-naskah','view-ugc','view-prompt','view-seo','view-settings'].forEach(i => {
+        const el = document.getElementById(i);
+        if(el) el.classList.add('hidden');
+      });
+      const target = document.getElementById(`view-${m}`);
+      if(target) target.classList.remove('hidden');
+
+      ['home','naskah','ugc','prompt','seo','settings'].forEach(id => {
+        const btn = document.getElementById(`nav-${id}`);
+        if(btn) {
+          if(id === m) {
+            btn.className = "flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-emerald-400 bg-emerald-500/10 transition-all tap-scale";
+          } else {
+            btn.className = "flex-1 py-2 rounded-full text-xs font-bold flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition-all tap-scale";
+          }
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showToast(m) {
+      document.getElementById('toast-text').innerText = m;
+      const t = document.getElementById('toast');
+      t.classList.remove('opacity-0', 'translate-y-2');
+      setTimeout(() => t.classList.add('opacity-0', 'translate-y-2'), 2400);
+    }
+
+    function copy(id) {
+      const txt = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(txt);
+      showToast('Naskah berhasil disalin!');
+    }
+
+    function playTTS(id) {
+      const text = document.getElementById(id).innerText;
+      if(!text) return;
+      if('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'id-ID';
+        utter.rate = 1.08;
+        utter.pitch = 1.05;
+        window.speechSynthesis.speak(utter);
+        showToast('Memutar suara naskah...');
+      } else {
+        showToast('Fitur suara tidak didukung browser ini.');
+      }
+    }
+
+    function saveKey() {
+      const v = document.getElementById('api-key').value.trim();
+      const p = document.getElementById('api-provider').value;
+      localStorage.setItem('nk_api_key', v);
+      localStorage.setItem('nk_api_provider', p);
+      API_KEY = v;
+      API_PROV = p;
+      updateBadge();
+      showToast(`Konfigurasi tersimpan (${p})!`);
+      setTimeout(() => switchMode('home'), 800);
+    }
+
+    // --- 1. DYNAMIC MATRIX NASKAH GENERATOR ---
+    async function genNaskahMatrix() {
+      const prod = document.getElementById('n-prod').value.trim();
+      const hook = document.getElementById('n-hook').value;
+      const strat = document.getElementById('n-strat').value;
+      const dur = document.getElementById('n-dur').value;
+      const cat = document.getElementById('n-cat').value;
+      if(!prod) return showToast("Isi deskripsi produk dulu!");
+
+      const btn = document.getElementById('btn-naskah');
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin-slow"></i> MEMPROSES 4 VARIASI...`;
+      btn.disabled = true;
+      document.getElementById('res-naskah').classList.add('hidden');
+
+      try {
+        if(API_PROV === 'gemini' && API_KEY) {
+          const sys = `Anda adalah Master Copywriter & TikTok Ads Specialist Indonesia.
+Tugas: Buat 4 VARIASI naskah Voice Over (VO) berdurasi ${dur} detik dengan gaya lisan santai, alami, anti kaku, dan bebas overclaim.
+Strategi utama: ${strat}, Tipe Hook Pembuka: ${hook}, Kategori Produk: ${cat}.
+Panjang tiap naskah: ${Math.floor(parseInt(dur)*2.0)} - ${Math.ceil(parseInt(dur)*2.6)} KATA.
+Output HANYA JSON murni:
+{
+  "variasi_1": "Naskah 1 (Hook Tajam & Direct Conversion)",
+  "variasi_2": "Naskah 2 (Hook Masalah & Solusi Empathy)",
+  "variasi_3": "Naskah 3 (Hook Storytelling & Social Proof)",
+  "variasi_4": "Naskah 4 (Hook Urgensi & Nilai Hemat)"
+}`;
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `System: ${sys}\n\nProduk: ${prod}` }] }],
+              generationConfig: { responseMimeType: "application/json" }
+            })
+          });
+          const d = await res.json();
+          const j = JSON.parse(d.candidates[0].content.parts[0].text);
+          document.getElementById('txt-n1').innerText = j.variasi_1;
+          document.getElementById('txt-n2').innerText = j.variasi_2;
+          document.getElementById('txt-n3').innerText = j.variasi_3;
+          document.getElementById('txt-n4').innerText = j.variasi_4;
         } else {
-            htmlElement.classList.add('dark');
+          // Local Matrix Engine
+          const res = await fetch('/api/generate', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              product_input: prod,
+              hook_type: hook,
+              strategy: strat,
+              duration: parseInt(dur),
+              category: cat
+            })
+          });
+          const j = await res.json();
+          document.getElementById('txt-n1').innerText = j.variasi_1;
+          document.getElementById('txt-n2').innerText = j.variasi_2;
+          document.getElementById('txt-n3').innerText = j.variasi_3;
+          document.getElementById('txt-n4').innerText = j.variasi_4;
         }
 
-        themeToggleBtn.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
+        document.getElementById('res-naskah').classList.remove('hidden');
+        showToast("4 Variasi Naskah Matrix Siap!");
+      } catch(e) {
+        showToast(e.message);
+      } finally {
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i> GENERATE 4 VARIASI NASKAH MATRIX`;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    // --- 2. UGC FASHION STUDIO ---
+    async function genUGCStudio() {
+      const prod = document.getElementById('u-prod').value.trim();
+      const model = document.getElementById('u-model').value;
+      const scenes = document.getElementById('u-scenes').value;
+      if(!prod) return showToast("Isi nama pakaian!");
+
+      const btn = document.getElementById('btn-ugc');
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin-slow"></i> MEMPROSES...`;
+      btn.disabled = true;
+      document.getElementById('res-ugc').classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/ugc-studio', {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            product_input: prod,
+            model_style: model,
+            num_scenes: parseInt(scenes),
+            setting: "Aesthetic Cafe Outdoor"
+          })
+        });
+        const j = await res.json();
+        document.getElementById('txt-u-analysis').innerText = j.product_analysis;
+        document.getElementById('txt-u-strategy').innerText = j.promo_strategy;
+
+        const cont = document.getElementById('ugc-scenes-container');
+        cont.innerHTML = '';
+        j.scenes.forEach(s => {
+          const card = document.createElement('div');
+          card.className = "glass-card p-4 rounded-2xl border border-teal-500/30 space-y-2";
+          card.innerHTML = `
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold text-teal-400">${s.title} (${s.duration})</span>
+            </div>
+            <p class="text-xs text-slate-300"><strong class="text-white">Visual:</strong> ${s.visual}</p>
+            <p class="text-xs text-emerald-400"><strong class="text-white">Naskah VO:</strong> "${s.vo}"</p>
+            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-slate-400 break-words">
+              <strong>Prompt AI:</strong> ${s.omni_prompt}
+            </div>
+          `;
+          cont.appendChild(card);
         });
 
-        // 2. Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        document.getElementById('res-ugc').classList.remove('hidden');
+        showToast("Storyboard UGC Siap!");
+      } catch(e) {
+        showToast(e.message);
+      } finally {
+        btn.innerHTML = `<i data-lucide="video" class="w-4 h-4"></i> GENERATE STORYBOARD UGC`;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+    // --- 3. PROMPT VISUAL ---
+    async function genPrompt() {
+      const obj = document.getElementById('p-obj').value.trim();
+      const scene = document.getElementById('p-scene').value;
+      const cam = document.getElementById('p-cam').value;
+      if(!obj) return showToast("Fokus objek wajib diisi!");
 
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
+      const promptText = `UGC high-resolution product photography, 9:16 vertical. Realistic ${obj} captured in ${scene}. ${cam}, soft natural daylight with subtle rim lighting, authentic textures and fine details, commercial editorial quality, shot on 85mm f/1.8 lens, 8k resolution, cinematic masterpiece.`;
+      document.getElementById('txt-pt').innerText = promptText;
+      document.getElementById('res-prompt').classList.remove('hidden');
+      showToast("Prompt visual siap!");
+    }
 
-        // 3. Interactive AI Hook Generator Demo
-        const sampleHooks = {
-            wildlife: [
-                "\"Monster laut sedalam 4.000 meter ini rela mati kelaparan selama 4 tahun hanya demi menjaga bayinya... dan ini alasan mengerikannya.\"",
-                "\"Hewan ini bersuara di frekuensi 52 Hz... dan sepanjang hidupnya, tak ada satu pun paus di samudra yang bisa mendengarnya.\"",
-                "\"Jangan tertipu dengan penampilannya yang cantik, makhluk laut ini bisa menumbuhkan kembali otaknya dalam 3 hari!\""
-            ],
-            affiliate: [
-                "\"Stop beli botol minum mahal kalau belum tahu rahasia termos stainless 24 jam yang lagi viral ini!\"",
-                "\"Gue kira barang 30 ribuan ini zonk, pas datang ternyata kualitasnya mirip brand jutaan... tonton sampai habis!\"",
-                "\"Review jujur pemakaian 1 bulan: ini alasan kenapa produk ini terjual 50 ribu pcs dalam seminggu!\""
-            ],
-            automation: [
-                "\"Capek ngedit video 6 jam sehari? Begini cara kita bikin 90 video 4K autopilot sebulan tanpa menyentuh tombol edit.\"",
-                "\"Kenapa kerja keras kalau bot kita bisa posting otomatis ke YouTube, Instagram, dan TikTok sekali klik?\"",
-                "\"Blueprint agensi AI 2026: Modal Rp 0 bisa hasilkan sistem automasi sekelas korporat.\""
-            ]
-        };
+    // --- 4. CAPTION & SEO ---
+    async function genSEO() {
+      const prod = document.getElementById('s-prod').value.trim();
+      if(!prod) return showToast("Isi detail produk & link!");
 
-        const generateBtn = document.getElementById('generateHookBtn');
-        const categorySelect = document.getElementById('demoCategory');
-        const resultBox = document.getElementById('hookResult');
+      const cleanProd = prod.replace(/https?:\/\/\S+/g, '').trim() || "Produk Rekomendasi";
+      const linkMatch = prod.match(/https?:\/\/\S+/);
+      const link = linkMatch ? linkMatch[0] : "👉 Cek link produk di bio/keranjang!";
 
-        generateBtn.addEventListener('click', () => {
-            const cat = categorySelect.value;
-            const list = sampleHooks[cat];
-            const randomHook = list[Math.floor(Math.random() * list.length)];
-            resultBox.innerHTML = `<span class="text-slate-400 font-sans block mb-1">🔥 Viral Hook Hasil Racikan AI ZiyanCorp:</span> ${randomHook}`;
-        });
+      const post = `${link}\n\nSpill ${cleanProd} yang lagi banyak dicari karena kualitas dan kenyamanannya beneran juara. Desain simpel elegan bikin penampilan makin rapi dan stylish seharian.\n\n#RekomendasiProduk #RacunBelanja #OutfitHarian #SpillBarang`;
+      const keywords = `${cleanProd}, rekomendasi ${cleanProd}, review jujur ${cleanProd}, promo diskon ${cleanProd}, ${cleanProd} viral tiktok, racun shopee ${cleanProd}`;
 
-        // 4. CS AI Virtual Assistant Logic (Enhanced Multi-Turn Context & Precision)
-        function toggleCsChat(show) {
-            const modal = document.getElementById('csModal');
-            const btn = document.getElementById('csTriggerBtn');
-            
-            if (show === true) {
-                modal.classList.remove('hidden');
-                btn.classList.add('hidden');
-                document.getElementById('chatInput').focus();
-            } else if (show === false) {
-                modal.classList.add('hidden');
-                btn.classList.remove('hidden');
-            } else {
-                modal.classList.toggle('hidden');
-                btn.classList.toggle('hidden');
-                if (!modal.classList.contains('hidden')) {
-                    document.getElementById('chatInput').focus();
-                }
-            }
-        }
-
-        const intelligentResponses = [
-            {
-                pattern: /(website apa|web apa|ini apa|apa ini|siapa kalian|perusahaan apa|tujuan|tentang apa|company profile|profil|situs apa)/i,
-                reply: `<b>Website ini adalah Portal Resmi ZIYAN CORP</b> 🚀<br><br>
-                ZiyanCorp adalah pusat pengembangan <b>Produk AI & SaaS Siap Jual</b> untuk kreator, marketer, dan pebisnis digital. Di website ini, Anda dapat mengakses 3 Produk Utama kami:<br><br>
-                1. 📚 <b>AI E-Book Generator (Tool SaaS):</b> Aplikasi web pembuat E-Book instan dari YouTube, Web, dan PDF.<br>
-                2. 📖 <b>Master Blueprint ZiyanCorp:</b> E-Book panduan industri 'Pabrik Konten AI 24 Jam'.<br>
-                3. 🛍️ <b>Ziyan UGC Affiliate Studio:</b> Generator 5-pose video prompt + naskah copywriting promosi Shopee/TikTok.<br><br>
-                Produk mana yang ingin Anda coba atau pelajari lebih lanjut?`
-            },
-            {
-                pattern: /(produk apa|apa saja produk|layanan|jual apa|fitur apa|ekosistem|ada apa aja)/i,
-                reply: `<b>ZIYAN CORP memiliki 3 Produk Komersial Utama:</b><br><br>
-                1. 📚 <b>AI E-Book Generator (SaaS Tool):</b> Tool generator buku otomatis dari link YouTube, artikel website, & PDF dengan ekspor PDF instan. Coba gratis di <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">/ebook-generator/</a> 🚀<br>
-                2. 📖 <b>E-Book Resmi ZiyanCorp (Digital Publishing):</b> Master Blueprint 'Pabrik Konten AI 24 Jam' berdesain majalah teknologi modern.<br>
-                3. 🛍️ <b>Ziyan UGC Affiliate Studio (SaaS Tool):</b> Generator 5-pose visual prompt + naskah copywriting jualan Shopee & TikTok siap closing.<br><br>
-                Silakan pilih produk yang ingin Anda gunakan!`
-            },
-            {
-                pattern: /(ebook generator|tool ebook|generator ebook|bikin ebook|buat buku|buat ebook|convert youtube|notebooklm|cara kerja ebook|cara pakai ebook|mekanisme ebook)/i,
-                reply: `<b>📚 ZiyanCorp AI E-Book Generator</b> adalah produk SaaS inovatif yang mengubah sumber riset acak menjadi E-Book profesional siap baca & siap cetak! 🚀<br><br>
-                <b>🔹 Sumber yang Didukung:</b><br>
-                • 🎬 <b>YouTube:</b> Cukup tempel link video ➔ teks transkrip diserap otomatis.<br>
-                • 🌐 <b>Website:</b> Tempel link artikel ➔ teks bersih diekstrak tanpa iklan.<br>
-                • 📄 <b>PDF:</b> Upload file PDF ➔ dibaca langsung di browser HP/Laptop.<br>
-                • 📝 <b>Teks Bebas:</b> Tempel catatan atau draft manual.<br><br>
-                <b>🔹 Mekanisme Anti-Kolaps:</b><br>
-                • <b>Chunked Per-Chapter:</b> AI menulis bab demi bab secara bertahap agar tidak pernah kena timeout.<br>
-                • <b>Client-Side PDF Rendering:</b> PDF di-render di HP pengguna sehingga server 0% beban.<br>
-                • <b>BYOK (Bring Your Own Key):</b> Mendukung API Key Gemini gratis pengguna.<br><br>
-                👉 <b>Coba sekarang di:</b> <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">https://ziyancorp.github.io/ebook-generator/</a>`
-            },
-            {
-                pattern: /(tema ebook|tema buku|ziyan tech chrome|pin ebook|password ebook|kunci tema)/i,
-                reply: `<b>🎨 Pilihan Tema di AI E-Book Generator:</b><br><br>
-                1. 🟢 <b>Clean Editorial:</b> Tampilan putih bersih bergaya editorial klasik.<br>
-                2. 🔵 <b>Obsidian Night:</b> Tampilan gelap elegan dengan aksen neon tech.<br>
-                3. 🌊 <b>Ocean Breeze:</b> Nuansa biru laut segar yang nyaman dibaca.<br>
-                4. 🌅 <b>Sunset Coral:</b> Warna hangat berkelas untuk buku inspirasi.<br>
-                5. 🔒 <b>Ziyan Tech Chrome (ADMIN ONLY):</b> Tema eksklusif ZiyanCorp berformat majalah teknologi dengan icon vektor SVG inline & diagram alur. Terkunci dengan PIN keamanan admin!<br><br>
-                Bisa diakses langsung di menu generator E-Book kita!`
-            },
-            {
-                pattern: /(ebook|buku|blueprint|pdf|panduan)/i,
-                reply: `Di ZiyanCorp, kami memiliki 2 ekosistem E-Book:<br><br>
-                1. 🚀 <b>AI E-Book Generator Tool:</b> Aplikasi web pembuat E-Book instan dari YouTube, Web, dan PDF. Bisa diakses di <a href="./ebook-generator/" class="text-cyan-400 font-bold underline">/ebook-generator/</a>.<br>
-                2. 📖 <b>Master Blueprint 'Pabrik Konten AI 24 Jam':</b> E-Book panduan resmi ZiyanCorp berformat majalah teknologi beresolusi tinggi.<br><br>
-                Mau coba buat E-Book sendiri sekarang?`
-            }
-        ];
-
-        // Dedicated Ziyan CS Website Monitoring Bridge (@Employeezynbot)
-        function pushMonitoringLog(userQuery, botReply) {
-            try {
-                const token = "8825875995:AAFNK-7BXeYnjxrXDZEaLzZ-eKQ6dTqIrrk";
-                const chatId = "7349146540";
-                const cleanReply = botReply.replace(/<[^>]*>?/gm, '').substring(0, 160) + "...";
-                const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                const logText = `🔔 [ZIYAN CS AI MONITOR]\n👤 Pengunjung: "${userQuery}"\n🤖 Jawaban: "${cleanReply}"\n⏰ ${new Date().toLocaleTimeString('id-ID')} WIB\n📱 Device: ${isMobile ? 'Mobile' : 'Desktop'}`;
-
-                fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: logText })
-                }).catch(() => {});
-            } catch (err) {}
-        }
-
-        function appendMessage(sender, htmlContent) {
-            const chatBox = document.getElementById('chatMessages');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2.5';
-            
-            if (sender === 'user') {
-                msgDiv.innerHTML = `<div class="p-3.5 rounded-2xl rounded-tr-none bg-gradient-to-r from-cyan-500 to-blue-600 text-white max-w-[85%] leading-relaxed shadow-sm font-medium">${htmlContent}</div>`;
-            } else {
-                msgDiv.innerHTML = `
-                    <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs shadow">Z</div>
-                    <div class="p-3.5 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 shadow-sm leading-relaxed max-w-[90%] space-y-1">
-                        ${htmlContent}
-                    </div>
-                `;
-            }
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function showTypingIndicator() {
-            const chatBox = document.getElementById('chatMessages');
-            const typingDiv = document.createElement('div');
-            typingDiv.id = 'typingIndicator';
-            typingDiv.className = 'flex items-start gap-2.5';
-            typingDiv.innerHTML = `
-                <div class="w-7 h-7 rounded-lg bg-cyan-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-xs">Z</div>
-                <div class="p-3 rounded-2xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 text-slate-500 dark:text-slate-400 text-xs shadow-sm flex items-center gap-2">
-                    <span class="dot-typing text-cyan-500"><span></span><span></span><span></span></span>
-                    <span>Mengetik jawaban...</span>
-                </div>
-            `;
-            chatBox.appendChild(typingDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function removeTypingIndicator() {
-            const typingDiv = document.getElementById('typingIndicator');
-            if (typingDiv) typingDiv.remove();
-        }
-
-        function processBotReply(userText) {
-            showTypingIndicator();
-            
-            setTimeout(() => {
-                removeTypingIndicator();
-                let matched = intelligentResponses.find(item => item.pattern.test(userText));
-                const replyContent = matched ? matched.reply : `<b>Ziyan AI Assistant siap membantu Anda!</b><br><br>Anda bisa menanyakan tentang:<br>• 📚 <b>AI E-Book Generator</b> (tool pembuat ebook instan)<br>• 📖 <b>Master Blueprint E-Book</b> (panduan resmi ZiyanCorp)<br>• 🛍️ <b>UGC Affiliate Studio</b> (generator video promosi Shopee/TikTok)<br><br>Ketik topik yang ingin Anda ketahui!`;
-                
-                appendMessage('bot', replyContent);
-                pushMonitoringLog(userText, replyContent);
-            }, 600);
-        }
-
-        function handleSendChat() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-            
-            appendMessage('user', text);
-            input.value = '';
-            processBotReply(text);
-        }
-
-        function sendQuickQuery(queryText) {
-            appendMessage('user', queryText);
-            processBotReply(queryText);
-        }
-
-        document.getElementById('chatInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleSendChat();
-        });
-    </script>
-
+      document.getElementById('txt-post-ready').innerText = post;
+      document.getElementById('txt-seo-keys').innerText = keywords;
+      document.getElementById('res-seo').classList.remove('hidden');
+      showToast("Caption & SEO Siap!");
+    }
+  </script>
 </body>
 </html>
