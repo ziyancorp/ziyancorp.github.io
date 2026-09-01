@@ -746,22 +746,88 @@ Output HANYA JSON murni:
       showToast("Prompt visual siap!");
     }
 
-    // --- 4. CAPTION & SEO ---
+    // --- 4. CAPTION & SEO GENERATOR (FORMAT PERSIS SESUAI SCREENSHOT BOS) ---
     async function genSEO() {
       const prod = document.getElementById('s-prod').value.trim();
       if(!prod) return showToast("Isi detail produk & link!");
 
-      const cleanProd = prod.replace(/https?:\/\/\S+/g, '').trim() || "Produk Rekomendasi";
+      const btn = document.getElementById('btn-seo');
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin-slow"></i> MEMPROSES CAPTION...`;
+      btn.disabled = true;
+      document.getElementById('res-seo').classList.add('hidden');
+
       const linkMatch = prod.match(/https?:\/\/\S+/);
-      const link = linkMatch ? linkMatch[0] : "👉 Cek link produk di bio/keranjang!";
+      const link = linkMatch ? linkMatch[0] : "https://s.shopee.co.id/xxx";
+      let cleanProd = prod.replace(/https?:\/\/\S+/g, '').replace(/[\r\n]+/g, ' ').replace(/[^\w\s\d%-]/g, ' ').trim() || "Produk Rekomendasi";
+      
+      const words = cleanProd.split(/\s+/).filter(w => w.length > 0);
+      const prodName = words.slice(0, 7).join(' ') || "Produk Pilihan";
 
-      const post = `${link}\n\nSpill ${cleanProd} yang lagi banyak dicari karena kualitas dan kenyamanannya beneran juara. Desain simpel elegan bikin penampilan makin rapi dan stylish seharian.\n\n#RekomendasiProduk #RacunBelanja #OutfitHarian #SpillBarang`;
-      const keywords = `${cleanProd}, rekomendasi ${cleanProd}, review jujur ${cleanProd}, promo diskon ${cleanProd}, ${cleanProd} viral tiktok, racun shopee ${cleanProd}`;
+      try {
+        if(API_PROV === 'gemini' && API_KEY) {
+          const sys = `Anda adalah Copywriter Spesialis Caption FB, Instagram, dan Threads.
+Tugas: Buat caption affiliate yang SANGAT RINGKAS, PADAT, dan ELEGAN persis seperti contoh format ini:
 
-      document.getElementById('txt-post-ready').innerText = post;
-      document.getElementById('txt-seo-keys').innerText = keywords;
-      document.getElementById('res-seo').classList.remove('hidden');
-      showToast("Caption & SEO Siap!");
+CONTOH OUTPUT WAJIB:
+${link}
+
+${prodName} hadir dengan desain elegan untuk melengkapi outfit casual hingga semi-formal. Siluet simpel bikin tampilan lebih rapi, chic, dan stylish.
+
+#Tag1 #Tag2 #Tag3
+#Tag4 #Tag5
+
+ATURAN MUTLAK:
+1. Baris pertama HANYA berisi Link Affiliate.
+2. Paragraf isi caption TEPAT 2 KALIMAT SINGKAT (fokus ke siluet, fungsi, dan kesan stylish tanpa bertele-tele). Dilarang membuat paragraf panjang!
+3. DILARANG KERAS menyebutkan harga, diskon, promo, murah, atau nominal rupiah sama sekali.
+4. Tepat 5 hashtag relevan di bawah (format: #Tag1 #Tag2 #Tag3\n#Tag4 #Tag5).
+
+Output HANYA JSON murni:
+{
+  "affiliate_link": "${link}",
+  "caption_body": "2 kalimat singkat padat",
+  "hashtags": "#Tag1 #Tag2 #Tag3\n#Tag4 #Tag5",
+  "seo_keywords": "keyword 1, keyword 2, keyword 3, keyword 4, keyword 5"
+}`;
+
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `System: ${sys}\n\nProduk: ${cleanProd}` }] }],
+              generationConfig: { responseMimeType: "application/json" }
+            })
+          });
+          const d = await res.json();
+          const j = JSON.parse(d.candidates[0].content.parts[0].text);
+          const fullPost = `${j.affiliate_link || link}\n\n${j.caption_body}\n\n${j.hashtags}`;
+          document.getElementById('txt-post-ready').innerText = fullPost;
+          document.getElementById('txt-seo-keys').innerText = j.seo_keywords;
+        } else {
+          // Format Baku Cerdas Presisi (Persis Screenshot Bos)
+          const tag1 = '#' + (words[0] ? words[0].replace(/[^a-zA-Z0-9]/g, '') : 'Fashion');
+          const tag2 = '#' + (words[1] ? words[1].replace(/[^a-zA-Z0-9]/g, '') : 'OOTD');
+          const tag3 = '#' + (words[2] ? words[2].replace(/[^a-zA-Z0-9]/g, '') : 'Rekomendasi');
+          const tag4 = '#ChicStyle';
+          const tag5 = '#OutfitHarian';
+
+          const body = `${prodName} hadir dengan desain elegan untuk melengkapi outfit casual hingga semi-formal. Siluet simpel bikin tampilan lebih rapi, chic, dan stylish.`;
+          const fullPost = `${link}\n\n${body}\n\n${tag1} ${tag2} ${tag3}\n${tag4} ${tag5}`;
+          const keywords = `${prodName}, rekomendasi ${prodName}, review jujur ${prodName}, ${prodName} viral tiktok, racun belanja ${prodName}`;
+
+          document.getElementById('txt-post-ready').innerText = fullPost;
+          document.getElementById('txt-seo-keys').innerText = keywords;
+        }
+
+        document.getElementById('res-seo').classList.remove('hidden');
+        showToast("Caption & SEO Siap!");
+      } catch(e) {
+        showToast("Error: " + e.message);
+      } finally {
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i> GENERATE CAPTION & SEO`;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
     }
   </script>
 </body>
