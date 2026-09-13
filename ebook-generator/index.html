@@ -212,9 +212,10 @@
             </button>
             <div class="dropdown-menu" id="navDropdown">
                 <a href="../" class="dropdown-item">🏠 Portal Utama ZiyanCorp</a>
-                <a href="../#saas" class="dropdown-item">🛍️ UGC Affiliate Studio</a>
-                <a href="../#publishing" class="dropdown-item">📖 Master Blueprint Tech E-Book</a>
-                <a href="../#demo" class="dropdown-item">🔥 Live Hook Generator</a>
+                <a href="../jagocreative/" class="dropdown-item">🎬 JagoCreative AI Studio</a>
+                <a href="../ugc-studio/" class="dropdown-item">🛍️ Ziyan UGC Studio</a>
+                <a href="../narasikilat/" class="dropdown-item">⚡ NarasiKilat Studio</a>
+                <a href="../#publishing" class="dropdown-item">📖 Master Blueprint Tech</a>
             </div>
         </div>
 
@@ -752,7 +753,7 @@ function closePinModal() { document.getElementById('pinModal').classList.remove(
 // GEMINI API CLIENT (BULLETPROOF AUTO-RETRY ENGINE)
 // ═══════════════════════════════════════════════════════
 async function callGemini(apiKey, prompt, temp = 0.8, statusTextCallback = null) {
-    const candidateModels = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemma-4-31b-it'];
+    const candidateModels = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemma-4-31b-it'];
     const maxRetries = 3;
     let lastError = null;
 

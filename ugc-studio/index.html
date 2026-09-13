@@ -225,9 +225,10 @@
             </button>
             <div class="dropdown-menu" id="navDropdown">
                 <a href="../" class="dropdown-item">🏠 Portal Utama ZiyanCorp</a>
-                <a href="../ebook-generator/" class="dropdown-item">📚 AI E-Book Generator Tool</a>
-                <a href="../#publishing" class="dropdown-item">📖 Master Blueprint Tech E-Book</a>
-                <a href="../#demo" class="dropdown-item">🔥 Live Hook Generator</a>
+                <a href="../jagocreative/" class="dropdown-item">🎬 JagoCreative AI Studio</a>
+                <a href="../ebook-generator/" class="dropdown-item">📚 AI E-Book Generator</a>
+                <a href="../narasikilat/" class="dropdown-item">⚡ NarasiKilat Studio</a>
+                <a href="../#publishing" class="dropdown-item">📖 Master Blueprint Tech</a>
             </div>
         </div>
         <button class="btn-icon" onclick="toggleMode()" title="Dark/Light Mode" id="modeBtn">🌙</button>
@@ -1059,7 +1060,7 @@ Format output as JSON:
 
     // --- GEMINI HELPER ---
     async function callGeminiAI(apiKey, prompt) {
-        const models = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
+        const models = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite'];
         for (const m of models) {
             try {
                 const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`, {
@@ -1069,7 +1070,8 @@ Format output as JSON:
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text && text.trim().length > 0) return text;
                 }
             } catch (e) {}
         }

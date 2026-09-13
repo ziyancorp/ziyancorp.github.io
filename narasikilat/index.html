@@ -50,20 +50,25 @@
   <div class="max-w-3xl mx-auto w-full min-h-screen flex flex-col border-x dark:border-slate-800/80 border-slate-200/80 pb-28">
     
     <!-- HEADER -->
-    <header class="sticky top-0 z-40 dark:bg-slate-950/80 bg-white/80 backdrop-blur-xl border-b dark:border-slate-800/80 border-slate-200/80 px-5 py-3.5 flex items-center justify-between transition-all">
-      <div class="flex items-center gap-3 cursor-pointer tap-scale" onclick="switchMode('home')">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-          <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-1.5">
-            <h1 class="text-base font-black tracking-tight bg-gradient-to-r dark:from-white from-slate-900 to-slate-500 bg-clip-text text-transparent">NarasiKilat</h1>
-            <span class="text-[10px] font-black uppercase px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">v15 MATRIX</span>
+    <header class="sticky top-0 z-40 dark:bg-slate-950/80 bg-white/80 backdrop-blur-xl border-b dark:border-slate-800/80 border-slate-200/80 px-4 sm:px-5 py-3.5 flex items-center justify-between transition-all">
+      <div class="flex items-center gap-2.5">
+        <a href="../" class="p-2.5 dark:bg-slate-900/90 bg-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl tap-scale transition-colors text-slate-400 hover:text-emerald-400 flex items-center justify-center" title="Kembali ke Beranda Portal ZiyanCorp">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        </a>
+        <div class="flex items-center gap-3 cursor-pointer tap-scale" onclick="switchMode('home')">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+            <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
           </div>
-          <p class="text-[10px] font-semibold text-slate-500 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span id="header-prov-badge">Smart Dynamic Matrix</span>
-          </p>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-base font-black tracking-tight bg-gradient-to-r dark:from-white from-slate-900 to-slate-500 bg-clip-text text-transparent">NarasiKilat</h1>
+              <span class="text-[10px] font-black uppercase px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">v15 MATRIX</span>
+            </div>
+            <p class="text-[10px] font-semibold text-slate-500 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span id="header-prov-badge">Smart Dynamic Matrix</span>
+            </p>
+          </div>
         </div>
       </div>
       
@@ -152,16 +157,17 @@
         <div>
           <label class="text-xs font-bold text-slate-300 block mb-1.5">Mode Mesin AI:</label>
           <select id="api-provider" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 transition-all font-medium">
-            <option value="local">NarasiKilat Matrix Engine (Lokal Cepat - Tanpa API Key)</option>
-            <option value="gemini">Google Gemini 2.5 Flash (Gratis & Ultra Kreatif)</option>
-            <option value="openrouter">OpenRouter (Multi-Model)</option>
+            <option value="local">NarasiKilat Matrix Engine (Client-Side - 100% Gratis & Tanpa API Key)</option>
+            <option value="gemini">Google Gemini 2.5 Flash / 1.5 Flash (Gratis & Ultra Kreatif)</option>
+            <option value="groq">Groq LPU - Llama 3.3 70B (Gratis & Kecepatan Kilat)</option>
+            <option value="openrouter">OpenRouter (Multi-Model Bebas)</option>
           </select>
         </div>
 
         <div id="box-api-key">
-          <label class="text-xs font-bold text-slate-300 block mb-1.5">API Key (Opsional jika pakai Gemini/OpenRouter):</label>
-          <input type="password" id="api-key" placeholder="Masukkan Kunci (AIzaSy... atau sk-or-...)" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 font-mono text-xs transition-all">
-          <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">Kunci kamu disimpan secara aman di LocalStorage browser HP/Laptopmu. Tidak pernah dikirim ke server pihak ketiga.</p>
+          <label class="text-xs font-bold text-slate-300 block mb-1.5">API Key (Opsional jika pakai Gemini / Groq / OpenRouter):</label>
+          <input type="password" id="api-key" placeholder="Masukkan Kunci (AIzaSy... / gsk_... / sk-or-...)" class="w-full dark:bg-slate-900 bg-white border dark:border-slate-800 border-slate-300 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 font-mono text-xs transition-all">
+          <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">Kunci kamu disimpan aman di LocalStorage browser HP/Laptopmu. Jika tidak punya API key, pilih <b>NarasiKilat Matrix Engine</b> untuk generate offline tanpa server.</p>
         </div>
 
         <button onclick="saveKey()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl tap-scale shadow-lg shadow-emerald-500/20 text-sm">
@@ -537,6 +543,7 @@
       const badge = document.getElementById('header-prov-badge');
       if(badge) {
         if(API_PROV === 'gemini') badge.innerText = 'Gemini 2.5 Flash';
+        else if(API_PROV === 'groq') badge.innerText = 'Groq Llama 3.3 70B';
         else if(API_PROV === 'openrouter') badge.innerText = 'OpenRouter Engine';
         else badge.innerText = 'Smart Dynamic Matrix';
       }
@@ -605,6 +612,202 @@
       setTimeout(() => switchMode('home'), 800);
     }
 
+    // --- MULTI-PROVIDER AI CLIENT (GEMINI, GROQ, OPENROUTER) ---
+    async function callMultiAI(prompt, system = '', jsonMode = true) {
+      if (!API_KEY || API_PROV === 'local') throw new Error('LOCAL_MODE');
+
+      // 1. Google Gemini (Prioritizes 2.5 Flash & 1.5 Flash - Free Tier)
+      if (API_PROV === 'gemini' || API_KEY.startsWith('AIza')) {
+        const candidateModels = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'];
+        for (const m of candidateModels) {
+          try {
+            const bodyPayload = {
+              contents: [{ parts: [{ text: (system ? `System: ${system}\n\n` : '') + prompt }] }]
+            };
+            if (jsonMode) {
+              bodyPayload.generationConfig = { responseMimeType: "application/json" };
+            }
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${API_KEY}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(bodyPayload)
+            });
+            if (res.ok) {
+              const d = await res.json();
+              const txt = d?.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (txt && txt.trim()) return txt.trim();
+            }
+          } catch (e) {
+            console.warn(`Gemini ${m} failed:`, e);
+          }
+        }
+      }
+
+      // 2. Groq LPU (Llama 3.3 70B & 3.1 8B - Ultra Fast & 100% Free)
+      if (API_PROV === 'groq' || API_KEY.startsWith('gsk_')) {
+        const models = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+        for (const m of models) {
+          try {
+            const messages = [];
+            if (system) messages.push({ role: 'system', content: system });
+            messages.push({ role: 'user', content: prompt });
+            const bodyPayload = {
+              model: m,
+              messages: messages,
+              temperature: 0.7
+            };
+            if (jsonMode) {
+              bodyPayload.response_format = { type: "json_object" };
+            }
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
+              },
+              body: JSON.stringify(bodyPayload)
+            });
+            if (res.ok) {
+              const d = await res.json();
+              const txt = d?.choices?.[0]?.message?.content;
+              if (txt && txt.trim()) return txt.trim();
+            }
+          } catch (e) {
+            console.warn(`Groq ${m} failed:`, e);
+          }
+        }
+      }
+
+      // 3. OpenRouter (Free community endpoint)
+      if (API_PROV === 'openrouter' || API_KEY.startsWith('sk-or-')) {
+        const messages = [];
+        if (system) messages.push({ role: 'system', content: system });
+        messages.push({ role: 'user', content: prompt });
+        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({
+            model: 'meta-llama/llama-3.3-70b-instruct:free',
+            messages: messages,
+            temperature: 0.7
+          })
+        });
+        if (res.ok) {
+          const d = await res.json();
+          const txt = d?.choices?.[0]?.message?.content;
+          if (txt && txt.trim()) return txt.trim();
+        }
+      }
+
+      throw new Error('SEMUA_PROVIDER_GAGAL');
+    }
+
+    // --- CLIENT-SIDE LOCAL MATRIX ENGINE (100% OFFLINE / ZERO-SERVER) ---
+    function generateLocalNaskahMatrix(prod, hook, strat, dur, cat) {
+      const cleanProd = prod.replace(/https?:\/\/\S+/g, '').replace(/[\r\n]+/g, ' ').replace(/[^\w\s\d%-]/g, ' ').trim() || "produk viral ini";
+      const words = cleanProd.split(/\s+/).filter(w => w.length > 0);
+      const shortName = words.slice(0, 5).join(' ') || "produk ini";
+      const feature = words.slice(5, 12).join(' ') || "kualitas premium dan cuttingan rapi";
+      const d = parseInt(dur) || 10;
+
+      let v1, v2, v3, v4;
+
+      if (d <= 6) {
+        v1 = `Stop scroll! ${shortName} lagi viral parah, bahannya adem dan mewah. Checkout sekarang!`;
+        v2 = `Sering nyesel beli yang salah? Coba ${shortName}, auto puas dan nyaman banget!`;
+        v3 = `Jujur kaget pas paket ${shortName} nyampe, realpict dan se-worth-it ini!`;
+        v4 = `Flash sale alert! ${shortName} lagi diskon gila-gilaan plus gratis ongkir hari ini aja!`;
+      } else if (d <= 8) {
+        v1 = `Sumpah jangan scroll dulu! Nih ${shortName} dengan ${feature}. Aslinya cakep parah, auto bikin pede. Langsung amankan di keranjang kuning!`;
+        v2 = `Capek kan nyari yang pas tapi zonk? Makanya beralih ke ${shortName}. Solusi tepat buat harian, nyaman dan awet. Buruan coba sendiri!`;
+        v3 = `Awalnya ragu liat ${shortName} sliweran di FYP. Pas dicoba langsung jatuh cinta sama detailnya. Fix wajib punya!`;
+        v4 = `Siapa cepat dia dapet! Khusus hari ini ${shortName} dapet promo potongan harga gede. Jangan sampe nyesel kehabisan stok ya!`;
+      } else if (d <= 10) {
+        v1 = `Beneran deh, jangan pernah checkout ${shortName} ini kalau kamu belum siap dipuji temen-temen kamu! Desainnya stylish, ${feature}, bikin look kamu naik kelas seketika. Tap keranjang kuning sekarang!`;
+        v2 = `Pernah gak sih ngerasa gak percaya diri gara-gara barang yang gampang rusak atau gak nyaman? Nah, ${shortName} ini hadir jadi jawaban. Kualitas terjamin, adem, dan awet. Wajib punya minimal satu!`;
+        v3 = `Jujur review tanpa endorse: dari sekian banyak pilihan, cuma ${shortName} yang beneran sesuai ekspektasi. Jahitan rapi, bahan premium, pas banget di badan. Worth it banget buat investasi outfit!`;
+        v4 = `Peringatan darurat buat kamu yang lagi cari ${shortName}! Stok gudang tersisa sedikit dan promo gratis ongkir cuma berlaku hari ini. Jangan tunggu harga normal balik lagi, checkout sekarang!`;
+      } else {
+        v1 = `Kalian yang masih bingung cari ${shortName} yang beneran berkualitas, wajib tonton ini sampai habis! Produk satu ini dirancang khusus dengan ${feature}, memberikan kenyamanan maksimal sekaligus sentuhan estetika modern yang bikin kamu standout di mana aja. Jangan heran kalau banyak yang nanyain beli di mana, yuk amankan sebelum sold out!`;
+        v2 = `Sering gak sih ngerasa frustrasi pas belanja online barang yang dateng beda jauh sama ekspektasi? Nah sekarang kamu gak perlu khawatir lagi, karena ${shortName} ini terbukti memberikan bukti nyata. Material pilihan berkelas, jahitan super rapi, dan garansi kepuasan 100%. Saatnya upgrade penampilanmu hari ini juga!`;
+        v3 = `Awalnya aku kira ${shortName} ini cuma rame karena viral sesaat doang. Tapi setelah pake sendiri selama seminggu penuh, beneran gak nyangka se-nyaman ini! Mulai dari teksturnya yang halus, potongan fit yang pas, sampe durability-nya top notch. Gak heran review-nya bintang lima semua di toko!`;
+        v4 = `Promo terbesar bulan ini resmi dibuka! Buat kamu yang udah masukin ${shortName} ke keranjang tapi belum bayar, ini saatnya eksekusi. Ada potongan ekstra voucher toko plus subsidi ongkir ke seluruh Indonesia. Penawaran terbatas ini bisa ditutup sewaktu-waktu pas kuota habis, buruan klik keranjang sekarang!`;
+      }
+
+      return {
+        variasi_1: v1,
+        variasi_2: v2,
+        variasi_3: v3,
+        variasi_4: v4
+      };
+    }
+
+    // --- CLIENT-SIDE LOCAL UGC STORYBOARD GENERATOR ---
+    function generateLocalUGC(prod, model, numScenes) {
+      const cleanProd = prod.replace(/[\r\n]+/g, ' ').trim() || "Pakaian Fashion Elegan";
+      const scenes = [];
+      const n = parseInt(numScenes) || 2;
+
+      const analysis = `Produk ${cleanProd} memiliki daya tarik visual kuat pada siluet proporsional, detail jahitan presisi, dan kenyamanan bahan. Sangat cocok untuk pasar modern yang menghargai estetika casual-elegan.`;
+      const strategy = `Menggunakan pendekatan UGC (User Generated Content) dengan model gaya ${model}. Memadukan hook visual 3 detik pertama dengan review autentik santai untuk memaksimalkan retensi dan konversi keranjang kuning.`;
+
+      if (n === 1) {
+        scenes.push({
+          title: "Adegan 1: Flash Review & Hook Paling Memikat",
+          duration: "6 - 10 Detik",
+          visual: `Kamera handheld eye-level mengikuti model gaya ${model} berputar anggun memakai ${cleanProd}, memperlihatkan jatuhnya kain dan siluet sempurna di pencahayaan lembut.`,
+          vo: `Gak nyangka ${cleanProd} aslinya secakep ini! Bahannya adem, jatuh, dan bikin look auto mewah. Cek keranjang sekarang ya!`,
+          omni_prompt: `High-resolution UGC video clip, 9:16 vertical format. Beautiful Indonesian model with ${model} wearing stylish ${cleanProd}. Cinematic warm natural lighting, handheld dynamic motion, crisp authentic fabric texture, 8k commercial quality.`
+        });
+      } else if (n === 2) {
+        scenes.push({
+          title: "Adegan 1: Hook Pembuka & Visual Impact",
+          duration: "00:00 - 00:04",
+          visual: `Model ${model} tersenyum percaya diri berjalan santai ke arah kamera mengenakan ${cleanProd}, kamera push-in menangkap ekspresi ceria dan detail outfit.`,
+          vo: `Stop scroll! Kalau kamu lagi cari ${cleanProd} yang nyaman tapi tetep keliatan chic, ini jawabannya!`,
+          omni_prompt: `9:16 vertical UGC fashion video. Attractive Indonesian model in ${model} style proudly showcasing ${cleanProd}, walking forward in modern cafe backdrop, natural daytime bokeh, authentic skin texture, 8k.`
+        });
+        scenes.push({
+          title: "Adegan 2: Detail Tekstur Kain & Call to Action (CTA)",
+          duration: "00:04 - 00:08",
+          visual: `Close-up macro shot tangan model menyentuh lembut kain ${cleanProd}, lalu beralih ke pose full-body sambil menunjuk ke arah keranjang kuning di kiri bawah.`,
+          vo: `Jahitannya super rapi dan bahannya gak gampang kusut. Promo dan gratis ongkir lagi ada, langsung checkout di keranjang kuning ya!`,
+          omni_prompt: `Macro close-up shot of fine textile details on ${cleanProd}, smooth hands grazing the fabric, followed by confident smile and gesture to screen bottom left, commercial editorial lighting, 8k resolution.`
+        });
+      } else {
+        scenes.push({
+          title: "Adegan 1: Hook Rasa Ingin Tahu (Scroll Stopper)",
+          duration: "00:00 - 00:03",
+          visual: `Model ${model} memegang paket unboxing lalu transisi kilat langsung mengenakan ${cleanProd} dengan senyum puas di depan cermin estetik.`,
+          vo: `Sumpah, baru kali ini beli outfit online yang pas dicoba hasilnya bener-bener di luar ekspektasi!`,
+          omni_prompt: `Quick unboxing transition to attractive Indonesian female wearing ${cleanProd}, joyful expression, natural bright aesthetic bedroom setting, 9:16 vertical video, 8k.`
+        });
+        scenes.push({
+          title: "Adegan 2: Showcase Gerakan & Fit Tubuh",
+          duration: "00:03 - 00:07",
+          visual: `Medium shot dinamis saat model melangkah dan berputar perlahan, memperlihatkan siluet ${cleanProd} yang flowy dan proporsional dari berbagai sudut.`,
+          vo: `Cuttingannya bener-bener flattering, bahan jatuh adem gak bikin gerah seharian dipakai aktif.`,
+          omni_prompt: `Medium tracking shot of model moving gracefully showcasing flowing ${cleanProd}, slow-motion swirl, soft afternoon sunlight, 85mm lens shallow depth of field, 8k commercial.`
+        });
+        scenes.push({
+          title: "Adegan 3: Call to Action & Urgensi Stok",
+          duration: "00:07 - 00:10",
+          visual: `Kamera eye-level mendekat, model menatap ramah ke kamera sambil menunjukkan gestur ajakan klik keranjang belanja di pojok bawah.`,
+          vo: `Mumpung masih ada diskon toko dan subsidi ongkir, tap keranjang kuning sekarang sebelum warna favoritmu sold out!`,
+          omni_prompt: `Warm eye-level closing shot, charismatic model smiling and pointing toward lower left corner, vibrant ambient light, commercial social media advertising quality, 8k.`
+        });
+      }
+
+      return {
+        product_analysis: analysis,
+        promo_strategy: strategy,
+        scenes: scenes
+      };
+    }
+
     // --- 1. DYNAMIC MATRIX NASKAH GENERATOR ---
     async function genNaskahMatrix() {
       const prod = document.getElementById('n-prod').value.trim();
@@ -620,8 +823,10 @@
       document.getElementById('res-naskah').classList.add('hidden');
 
       try {
-        if(API_PROV === 'gemini' && API_KEY) {
-          const sys = `Anda adalah Master Copywriter & TikTok Ads Specialist Indonesia.
+        let j = null;
+        if (API_KEY && API_PROV !== 'local') {
+          try {
+            const sys = `Anda adalah Master Copywriter & TikTok Ads Specialist Indonesia.
 Tugas: Buat 4 VARIASI naskah Voice Over (VO) berdurasi ${dur} detik dengan gaya lisan santai, alami, anti kaku, dan bebas overclaim.
 Strategi utama: ${strat}, Tipe Hook Pembuka: ${hook}, Kategori Produk: ${cat}.
 Panjang tiap naskah: ${Math.floor(parseInt(dur)*2.0)} - ${Math.ceil(parseInt(dur)*2.6)} KATA.
@@ -632,44 +837,29 @@ Output HANYA JSON murni:
   "variasi_3": "Naskah 3 (Hook Storytelling & Social Proof)",
   "variasi_4": "Naskah 4 (Hook Urgensi & Nilai Hemat)"
 }`;
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: `System: ${sys}\n\nProduk: ${prod}` }] }],
-              generationConfig: { responseMimeType: "application/json" }
-            })
-          });
-          const d = await res.json();
-          const j = JSON.parse(d.candidates[0].content.parts[0].text);
-          document.getElementById('txt-n1').innerText = j.variasi_1;
-          document.getElementById('txt-n2').innerText = j.variasi_2;
-          document.getElementById('txt-n3').innerText = j.variasi_3;
-          document.getElementById('txt-n4').innerText = j.variasi_4;
-        } else {
-          // Local Matrix Engine
-          const res = await fetch('/api/generate', {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              product_input: prod,
-              hook_type: hook,
-              strategy: strat,
-              duration: parseInt(dur),
-              category: cat
-            })
-          });
-          const j = await res.json();
-          document.getElementById('txt-n1').innerText = j.variasi_1;
-          document.getElementById('txt-n2').innerText = j.variasi_2;
-          document.getElementById('txt-n3').innerText = j.variasi_3;
-          document.getElementById('txt-n4').innerText = j.variasi_4;
+            const resRaw = await callMultiAI(`Produk: ${prod}`, sys, true);
+            j = JSON.parse(resRaw);
+          } catch(apiErr) {
+            console.warn("AI Provider error, falling back to local matrix engine:", apiErr);
+          }
         }
 
+        if (!j || !j.variasi_1) {
+          // Instant Fallback to Local Client-Side Matrix Engine
+          j = generateLocalNaskahMatrix(prod, hook, strat, dur, cat);
+          showToast("Dihasilkan instan dengan NarasiKilat Matrix!");
+        } else {
+          showToast("4 Variasi Naskah AI Siap!");
+        }
+
+        document.getElementById('txt-n1').innerText = j.variasi_1;
+        document.getElementById('txt-n2').innerText = j.variasi_2;
+        document.getElementById('txt-n3').innerText = j.variasi_3;
+        document.getElementById('txt-n4').innerText = j.variasi_4;
+
         document.getElementById('res-naskah').classList.remove('hidden');
-        showToast("4 Variasi Naskah Matrix Siap!");
       } catch(e) {
-        showToast(e.message);
+        showToast("Error: " + e.message);
       } finally {
         btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i> GENERATE 4 VARIASI NASKAH MATRIX`;
         btn.disabled = false;
@@ -690,17 +880,39 @@ Output HANYA JSON murni:
       document.getElementById('res-ugc').classList.add('hidden');
 
       try {
-        const res = await fetch('/api/ugc-studio', {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            product_input: prod,
-            model_style: model,
-            num_scenes: parseInt(scenes),
-            setting: "Aesthetic Cafe Outdoor"
-          })
-        });
-        const j = await res.json();
+        let j = null;
+        if (API_KEY && API_PROV !== 'local') {
+          try {
+            const sys = `Anda adalah Sutradara UGC Video Fashion & TikTok Commercial Creative Director.
+Buat storyboard video iklan fashion UGC dengan gaya model: ${model}, jumlah adegan: ${scenes}.
+Output WAJIB format JSON murni:
+{
+  "product_analysis": "Analisis singkat daya tarik produk dan target market",
+  "promo_strategy": "Strategi promosi dan angle konten",
+  "scenes": [
+    {
+      "title": "Adegan 1: Hook Pembuka",
+      "duration": "00:00 - 00:03",
+      "visual": "Deskripsi detail pergerakan kamera dan aksi model",
+      "vo": "Naskah voice over lisan bahasa Indonesia santai",
+      "omni_prompt": "Prompt visual bahasa Inggris 9:16 untuk Veo / Sora / Kling / Flux"
+    }
+  ]
+}`;
+            const resRaw = await callMultiAI(`Produk pakaian: ${prod}`, sys, true);
+            j = JSON.parse(resRaw);
+          } catch(apiErr) {
+            console.warn("AI Provider error, falling back to local UGC generator:", apiErr);
+          }
+        }
+
+        if (!j || !j.scenes || !j.scenes.length) {
+          j = generateLocalUGC(prod, model, scenes);
+          showToast("Storyboard dihasilkan instan (Matrix Engine)!");
+        } else {
+          showToast("Storyboard UGC AI Siap!");
+        }
+
         document.getElementById('txt-u-analysis').innerText = j.product_analysis;
         document.getElementById('txt-u-strategy').innerText = j.promo_strategy;
 
@@ -723,9 +935,8 @@ Output HANYA JSON murni:
         });
 
         document.getElementById('res-ugc').classList.remove('hidden');
-        showToast("Storyboard UGC Siap!");
       } catch(e) {
-        showToast(e.message);
+        showToast("Error: " + e.message);
       } finally {
         btn.innerHTML = `<i data-lucide="video" class="w-4 h-4"></i> GENERATE STORYBOARD UGC`;
         btn.disabled = false;
@@ -746,7 +957,7 @@ Output HANYA JSON murni:
       showToast("Prompt visual siap!");
     }
 
-    // --- 4. CAPTION & SEO GENERATOR (FORMAT PERSIS SESUAI SCREENSHOT BOS) ---
+    // --- 4. CAPTION & SEO GENERATOR ---
     async function genSEO() {
       const prod = document.getElementById('s-prod').value.trim();
       if(!prod) return showToast("Isi detail produk & link!");
@@ -764,11 +975,12 @@ Output HANYA JSON murni:
       const prodName = words.slice(0, 7).join(' ') || "Produk Pilihan";
 
       try {
-        if(API_PROV === 'gemini' && API_KEY) {
-          const sys = `Anda adalah Copywriter Spesialis Caption FB, Instagram, dan Threads.
-Tugas: Buat caption affiliate yang SANGAT RINGKAS, PADAT, dan ELEGAN persis seperti contoh format ini:
-
-CONTOH OUTPUT WAJIB:
+        let j = null;
+        if (API_KEY && API_PROV !== 'local') {
+          try {
+            const sys = `Anda adalah Copywriter Spesialis Caption FB, Instagram, dan Threads.
+Tugas: Buat caption affiliate yang SANGAT RINGKAS, PADAT, dan ELEGAN.
+CONTOH FORMAT WAJIB:
 ${link}
 
 ${prodName} hadir dengan desain elegan untuk melengkapi outfit casual hingga semi-formal. Siluet simpel bikin tampilan lebih rapi, chic, dan stylish.
@@ -776,11 +988,11 @@ ${prodName} hadir dengan desain elegan untuk melengkapi outfit casual hingga sem
 #Tag1 #Tag2 #Tag3
 #Tag4 #Tag5
 
-ATURAN MUTLAK:
+ATURAN:
 1. Baris pertama HANYA berisi Link Affiliate.
-2. Paragraf isi caption TEPAT 2 KALIMAT SINGKAT (fokus ke siluet, fungsi, dan kesan stylish tanpa bertele-tele). Dilarang membuat paragraf panjang!
-3. DILARANG KERAS menyebutkan harga, diskon, promo, murah, atau nominal rupiah sama sekali.
-4. Tepat 5 hashtag relevan di bawah (format: #Tag1 #Tag2 #Tag3\n#Tag4 #Tag5).
+2. Paragraf isi caption TEPAT 2 KALIMAT SINGKAT (fokus siluet, kenyamanan, stylish tanpa bertele-tele).
+3. DILARANG KERAS menyebut harga, diskon, murah, atau nominal rupiah.
+4. Tepat 5 hashtag relevan di bawah (#Tag1 #Tag2 #Tag3\n#Tag4 #Tag5).
 
 Output HANYA JSON murni:
 {
@@ -789,22 +1001,20 @@ Output HANYA JSON murni:
   "hashtags": "#Tag1 #Tag2 #Tag3\n#Tag4 #Tag5",
   "seo_keywords": "keyword 1, keyword 2, keyword 3, keyword 4, keyword 5"
 }`;
+            const resRaw = await callMultiAI(`Produk: ${cleanProd}`, sys, true);
+            j = JSON.parse(resRaw);
+          } catch(apiErr) {
+            console.warn("AI Caption error, falling back to clean template:", apiErr);
+          }
+        }
 
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: `System: ${sys}\n\nProduk: ${cleanProd}` }] }],
-              generationConfig: { responseMimeType: "application/json" }
-            })
-          });
-          const d = await res.json();
-          const j = JSON.parse(d.candidates[0].content.parts[0].text);
+        if (j && j.caption_body) {
           const fullPost = `${j.affiliate_link || link}\n\n${j.caption_body}\n\n${j.hashtags}`;
           document.getElementById('txt-post-ready').innerText = fullPost;
           document.getElementById('txt-seo-keys').innerText = j.seo_keywords;
+          showToast("Caption AI & SEO Siap!");
         } else {
-          // Format Baku Cerdas Presisi (Persis Screenshot Bos)
+          // Format Baku Presisi Lokal
           const tag1 = '#' + (words[0] ? words[0].replace(/[^a-zA-Z0-9]/g, '') : 'Fashion');
           const tag2 = '#' + (words[1] ? words[1].replace(/[^a-zA-Z0-9]/g, '') : 'OOTD');
           const tag3 = '#' + (words[2] ? words[2].replace(/[^a-zA-Z0-9]/g, '') : 'Rekomendasi');
@@ -817,10 +1027,10 @@ Output HANYA JSON murni:
 
           document.getElementById('txt-post-ready').innerText = fullPost;
           document.getElementById('txt-seo-keys').innerText = keywords;
+          showToast("Caption & SEO Format Siap!");
         }
 
         document.getElementById('res-seo').classList.remove('hidden');
-        showToast("Caption & SEO Siap!");
       } catch(e) {
         showToast("Error: " + e.message);
       } finally {
