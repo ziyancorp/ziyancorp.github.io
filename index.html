@@ -203,7 +203,6 @@
             <a href="./ugc-studio/" class="block px-3 py-2 rounded-xl text-sm font-bold text-purple-400 hover:bg-purple-500/10">🛍️ Ziyan UGC Studio (Live)</a>
             <a href="./ebook-generator/" class="block px-3 py-2 rounded-xl text-sm font-bold text-amber-500 hover:bg-amber-500/10">📚 AI E-Book Generator Tool (Live)</a>
             <a href="#publishing" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">📖 E-Book Blueprint ZiyanCorp</a>
-            <a href="#demo" class="block px-3 py-2 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5">🔥 Live Demo Hook AI</a>
             <button onclick="toggleCsChat(true)" class="w-full text-center py-3 rounded-xl bg-cyan-500 text-white font-bold text-sm">💬 Buka Chat CS AI 24 Jam</button>
         </div>
     </header>
@@ -421,35 +420,6 @@
     </section>
 
     <!-- ========================================================
-         INTERACTIVE LIVE AI HOOK GENERATOR DEMO
-    ======================================================== -->
-    <section id="demo" class="relative z-10 py-16 px-4 sm:px-8 max-w-4xl mx-auto w-full">
-        <div class="p-6 sm:p-10 rounded-3xl border border-cyan-500/30 bg-white dark:bg-obsidianCard shadow-2xl shadow-cyan-500/10 space-y-6">
-            <div class="text-center space-y-2">
-                <span class="text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest">Interactive Client Tool</span>
-                <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">Coba Generator Hook Viral ZiyanCorp</h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Pilih kategori konten dan saksikan AI meracik hook 3 detik pembuka video Anda.</p>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-                <select id="demoCategory" class="px-4 py-3.5 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-slate-900 text-sm font-semibold text-slate-800 dark:text-white focus:outline-none focus:border-cyan-500">
-                    <option value="wildlife">🐾 4K Scenic Wildlife & Misteri Laut</option>
-                    <option value="affiliate">🛍️ Shopee/TikTok UGC Produk Affiliate</option>
-                    <option value="automation">⚡ Bisnis Automasi & n8n Agency</option>
-                </select>
-                <button id="generateHookBtn" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm hover:opacity-95 active:scale-95 transition-all">
-                    Generate Hook Instan ➔
-                </button>
-            </div>
-
-            <!-- Result Box -->
-            <div id="hookResult" class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 font-mono text-xs sm:text-sm text-slate-800 dark:text-cyan-300 leading-relaxed min-h-[70px] flex items-center">
-                ✨ Klik tombol di atas untuk menguji kecerdasan generator ZiyanCorp.
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================================
          CONTACT & FOOTER
     ======================================================== -->
     <footer id="contact" class="relative z-10 border-t border-slate-200 dark:border-white/5 bg-white dark:bg-slate-950 pt-16 pb-12 px-4 sm:px-8 mt-12 transition-colors duration-300">
@@ -614,36 +584,6 @@
 
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
-
-        // 3. Interactive AI Hook Generator Demo
-        const sampleHooks = {
-            wildlife: [
-                "\"Monster laut sedalam 4.000 meter ini rela mati kelaparan selama 4 tahun hanya demi menjaga bayinya... dan ini alasan mengerikannya.\"",
-                "\"Hewan ini bersuara di frekuensi 52 Hz... dan sepanjang hidupnya, tak ada satu pun paus di samudra yang bisa mendengarnya.\"",
-                "\"Jangan tertipu dengan penampilannya yang cantik, makhluk laut ini bisa menumbuhkan kembali otaknya dalam 3 hari!\""
-            ],
-            affiliate: [
-                "\"Stop beli botol minum mahal kalau belum tahu rahasia termos stainless 24 jam yang lagi viral ini!\"",
-                "\"Gue kira barang 30 ribuan ini zonk, pas datang ternyata kualitasnya mirip brand jutaan... tonton sampai habis!\"",
-                "\"Review jujur pemakaian 1 bulan: ini alasan kenapa produk ini terjual 50 ribu pcs dalam seminggu!\""
-            ],
-            automation: [
-                "\"Capek ngedit video 6 jam sehari? Begini cara kita bikin 90 video 4K autopilot sebulan tanpa menyentuh tombol edit.\"",
-                "\"Kenapa kerja keras kalau bot kita bisa posting otomatis ke YouTube, Instagram, dan TikTok sekali klik?\"",
-                "\"Blueprint agensi AI 2026: Modal Rp 0 bisa hasilkan sistem automasi sekelas korporat.\""
-            ]
-        };
-
-        const generateBtn = document.getElementById('generateHookBtn');
-        const categorySelect = document.getElementById('demoCategory');
-        const resultBox = document.getElementById('hookResult');
-
-        generateBtn.addEventListener('click', () => {
-            const cat = categorySelect.value;
-            const list = sampleHooks[cat];
-            const randomHook = list[Math.floor(Math.random() * list.length)];
-            resultBox.innerHTML = `<span class="text-slate-400 font-sans block mb-1">🔥 Viral Hook Hasil Racikan AI ZiyanCorp:</span> ${randomHook}`;
         });
 
         // 4. CS AI Virtual Assistant Logic (Enhanced Multi-Turn Context & Precision)

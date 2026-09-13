@@ -120,22 +120,29 @@
   <header class="sticky top-0 z-50 glass-pill border-b border-google-outline/40 px-3 sm:px-6 py-2.5 sm:py-3 transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
-      <!-- Brand Logo Cluster -->
-      <div class="flex items-center gap-2.5 cursor-pointer flex-shrink-0" onclick="switchStudio('dashboard')">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-google-blue via-google-purple to-google-yellow p-[1.5px] shadow-lg shadow-google-blue/20">
-          <div class="w-full h-full bg-google-surface rounded-[10px] sm:rounded-[14px] flex items-center justify-center">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white animate-pulse-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
-              <polygon points="12 8 14 12 18 12 15 15 16 19 12 16 8 19 9 15 6 12 10 12 12 8" fill="#4285F4" stroke="none" />
-            </svg>
+      <!-- Back to Portal Home + Brand Logo Cluster -->
+      <div class="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+        <a href="../" title="Kembali ke Menu Utama Portal ZiyanCorp" class="touch-target p-2 sm:px-3 sm:py-1.5 rounded-xl bg-google-container hover:bg-google-containerHigh border border-google-outline/60 text-slate-300 hover:text-white flex items-center gap-1.5 text-xs font-semibold transition-all shadow-sm">
+          <svg class="w-4 h-4 text-google-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span class="hidden sm:inline">Menu Utama</span>
+        </a>
+
+        <div class="flex items-center gap-2 cursor-pointer" onclick="switchStudio('dashboard')">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-google-blue via-google-purple to-google-yellow p-[1.5px] shadow-lg shadow-google-blue/20">
+            <div class="w-full h-full bg-google-surface rounded-[10px] flex items-center justify-center">
+              <svg class="w-4 h-4 text-white animate-pulse-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
+                <polygon points="12 8 14 12 18 12 15 15 16 19 12 16 8 19 9 15 6 12 10 12 12 8" fill="#4285F4" stroke="none" />
+              </svg>
+            </div>
           </div>
-        </div>
-        <div>
-          <div class="flex items-center gap-1.5 sm:gap-2">
-            <span class="font-display font-bold text-base sm:text-xl tracking-tight text-white">Jago<span class="gemini-gradient-text font-extrabold">Creative</span></span>
-            <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-google-blue/15 text-google-primary border border-google-blue/30 hidden xs:inline-block">AI v3.5 PRO</span>
+          <div>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-display font-bold text-sm sm:text-lg tracking-tight text-white">Jago<span class="gemini-gradient-text font-extrabold">Creative</span></span>
+              <span class="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-google-blue/15 text-google-primary border border-google-blue/30 hidden xs:inline-block">AI v3.5 PRO</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden md:block">ZiyanCorp AI Creative & Influencer Studio</p>
           </div>
-          <p class="text-[10px] text-slate-400 hidden md:block">ZiyanCorp AI Creative & Influencer Studio</p>
         </div>
       </div>
 
@@ -890,9 +897,9 @@
               <span class="text-slate-300 font-semibold" id="renderOutputTitle">Preview Kanvas Komersial</span>
             </div>
             <div class="flex items-center gap-2" id="canvasActions" style="display:none;">
-              <button onclick="downloadRenderedImage()" class="px-2.5 py-1 rounded-lg bg-google-containerHigh text-slate-200 hover:text-white border border-google-outline/60 text-[11px] flex items-center gap-1">
+              <button onclick="downloadRenderedImage()" class="px-2.5 py-1 rounded-lg bg-google-blue/30 text-google-primary hover:bg-google-blue/50 text-[11px] font-semibold flex items-center gap-1 transition-all">
                 <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                Unduh SVG
+                Buka Resolusi Penuh (8K)
               </button>
             </div>
           </div>
@@ -1192,34 +1199,34 @@
   <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-pill border-t border-google-outline/50 pb-safe-bottom bg-google-surface/95 backdrop-blur-xl px-2 py-1.5">
     <div class="flex items-center justify-around">
       
-      <button onclick="switchStudio('dashboard')" data-mobile-tab="dashboard" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-google-primary">
+      <a href="../" title="Portal Utama ZiyanCorp" class="flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-400 hover:text-white transition-colors">
+        <svg class="w-5 h-5 text-google-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span class="text-[9px] font-semibold mt-0.5">Portal</span>
+      </a>
+
+      <button onclick="switchStudio('dashboard')" data-mobile-tab="dashboard" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-google-primary">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-        <span class="text-[10px] font-semibold mt-0.5">Home</span>
+        <span class="text-[9px] font-semibold mt-0.5">Studio</span>
       </button>
 
-      <button onclick="switchStudio('influencer')" data-mobile-tab="influencer" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-400 hover:text-white">
+      <button onclick="switchStudio('influencer')" data-mobile-tab="influencer" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-400 hover:text-white">
         <svg class="w-5 h-5 text-fuchsia-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        <span class="text-[10px] font-medium mt-0.5">Influencer</span>
+        <span class="text-[9px] font-medium mt-0.5">Influencer</span>
       </button>
 
-      <button onclick="switchStudio('naskah')" data-mobile-tab="naskah" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-400 hover:text-white">
+      <button onclick="switchStudio('naskah')" data-mobile-tab="naskah" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-400 hover:text-white">
         <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-        <span class="text-[10px] font-medium mt-0.5">Naskah VO</span>
+        <span class="text-[9px] font-medium mt-0.5">Naskah</span>
       </button>
 
-      <button onclick="switchStudio('product')" data-mobile-tab="product" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-400 hover:text-white">
+      <button onclick="switchStudio('product')" data-mobile-tab="product" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-400 hover:text-white">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
-        <span class="text-[10px] font-medium mt-0.5">Produk</span>
+        <span class="text-[9px] font-medium mt-0.5">Produk</span>
       </button>
 
-      <button onclick="switchStudio('video')" data-mobile-tab="video" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-400 hover:text-white">
+      <button onclick="switchStudio('video')" data-mobile-tab="video" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-400 hover:text-white">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-        <span class="text-[10px] font-medium mt-0.5">Video</span>
-      </button>
-
-      <button onclick="switchStudio('stock')" data-mobile-tab="stock" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-400 hover:text-white">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-        <span class="text-[10px] font-medium mt-0.5">Stock CSV</span>
+        <span class="text-[9px] font-medium mt-0.5">Video</span>
       </button>
 
     </div>
@@ -1767,24 +1774,41 @@
 
       // Real External Image Render via Pollinations (User Selected Model in Settings)
       const selectedImgModel = activeModelConfig.image || 'flux-realism';
-      const promptEncoded = encodeURIComponent(`hyperrealistic photo of Indonesian woman influencer wearing ${product}, natural skin texture, soft daylight, 8k raw photo`);
+      
+      // Clean product text for prompt
+      const cleanProdPrompt = product.replace(/https?:\/\/\S+/g, '').replace(/[^\w\s,.-]/g, ' ').trim().slice(0, 150);
+      
+      // Build realistic prompt combining persona details and product
+      let renderPromptText = `masterpiece, 8k commercial photography, realistic ${persona.title}, young Indonesian woman, natural detailed skin texture, pores, soft lighting, wearing or presenting ${cleanProdPrompt}, studio commercial catalog, shot on Hasselblad H6D-100c 85mm f/1.8 lens, photorealistic, sharp focus, vibrant natural colors`;
+      
+      if (uploadedAnchors.length > 0) {
+        renderPromptText = `masterpiece, 8k commercial photography, consistent face from reference, realistic Indonesian female creator, natural skin texture, holding or wearing ${cleanProdPrompt}, high detail, commercial fashion shoot, cinematic lighting`;
+      }
+      
+      const promptEncoded = encodeURIComponent(renderPromptText);
       let width = 1080;
       let height = 1920;
       if (ratio === '1:1') { width = 1080; height = 1080; }
       else if (ratio === '16:9') { width = 1920; height = 1080; }
       else if (ratio === '4:5') { width = 1080; height = 1350; }
+      else if (ratio === '3:4') { width = 1080; height = 1440; }
+      else if (ratio === '4:3') { width = 1440; height = 1080; }
+      else if (ratio === '21:9') { width = 1920; height = 822; }
 
-      const imageUrl = `https://image.pollinations.ai/prompt/${promptEncoded}?model=${selectedImgModel}&width=${width}&height=${height}&nologo=true&seed=${Math.floor(Math.random() * 999999)}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${promptEncoded}?model=${selectedImgModel}&width=${width}&height=${height}&nologo=true&seed=${Math.floor(Math.random() * 9999999)}`;
       
       const imgEl = document.getElementById('liveInfluencerImage');
       const imgSpinner = document.getElementById('imageLoadingSpinner');
       const directLink = document.getElementById('downloadImageDirectLink');
       const engineLabel = document.getElementById('renderEngineLabel');
 
-      if (engineLabel) engineLabel.textContent = `Engine: ${selectedImgModel.toUpperCase()} (Free & Live)`;
+      if (engineLabel) engineLabel.textContent = `Engine: ${selectedImgModel.toUpperCase()} (${ratio})`;
       imgSpinner.classList.remove('hidden');
       imgEl.src = imageUrl;
       imgEl.onload = () => { imgSpinner.classList.add('hidden'); };
+      imgEl.onerror = () => {
+        imgSpinner.innerHTML = `<span class="text-xs text-amber-400">⚠️ Koneksi gambar sibuk, klik tombol di bawah untuk reload</span>`;
+      };
       directLink.href = imageUrl;
 
       // Multi-Scene Script Generation (~27 words per 10s pacing)
@@ -1981,53 +2005,59 @@
 
     function generateProceduralProductCanvas(promptText) {
       const box = document.getElementById('imageDisplayBox');
-      const isCyber = promptText.toLowerCase().includes('cyber') || promptText.toLowerCase().includes('neon');
-      const isNature = promptText.toLowerCase().includes('nature') || promptText.toLowerCase().includes('bambu');
+      const ratio = document.getElementById('productRatio').value || '1:1';
+      const aperture = document.getElementById('productAperture').value || 'f32';
+      const selectedImgModel = activeModelConfig.image || 'flux-realism';
 
-      let accent = '#4285F4';
-      let sec = '#A142F4';
-      if (isCyber) { accent = '#00f0ff'; sec = '#ff007b'; }
-      else if (isNature) { accent = '#34A853'; sec = '#FBBC05'; }
+      let opticalKeywords = "aperture f/32, deep infinite depth of field, all planes sharp and in focus";
+      if (aperture === 'f18') opticalKeywords = "aperture f/1.8, creamy smooth bokeh background, shallow depth of field, sharp subject";
+      else if (aperture === 'macro') opticalKeywords = "macro lens 1:1 reproduction, extreme surface texture detail, micro details";
+
+      const cleanPrompt = promptText.replace(/[^\w\s,.-]/g, ' ').trim();
+      const finalPrompt = `masterpiece, 8k commercial product photography, ${cleanPrompt}, studio podium lighting, Hasselblad H6D-100c, ${opticalKeywords}, hyperrealistic, advertising catalog quality, photorealistic, pristine reflections`;
+
+      let width = 1080;
+      let height = 1080;
+      if (ratio === '9:16') { width = 1080; height = 1920; }
+      else if (ratio === '16:9') { width = 1920; height = 1080; }
+      else if (ratio === '4:5') { width = 1080; height = 1350; }
+      else if (ratio === '3:4') { width = 1080; height = 1440; }
+      else if (ratio === '4:3') { width = 1440; height = 1080; }
+      else if (ratio === '21:9') { width = 1920; height = 822; }
+
+      const promptEncoded = encodeURIComponent(finalPrompt);
+      const imageUrl = `https://image.pollinations.ai/prompt/${promptEncoded}?model=${selectedImgModel}&width=${width}&height=${height}&nologo=true&seed=${Math.floor(Math.random() * 9999999)}`;
 
       box.innerHTML = `
-        <svg id="renderedSvgGraphic" viewBox="0 0 800 800" class="w-full h-auto aspect-square rounded-xl shadow-2xl">
-          <defs>
-            <linearGradient id="pGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#0b101c"/><stop offset="50%" stop-color="#141c2e"/><stop offset="100%" stop-color="#080c14"/>
-            </linearGradient>
-            <radialGradient id="pSpot" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="${accent}" stop-opacity="0.4"/>
-              <stop offset="70%" stop-color="${sec}" stop-opacity="0.1"/>
-              <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="800" height="800" fill="url(#pGrad)"/>
-          <circle cx="400" cy="380" r="340" fill="url(#pSpot)"/>
-          <ellipse cx="400" cy="620" rx="260" ry="45" fill="#1b2333" stroke="${accent}" stroke-width="2" opacity="0.8"/>
-          <rect x="330" y="280" width="140" height="280" rx="20" fill="rgba(255,255,255,0.06)" stroke="${accent}" stroke-width="2.5"/>
-          <rect x="338" y="360" width="124" height="190" rx="12" fill="${accent}" opacity="0.35"/>
-          <rect x="365" y="210" width="70" height="70" rx="8" fill="#e2e8f0"/>
-          <rect x="385" y="170" width="30" height="40" rx="5" fill="#475569"/>
-          <rect x="345" y="400" width="110" height="70" rx="4" fill="#ffffff" opacity="0.95"/>
-          <text x="400" y="430" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="14" fill="#0f172a" text-anchor="middle">JAGO LUXE</text>
-          <text x="400" y="450" font-family="'Fira Code', monospace" font-size="8" fill="#64748b" text-anchor="middle">f/32 INF-FOCUS • 8K</text>
-          <text x="40" y="760" font-family="'Fira Code', monospace" font-size="12" fill="#475569">JAGOCREATIVE • 8K f/32</text>
-        </svg>
+        <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-black flex items-center justify-center">
+          <img id="realProductRenderImg" src="${imageUrl}" alt="Product 8K Render" class="w-full h-full object-cover rounded-xl" />
+          <div id="productImgSpinner" class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-2 text-xs text-google-primary">
+            <div class="w-8 h-8 border-2 border-google-blue border-t-transparent rounded-full animate-spin"></div>
+            <span>Memuat Visual 8K...</span>
+          </div>
+        </div>
       `;
+
+      const img = document.getElementById('realProductRenderImg');
+      const sp = document.getElementById('productImgSpinner');
+      if (img && sp) {
+        img.onload = () => sp.classList.add('hidden');
+        img.onerror = () => {
+          sp.innerHTML = `<span class="text-xs text-amber-400">⚠️ Server gambar sibuk, silakan klik Render ulang</span>`;
+        };
+      }
+
+      window.currentRenderedProductUrl = imageUrl;
     }
 
     function downloadRenderedImage() {
       playUiSound('click');
-      const svg = document.getElementById('renderedSvgGraphic');
-      if (!svg) return;
-      const source = new XMLSerializer().serializeToString(svg);
-      const link = document.createElement("a");
-      link.href = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
-      link.download = `JagoCreative_8K_${Date.now()}.svg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      triggerToast('Gambar komersial berhasil diunduh!');
+      if (window.currentRenderedProductUrl) {
+        window.open(window.currentRenderedProductUrl, '_blank');
+        triggerToast('Membuka foto resolusi penuh...');
+      } else {
+        triggerToast('Render foto terlebih dahulu!');
+      }
     }
 
     /* =========================================================================
