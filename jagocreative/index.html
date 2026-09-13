@@ -152,8 +152,17 @@
         </span>
       </div>
 
-      <!-- Actions: Credits, Audio Feedback Toggle, Membership -->
-      <div class="flex items-center gap-1.5 sm:gap-3">
+      <!-- Actions: Settings, Credits, Audio Feedback Toggle, Membership -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5">
+        
+        <!-- API Router Settings Trigger -->
+        <button id="settingsToggleBtn" onclick="openModal('settingsModal')" title="Pengaturan Model & API Key Gratis" class="touch-target p-2 rounded-full bg-google-container hover:bg-google-containerHigh border border-google-outline/40 text-slate-300 hover:text-white transition-all flex items-center justify-center">
+          <svg class="w-4 h-4 text-google-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
         <button id="soundToggleBtn" onclick="toggleSound()" title="Toggle Suara UI" class="touch-target p-2 rounded-full bg-google-container hover:bg-google-containerHigh border border-google-outline/40 text-slate-300 hover:text-white transition-all flex items-center justify-center">
           <svg id="soundIconOn" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
           <svg id="soundIconOff" class="w-4 h-4 hidden text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
@@ -1008,6 +1017,117 @@
     </div>
   </div>
 
+  <!-- MODAL: API & FREE MODEL SETTINGS -->
+  <div id="settingsModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bottom-sheet w-full sm:max-w-xl max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-google-surfaceVariant border border-google-outline/60 p-5 sm:p-6 shadow-2xl space-y-5">
+      <div class="w-12 h-1.5 rounded-full bg-slate-600 mx-auto sm:hidden -mt-1 mb-2"></div>
+      
+      <div class="flex items-center justify-between border-b border-google-outline/40 pb-3">
+        <div>
+          <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+            <span class="text-google-primary">⚙️</span> Integrasi Model Gratis & API Key
+          </h3>
+          <p class="text-[11px] text-slate-400">Pilih model gratis terbaik sesuai pekerjaan. Tersimpan aman di localStorage perangkat Anda.</p>
+        </div>
+        <button onclick="closeModal('settingsModal')" class="touch-target p-1 text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <!-- Matrix Model Terbaik per Job -->
+      <div class="space-y-3 text-xs">
+        <label class="font-bold text-slate-200 block uppercase tracking-wider text-[10px] text-google-primary">Pemetaan Model Gratis Terbaik per Studio:</label>
+        
+        <!-- Job 1: Influencer Script -->
+        <div class="p-3 rounded-xl bg-google-container border border-google-outline/40 space-y-1.5">
+          <div class="flex items-center justify-between font-semibold text-slate-200">
+            <span>1. Naskah AI Influencer & 3 Formula (TikTok/Reels)</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">1.500 Req/Hari Free</span>
+          </div>
+          <select id="cfgModelInfluencer" class="w-full text-xs rounded-lg bg-google-surface border border-google-outline/60 p-2 text-slate-100 focus:border-google-blue focus:outline-none">
+            <option value="gemini-2.5-flash" selected>⭐ Google Gemini 2.5 Flash (Paling Luwes Bahasa Gaul/Natural)</option>
+            <option value="llama-3.3-70b-versatile">Groq Llama-3.3 70B Versatile (Ultra Cepat &lt;1s)</option>
+            <option value="agnes-2.5-flash">Bynara Agnes 2.5 Flash (Kreatif & Detail)</option>
+            <option value="qwen3.8-27b">Groq Qwen 3.8 27B (Struktur Naskah Rapi)</option>
+            <option value="builtin_offline">Preset Built-In Otomatis (Offline/Tanpa Key)</option>
+          </select>
+        </div>
+
+        <!-- Job 2: Master Prompt Foto Realis & f/32 -->
+        <div class="p-3 rounded-xl bg-google-container border border-google-outline/40 space-y-1.5">
+          <div class="flex items-center justify-between font-semibold text-slate-200">
+            <span>2. Formulasi Master Prompt Optik (Hasselblad f/32)</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">Optik Kamera 8K</span>
+          </div>
+          <select id="cfgModelPrompt" class="w-full text-xs rounded-lg bg-google-surface border border-google-outline/60 p-2 text-slate-100 focus:border-google-blue focus:outline-none">
+            <option value="agnes-2.5-flash" selected>⭐ Bynara Agnes 2.5 Flash (Fotografi & Optik Tajam)</option>
+            <option value="gemini-2.5-flash">Google Gemini 2.5 Flash</option>
+            <option value="llama-3.3-70b-versatile">Groq Llama-3.3 70B</option>
+            <option value="builtin_offline">Preset Built-In Otomatis (Offline/Tanpa Key)</option>
+          </select>
+        </div>
+
+        <!-- Job 3: Render Gambar Realistis -->
+        <div class="p-3 rounded-xl bg-google-container border border-google-outline/40 space-y-1.5">
+          <div class="flex items-center justify-between font-semibold text-slate-200">
+            <span>3. Mesin Render Foto Realistis (Image Gen)</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">100% Gratis Unlimited</span>
+          </div>
+          <select id="cfgModelImage" class="w-full text-xs rounded-lg bg-google-surface border border-google-outline/60 p-2 text-slate-100 focus:border-google-blue focus:outline-none">
+            <option value="flux-realism" selected>⭐ Pollinations FLUX.1 Realism (Gratis Tanpa Kuota, Tekstur Alami)</option>
+            <option value="flux">Pollinations FLUX Base Standard</option>
+            <option value="turbo">Pollinations Turbo (Instan Cepat)</option>
+          </select>
+        </div>
+
+        <!-- Job 4: Stock Metadata & SEO CSV -->
+        <div class="p-3 rounded-xl bg-google-container border border-google-outline/40 space-y-1.5">
+          <div class="flex items-center justify-between font-semibold text-slate-200">
+            <span>4. Ekstraksi 40+ Keyword SEO Microstock CSV</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Speed &lt; 0.4s</span>
+          </div>
+          <select id="cfgModelStock" class="w-full text-xs rounded-lg bg-google-surface border border-google-outline/60 p-2 text-slate-100 focus:border-google-blue focus:outline-none">
+            <option value="llama-3.1-8b-instant" selected>⭐ Groq Llama-3.1 8B Instant (0.3s, Bersih & Hemat Quota)</option>
+            <option value="gemini-2.5-flash">Google Gemini 2.5 Flash</option>
+            <option value="builtin_offline">Built-In Smart Keyword Generator</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Input API Keys (Opsional - Jika Kosong Pakai Default Built-In Bos) -->
+      <div class="space-y-3 pt-2 border-t border-google-outline/40">
+        <div class="flex items-center justify-between">
+          <label class="font-bold text-slate-200 uppercase tracking-wider text-[10px] text-google-primary">Kunci Akses API (Opsional / Custom):</label>
+          <span class="text-[10px] text-emerald-400 font-mono">Status: Default Tersedia</span>
+        </div>
+
+        <div class="space-y-2">
+          <div>
+            <label class="text-[11px] text-slate-300 block mb-1">Google Gemini API Key:</label>
+            <input type="password" id="cfgKeyGemini" placeholder="AIzaSy... (Atau biarkan kosong untuk pakai default)" class="w-full text-xs rounded-lg bg-google-container border border-google-outline/60 p-2 text-slate-100 font-mono focus:border-google-blue focus:outline-none" />
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-300 block mb-1">Groq API Key:</label>
+            <input type="password" id="cfgKeyGroq" placeholder="gsk_... (Atau biarkan kosong untuk pakai default)" class="w-full text-xs rounded-lg bg-google-container border border-google-outline/60 p-2 text-slate-100 font-mono focus:border-google-blue focus:outline-none" />
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-300 block mb-1">Bynara Router API Key:</label>
+            <input type="password" id="cfgKeyBynara" placeholder="sk-nry-... (Atau biarkan kosong untuk pakai default)" class="w-full text-xs rounded-lg bg-google-container border border-google-outline/60 p-2 text-slate-100 font-mono focus:border-google-blue focus:outline-none" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-google-outline/40">
+        <button onclick="resetModelSettings()" class="px-4 py-2 rounded-xl bg-google-container hover:bg-google-containerHigh border border-google-outline text-slate-300 text-xs font-semibold">
+          Reset Default
+        </button>
+        <button onclick="saveModelSettings()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-google-blue to-google-purple text-white text-xs font-bold shadow-lg shadow-blue-500/20 hover:brightness-110 active:scale-95 transition-all">
+          Simpan Konfigurasi
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION -->
   <div id="toastNotification" class="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-50 hidden transition-all duration-300 transform translate-y-4 max-w-[90vw]">
     <div class="px-3.5 py-2.5 rounded-2xl bg-google-containerHigh border border-google-outline shadow-2xl text-xs font-medium text-white flex items-center gap-2">
@@ -1070,19 +1190,106 @@
     let currentCredits = 1480.00;
     let uploadedAnchors = [];
 
+    // Model & API Key Config Pool
+    let activeModelConfig = {
+      influencer: 'gemini-2.5-flash',
+      prompt: 'agnes-2.5-flash',
+      image: 'flux-realism',
+      stock: 'llama-3.1-8b-instant',
+      keyGemini: '',
+      keyGroq: '',
+      keyBynara: ''
+    };
+
     // Load persisted data from localStorage
     function loadSavedState() {
       try {
         const savedCredits = localStorage.getItem('jagocreative_credits');
         if (savedCredits) currentCredits = parseFloat(savedCredits);
         updateCreditDisplay();
+
+        const savedConfig = localStorage.getItem('jagocreative_model_config');
+        if (savedConfig) {
+          activeModelConfig = { ...activeModelConfig, ...JSON.parse(savedConfig) };
+        }
+        applyModelConfigToUI();
       } catch (e) {}
     }
 
     function saveState() {
       try {
         localStorage.setItem('jagocreative_credits', currentCredits.toString());
+        localStorage.setItem('jagocreative_model_config', JSON.stringify(activeModelConfig));
       } catch (e) {}
+    }
+
+    function applyModelConfigToUI() {
+      const elInf = document.getElementById('cfgModelInfluencer');
+      const elPrm = document.getElementById('cfgModelPrompt');
+      const elImg = document.getElementById('cfgModelImage');
+      const elStk = document.getElementById('cfgModelStock');
+      const elKGem = document.getElementById('cfgKeyGemini');
+      const elKGro = document.getElementById('cfgKeyGroq');
+      const elKByn = document.getElementById('cfgKeyBynara');
+
+      if (elInf) elInf.value = activeModelConfig.influencer;
+      if (elPrm) elPrm.value = activeModelConfig.prompt;
+      if (elImg) elImg.value = activeModelConfig.image;
+      if (elStk) elStk.value = activeModelConfig.stock;
+      if (elKGem && activeModelConfig.keyGemini) elKGem.value = activeModelConfig.keyGemini;
+      if (elKGro && activeModelConfig.keyGroq) elKGro.value = activeModelConfig.keyGroq;
+      if (elKByn && activeModelConfig.keyBynara) elKByn.value = activeModelConfig.keyBynara;
+
+      updateRouterBadge();
+    }
+
+    function saveModelSettings() {
+      const elInf = document.getElementById('cfgModelInfluencer');
+      const elPrm = document.getElementById('cfgModelPrompt');
+      const elImg = document.getElementById('cfgModelImage');
+      const elStk = document.getElementById('cfgModelStock');
+      const elKGem = document.getElementById('cfgKeyGemini');
+      const elKGro = document.getElementById('cfgKeyGroq');
+      const elKByn = document.getElementById('cfgKeyBynara');
+
+      if (elInf) activeModelConfig.influencer = elInf.value;
+      if (elPrm) activeModelConfig.prompt = elPrm.value;
+      if (elImg) activeModelConfig.image = elImg.value;
+      if (elStk) activeModelConfig.stock = elStk.value;
+      if (elKGem) activeModelConfig.keyGemini = elKGem.value.trim();
+      if (elKGro) activeModelConfig.keyGroq = elKGro.value.trim();
+      if (elKByn) activeModelConfig.keyBynara = elKByn.value.trim();
+
+      saveState();
+      updateRouterBadge();
+      closeModal('settingsModal');
+      playUiSound('success');
+      triggerToast('Pengaturan model gratis berhasil disimpan!');
+    }
+
+    function resetModelSettings() {
+      activeModelConfig = {
+        influencer: 'gemini-2.5-flash',
+        prompt: 'agnes-2.5-flash',
+        image: 'flux-realism',
+        stock: 'llama-3.1-8b-instant',
+        keyGemini: '',
+        keyGroq: '',
+        keyBynara: ''
+      };
+      applyModelConfigToUI();
+      saveState();
+      playUiSound('click');
+      triggerToast('Konfigurasi model direset ke standar terbaik');
+    }
+
+    function updateRouterBadge(currentStudio = 'influencer') {
+      const badge = document.getElementById('activeRouterBadge');
+      if (!badge) return;
+
+      const modelInf = activeModelConfig.influencer.includes('gemini') ? 'Gemini 2.5' : (activeModelConfig.influencer.includes('llama') ? 'Groq Llama-3.3' : 'Bynara');
+      const modelImg = activeModelConfig.image.toUpperCase();
+      badge.innerHTML = `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> ${modelInf} + ${modelImg}`;
     }
 
     function switchStudio(studioId) {
@@ -1326,7 +1533,8 @@
       const masterPrompt = `A high-end hyperrealistic commercial photo of a ${persona.visual}, holding and wearing ${product}, perfect organic fit, natural fabric folds, true skin tones, detailed hands, cinematic soft rim light, 8k UHD, Hasselblad H6D-100c, aperture f/1.8, aspect ratio ${ratio}, no plastic skin, master commercial campaign.`;
       document.getElementById('masterPromptBox').textContent = masterPrompt;
 
-      // Real External Image Render via Pollinations FLUX Realism (100% Free & Live!)
+      // Real External Image Render via Pollinations (User Selected Model in Settings)
+      const selectedImgModel = activeModelConfig.image || 'flux-realism';
       const promptEncoded = encodeURIComponent(`hyperrealistic photo of Indonesian woman influencer wearing ${product}, natural skin texture, soft daylight, 8k raw photo`);
       let width = 1080;
       let height = 1920;
@@ -1334,12 +1542,14 @@
       else if (ratio === '16:9') { width = 1920; height = 1080; }
       else if (ratio === '4:5') { width = 1080; height = 1350; }
 
-      const imageUrl = `https://image.pollinations.ai/prompt/${promptEncoded}?model=flux-realism&width=${width}&height=${height}&nologo=true&seed=${Math.floor(Math.random() * 999999)}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${promptEncoded}?model=${selectedImgModel}&width=${width}&height=${height}&nologo=true&seed=${Math.floor(Math.random() * 999999)}`;
       
       const imgEl = document.getElementById('liveInfluencerImage');
       const imgSpinner = document.getElementById('imageLoadingSpinner');
       const directLink = document.getElementById('downloadImageDirectLink');
+      const engineLabel = document.getElementById('renderEngineLabel');
 
+      if (engineLabel) engineLabel.textContent = `Engine: ${selectedImgModel.toUpperCase()} (Free & Live)`;
       imgSpinner.classList.remove('hidden');
       imgEl.src = imageUrl;
       imgEl.onload = () => { imgSpinner.classList.add('hidden'); };
@@ -1359,28 +1569,55 @@
 
         if (styleKey === 'grwm') {
           if (s === 1) {
-            visualAction = `Influencer berdiri di depan cermin rias, memegang ${product.slice(0, 35)} dengan ekspresi antusias sebelum jalan.`;
-            scriptText = `Jujur bingung banget mau pakai apa hari ini sampai akhirnya aku putusin pakai ini. Pas dicoba bahannya jatuh dan super adem.`;
+            visualAction = `Influencer berdiri santai di depan cermin rias, memegang ${product.slice(0, 35)} dengan senyum hangat natural.`;
+            scriptText = `Jujur bingung banget mau pakai apa hari ini sampai akhirnya aku nemu ini. Pas disentuh bahannya jatuh dan super adem.`;
+          } else if (s === 2) {
+            visualAction = `Influencer menunjukkan potongan jahitan dan kelenturan bahan secara close-up ke kamera.`;
+            scriptText = `Potongannya ngebentuk postur badan tanpa rasa sesak sama sekali, tetap fleksibel buat gerak seharian.`;
+          } else if (s === 3) {
+            visualAction = `Influencer memasangkan aksesori pelengkap dengan cermin rias bernuansa aesthetic daylight.`;
+            scriptText = `Dipadukan sama sneakers santai atau heels formal ternyata langsung masuk dan bikin look kelihatan rapi instan.`;
+          } else if (s === 4) {
+            visualAction = `Influencer melangkah percaya diri menguji kenyamanan langkah di ruangan estetik.`;
+            scriptText = `Gak gampang lecek walau dipakai aktif seharian, definisi outfit anti ribet yang selalu siap pakai kapan pun.`;
           } else {
-            visualAction = `Influencer merapikan detail pakaian, berputar anggun menghadap kamera dengan senyum percaya diri.`;
-            scriptText = `Potongannya ngebentuk badan tanpa bikin sesak sama sekali. Menurut kalian cocok dipadukan sama heels atau sneakers favorit?`;
+            visualAction = `Influencer menatap kamera dengan senyum puas dan ekspresi anggun.`;
+            scriptText = `Menurut kalian lebih cocok warna netral kayak gini atau warna cerah? Yang pasti ini jadi andalan baru di lemariku.`;
           }
         } else if (styleKey === 'storytelling') {
           if (s === 1) {
-            visualAction = `Influencer menatap kamera santai seperti curhat kepada teman dekat sambil memegang produk.`;
-            scriptText = `Kemarin sempat insecure cari outfit yang rapi tapi tetap nyaman buat seharian. Banyak yang bagus tapi bikin gerah.`;
+            visualAction = `Influencer menatap kamera santai seperti curhat jujur ke teman dekat sambil memegang ${product.slice(0, 30)}.`;
+            scriptText = `Kemarin sempat insecure cari pilihan yang rapi tapi tetap nyaman buat dipakai dari pagi sampai malam.`;
+          } else if (s === 2) {
+            visualAction = `Kamera menyorot detail tekstur asli kain dan kenyamanan saat disentuh tangan influencer.`;
+            scriptText = `Banyak yang modelnya bagus tapi bikin gerah dan kaku saat dipakai duduk lama di depan laptop atau jalan keluar.`;
+          } else if (s === 3) {
+            visualAction = `Influencer tersenyum lega sambil merapikan bagian kerah dan bahu dengan pencahayaan lembut.`;
+            scriptText = `Ternyata nemu yang pas banget ini. Seharian dipakai gerak tetap adem, sirkulasi udaranya beneran kerasa nyaman.`;
+          } else if (s === 4) {
+            visualAction = `Influencer berdiri anggun memperlihatkan siluet keseluruhan di depan jendela kaca modern.`;
+            scriptText = `Bahkan teman-teman kantor kemarin sempat nanya beli di mana karena potongannya kelihatan berkelas banget.`;
           } else {
-            visualAction = `Influencer menunjukkan tekstur jahitan dan kelenturan bahan dengan senyum lega.`;
-            scriptText = `Ternyata nemu yang pas banget ini. Seharian dipakai gerak tetap rapi dan gak gampang lecek. Penyelamat hariku banget.`;
+            visualAction = `Influencer tersenyum ramah menghadap kamera memberikan rekomendasi tulus.`;
+            scriptText = `Penyelamat hari-hari sibukku banget. Kadang kenyamanan kecil kayak gini yang bikin mood kerja naik seharian.`;
           }
         } else {
-          // soft_selling
+          // soft_selling & honest_review
           if (s === 1) {
-            visualAction = `Visual dinamis influencer menyapa audiens dari ruangan estetik dengan senyum hangat.`;
-            scriptText = `Satu hal kecil yang bikin percaya diri naik seharian itu kenyamanan pakaian yang kita pakai. Jangan sampai salah pilih bahan.`;
+            visualAction = `Visual dinamis influencer menyapa audiens dari ruangan estetik dengan senyum hangat ramah.`;
+            scriptText = `Satu hal kecil yang bikin percaya diri naik seharian itu kenyamanan pakaian yang kita pakai dari pagi.`;
+          } else if (s === 2) {
+            visualAction = `Kamera macro lens menyorot kerapian jahitan, kelembutan serat, dan warna solid produk.`;
+            scriptText = `Kuncinya ada di pemilihan serat bahan yang bernapas dan jahitan presisi yang gak bikin gatal di kulit.`;
+          } else if (s === 3) {
+            visualAction = `Influencer bergerak bebas menunjukkan fleksibilitas pakaian di ruangan dengan cahaya alami.`;
+            scriptText = `Simpel, minimalis, tapi langsung kasih kesan rapi dan profesional tanpa perlu usaha berlebihan.`;
+          } else if (s === 4) {
+            visualAction = `Kamera menyorot siluet pakaian saat influencer melangkah keluar dengan percaya diri.`;
+            scriptText = `Cocok banget buat yang mobilitasnya tinggi tapi tetap pengen tampil effortless di setiap kesempatan.`;
           } else {
-            visualAction = `Kamera menyorot siluet pakaian elegan saat influencer melangkah keluar.`;
-            scriptText = `Simpel tapi langsung kasih kesan rapi dan berkelas. Buat yang cari kenyamanan maksimal, kalian wajib punya satu ini.`;
+            visualAction = `Influencer menutup dengan senyum anggun dan gestur tangan santai.`;
+            scriptText = `Buat yang mengutamakan kualitas dan kenyamanan jangka panjang, ini opsi yang paling masuk akal buat dicoba.`;
           }
         }
 
