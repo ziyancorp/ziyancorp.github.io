@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZIYAN CORP — The Next-Gen AI Automation & Creative Studio</title>
-  <meta name="description" content="Studio kreatif dan pusat automasi AI berbasis Google Flow, pabrik konten UGC TikTok Affiliate 8K, dan penerbitan E-Book komersial.">
+  <title>ZIYAN CORP — The Luminous Next-Gen AI Studio</title>
+  <meta name="description" content="Studio kreatif dan pusat automasi AI multimodal berstandar Google Flow: 8K Lifestyle Photography, UGC Video Affiliate 10 Detik, dan Master Blueprint E-Book.">
 
-  <!-- Google Fonts: Plus Jakarta Sans & Google Sans styled variable fonts -->
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,35 +23,44 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            // Google Material 3 Expressive Tonal Palettes
-            google: {
-              blue: '#1A73E8',
-              blueDark: '#8AB4F8',
+            luminous: {
+              cyan: '#00F0FF',
+              blue: '#0066FF',
+              violet: '#7928CA',
+              magenta: '#FF0080',
+              emerald: '#00DF8F',
+              canvasDark: '#080A0F',
+              surfaceDark: '#0F131D',
+              containerDark: '#161B29',
+              canvasLight: '#F5F7FC',
               surfaceLight: '#FFFFFF',
-              surfaceDark: '#1E1F20',
-              canvasLight: '#F8F9FD',
-              canvasDark: '#131314',
-              containerLight: '#F0F4F9',
-              containerDark: '#282A2C',
-              borderLight: '#E1E3EB',
-              borderDark: 'rgba(255, 255, 255, 0.08)',
-              inkLight: '#1F1F1F',
-              inkDark: '#E3E3E3',
-              subLight: '#444746',
-              subDark: '#9AA0A6',
+              containerLight: '#EDF1F9',
             }
           },
-          borderRadius: {
-            'm3-sm': '12px',
-            'm3-md': '20px',
-            'm3-lg': '28px',
-            'm3-xl': '36px',
-            'squircle': '24px',
+          animation: {
+            'luminous-flow': 'luminousFlow 12s ease-in-out infinite alternate',
+            'border-spin': 'borderSpin 4s linear infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s linear infinite',
           },
-          boxShadow: {
-            'm3-elevation-1': '0 1px 3px 1px rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04)',
-            'm3-elevation-2': '0 4px 12px 2px rgba(0, 0, 0, 0.08), 0 2px 6px 0 rgba(0, 0, 0, 0.04)',
-            'glow-blue': '0 0 40px -10px rgba(26, 115, 232, 0.3)',
+          keyframes: {
+            luminousFlow: {
+              '0%': { transform: 'translate(0%, 0%) scale(1)' },
+              '50%': { transform: 'translate(8%, -6%) scale(1.15)' },
+              '100%': { transform: 'translate(-6%, 8%) scale(0.95)' },
+            },
+            borderSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', filter: 'blur(40px)' },
+              '50%': { opacity: '0.8', filter: 'blur(55px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            }
           }
         }
       }
@@ -59,108 +68,237 @@
   </script>
 
   <style>
-    /* Smooth theme transitions */
-    html, body {
-      transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    /* ======================================================= */
+    /* LUMINOUS DESIGN ENGINE STYLES (GENJUTSU SPECIFICATION)  */
+    /* ======================================================= */
     
-    /* Google M3 Glassmorphism Card */
-    .glass-m3-light {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(225, 227, 235, 0.9);
+    html, body {
+      transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .dark .glass-m3-light {
-      background: rgba(30, 31, 32, 0.75);
+
+    /* Ambient Luminous Mesh Nodes */
+    .luminous-blob-1 {
+      position: absolute;
+      top: -10%;
+      left: 10%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.25) 0%, rgba(0, 102, 255, 0.15) 50%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .luminous-blob-2 {
+      position: absolute;
+      top: 25%;
+      right: 5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(121, 40, 202, 0.22) 0%, rgba(255, 0, 128, 0.12) 50%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .luminous-blob-3 {
+      position: absolute;
+      bottom: 10%;
+      left: 30%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 223, 143, 0.18) 0%, rgba(0, 102, 255, 0.1) 50%, transparent 70%);
+      filter: blur(85px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Luminous Card with Mouse Spotlight Follow */
+    .luminous-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dark .luminous-card {
+      background: rgba(15, 19, 29, 0.7);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
+    .luminous-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(225, 227, 235, 0.8);
+      box-shadow: 0 10px 30px -10px rgba(0, 102, 255, 0.05);
+    }
+    
+    .luminous-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(0, 240, 255, 0.5), rgba(121, 40, 202, 0.3), transparent 70%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .luminous-card:hover::before {
+      opacity: 1;
+    }
+    .luminous-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px -15px rgba(0, 102, 255, 0.18);
+    }
 
-    /* Google Aurora Subtle Ambient Light */
-    .aurora-gradient-light {
-      background: radial-gradient(circle at 15% 15%, rgba(66, 133, 244, 0.08), transparent 45%),
-                  radial-gradient(circle at 85% 25%, rgba(161, 66, 244, 0.06), transparent 50%),
-                  radial-gradient(circle at 50% 80%, rgba(52, 168, 83, 0.06), transparent 50%);
-    }
-    .dark .aurora-gradient-light {
-      background: radial-gradient(circle at 15% 15%, rgba(66, 133, 244, 0.12), transparent 45%),
-                  radial-gradient(circle at 85% 25%, rgba(161, 66, 244, 0.10), transparent 50%),
-                  radial-gradient(circle at 50% 80%, rgba(52, 168, 83, 0.08), transparent 50%);
+    /* Luminous Text Glow */
+    .luminous-text {
+      text-shadow: 0 0 35px rgba(0, 240, 255, 0.45);
     }
 
-    /* Tab active indicator */
-    .tab-btn.active {
-      background-color: #1A73E8;
-      color: #FFFFFF !important;
-      box-shadow: 0 4px 14px rgba(26, 115, 232, 0.35);
+    /* Luminous Border Beam Button */
+    .luminous-beam-btn {
+      position: relative;
+      overflow: hidden;
+      border-radius: 9999px;
+      padding: 2px;
+      display: inline-flex;
     }
-    .dark .tab-btn.active {
-      background-color: #8AB4F8;
-      color: #131314 !important;
-      box-shadow: 0 4px 14px rgba(138, 180, 248, 0.25);
+    .luminous-beam-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0deg 270deg, #00F0FF 310deg, #7928CA 340deg, #00DF8F 360deg);
+      animation: borderSpin 4s linear infinite;
+    }
+    .luminous-beam-inner {
+      position: relative;
+      border-radius: 9999px;
+      z-index: 1;
+    }
+
+    /* Interactive Comparison Slider */
+    .slider-container {
+      position: relative;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 24px;
+    }
+    .slider-img-after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, var(--slider-pos, 50%) 0, var(--slider-pos, 50%) 100%, 0 100%);
+    }
+    .slider-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: var(--slider-pos, 50%);
+      width: 3px;
+      background: #00F0FF;
+      box-shadow: 0 0 20px 3px #00F0FF, 0 0 40px 6px rgba(121, 40, 202, 0.6);
+      transform: translateX(-50%);
+      cursor: ew-resize;
+      z-index: 20;
+    }
+    .slider-handle-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #080A0F;
+      border: 2px solid #00F0FF;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00F0FF;
+    }
+
+    /* Tab active style */
+    .luminous-tab.active {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(121, 40, 202, 0.2));
+      border-color: #00F0FF;
+      color: #00F0FF !important;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
     }
   </style>
 </head>
-<body class="bg-google-canvasLight dark:bg-google-canvasDark text-google-inkLight dark:text-google-inkDark font-sans antialiased selection:bg-google-blue selection:text-white min-h-screen flex flex-col relative overflow-x-hidden aurora-gradient-light">
+<body class="bg-luminous-canvasLight dark:bg-luminous-canvasDark text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-luminous-cyan selection:text-black min-h-screen flex flex-col relative overflow-x-hidden">
 
   <!-- ========================================== -->
-  <!-- 1. GOOGLE M3 TOP NAVIGATION BAR           -->
+  <!-- 0. AMBIENT LUMINOUS GLOW NODES (BACKGROUND) -->
   <!-- ========================================== -->
-  <header class="sticky top-0 z-50 w-full px-4 sm:px-8 py-3 transition-all duration-300">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-5 py-2.5 rounded-full glass-m3-light shadow-m3-elevation-1">
+  <div class="luminous-blob-1 animate-luminous-flow"></div>
+  <div class="luminous-blob-2 animate-luminous-flow" style="animation-delay: -4s;"></div>
+  <div class="luminous-blob-3 animate-luminous-flow" style="animation-delay: -8s;"></div>
+
+  <!-- ========================================== -->
+  <!-- 1. LUMINOUS NAVBAR WITH THEME SWITCHER     -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-50 w-full px-4 sm:px-8 py-3 transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-white/70 dark:bg-luminous-surfaceDark/70 backdrop-blur-2xl border border-slate-200 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-cyan-950/20">
       
-      <!-- Logo Brand -->
+      <!-- Brand Logo with Luminous Neon Dot -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-google-blue via-indigo-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-glow-blue transition-transform duration-300 group-hover:scale-105">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-luminous-blue via-indigo-600 to-luminous-cyan flex items-center justify-center text-white font-extrabold text-xl shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-transform duration-300 group-hover:scale-105">
           Z
         </div>
         <div class="flex flex-col">
-          <span class="font-extrabold text-lg tracking-tight leading-none text-google-inkLight dark:text-google-inkDark">
-            ZIYAN<span class="text-google-blue dark:text-google-blueDark">CORP</span>
+          <span class="font-extrabold text-lg tracking-tight leading-none text-slate-900 dark:text-white flex items-center gap-1.5">
+            ZIYAN<span class="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan to-luminous-blue">CORP</span>
+            <span class="w-2 h-2 rounded-full bg-luminous-cyan shadow-[0_0_8px_#00F0FF] animate-ping"></span>
           </span>
-          <span class="text-[10px] font-mono tracking-wider uppercase text-google-subLight dark:text-google-subDark mt-0.5">
-            Google M3 • Studio AI
+          <span class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mt-0.5">
+            Luminous Effect Engine
           </span>
         </div>
       </a>
 
       <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 text-sm font-semibold text-google-subLight dark:text-google-subDark">
-        <a href="#showcase" class="px-4 py-2 rounded-full hover:text-google-blue dark:hover:text-google-blueDark hover:bg-google-containerLight dark:hover:bg-google-containerDark transition-colors">
-          Showcase AI
+      <nav class="hidden md:flex items-center gap-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#showcase" class="px-4 py-2 rounded-full hover:text-luminous-cyan hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
+          Luminous Slider
         </a>
-        <a href="#ebook" class="px-4 py-2 rounded-full hover:text-google-blue dark:hover:text-google-blueDark hover:bg-google-containerLight dark:hover:bg-google-containerDark transition-colors">
-          Master E-Book
+        <a href="#ebook" class="px-4 py-2 rounded-full hover:text-luminous-cyan hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
+          Master Blueprint
         </a>
-        <a href="#ekosistem" class="px-4 py-2 rounded-full hover:text-google-blue dark:hover:text-google-blueDark hover:bg-google-containerLight dark:hover:bg-google-containerDark transition-colors">
+        <a href="#ekosistem" class="px-4 py-2 rounded-full hover:text-luminous-cyan hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
           4 Pilar Studio
-        </a>
-        <a href="#blueprint" class="px-4 py-2 rounded-full hover:text-google-blue dark:hover:text-google-blueDark hover:bg-google-containerLight dark:hover:bg-google-containerDark transition-colors">
-          Teknologi
         </a>
       </nav>
 
-      <!-- Right Action Tools: Dark/Light Mode Toggle + CTA -->
-      <div class="flex items-center gap-2.5">
+      <!-- Right Controls: Theme Toggle & Telegram CTA -->
+      <div class="flex items-center gap-3">
         
-        <!-- THEME TOGGLE BUTTON -->
-        <button id="themeToggleBtn" aria-label="Ganti Tema Terang/Gelap" class="w-10 h-10 rounded-full flex items-center justify-center bg-google-containerLight dark:bg-google-containerDark text-google-inkLight dark:text-google-inkDark hover:scale-105 active:scale-95 transition-all shadow-sm border border-google-borderLight dark:border-google-borderDark">
-          <!-- Sun Icon (for dark mode active) -->
+        <!-- Interactive Theme Switcher Button -->
+        <button id="themeToggleBtn" aria-label="Ganti Tema Terang/Gelap" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 hover:border-luminous-cyan hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all">
           <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
-          <!-- Moon Icon (for light mode active) -->
-          <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
 
-        <!-- CTA Direct Contact -->
-        <a href="https://t.me/Zynautobot" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-google-blue dark:bg-google-blueDark text-white dark:text-google-canvasDark font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all shadow-glow-blue active:scale-95">
-          <span>Telegram HQ</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <!-- Luminous Border Beam CTA -->
+        <a href="https://t.me/Zynautobot" target="_blank" class="luminous-beam-btn">
+          <div class="luminous-beam-inner px-5 py-2.5 bg-slate-900 dark:bg-luminous-canvasDark text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:bg-slate-800 transition-colors">
+            <span>Telegram HQ</span>
+            <svg class="w-3.5 h-3.5 text-luminous-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
         </a>
 
       </div>
@@ -168,145 +306,230 @@
   </header>
 
   <!-- ========================================== -->
-  <!-- 2. HERO SECTION (GOOGLE STUDIO AESTHETIC) -->
+  <!-- 2. HERO SECTION WITH LUMINOUS GLOW         -->
   <!-- ========================================== -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-8 pt-12 pb-20 w-full flex flex-col items-start text-left">
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 pt-16 pb-20 w-full relative z-10 flex flex-col items-start text-left">
     
-    <!-- Badge Status -->
-    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-google-containerLight dark:bg-google-containerDark border border-google-borderLight dark:border-google-borderDark text-xs font-semibold text-google-blue dark:text-google-blueDark mb-6 shadow-sm">
-      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span>Google Flow Engine • Multimodal AI Production 2026</span>
+    <!-- Luminous Aurora Badge -->
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-200/50 dark:bg-white/5 border border-luminous-cyan/40 text-xs font-semibold text-luminous-blue dark:text-luminous-cyan mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+      <span class="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse"></span>
+      <span>Google Flow Multimodal Studio • Luminous Architecture</span>
     </div>
 
-    <!-- Asymmetrical Main Headline -->
-    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.05] max-w-4xl text-google-inkLight dark:text-google-inkDark mb-6">
+    <!-- Main Headline with Gradient Glow -->
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.08] max-w-4xl text-slate-950 dark:text-white mb-6">
       Bukan Sekadar Otomasi.<br>
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-google-blue via-indigo-600 to-cyan-500 dark:from-google-blueDark dark:via-indigo-300 dark:to-cyan-300">
-        Ini Pabrik Konten & Aset Digital
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-luminous-blue to-luminous-magenta luminous-text">
+        Ini Pabrik Konten Luminous
       </span><br>
       Skala Industri.
     </h1>
 
-    <p class="text-lg sm:text-xl text-google-subLight dark:text-google-subDark max-w-2xl font-normal leading-relaxed mb-10">
-      Mengintegrasikan arsitektur visual mutakhir <strong>Google Flow</strong> (Nano Banana Pro & Omni 1.1 Flash), penerbitan E-Book teknis, video UGC 10 detik dengan lip-sync Bahasa Indonesia, dan kurasi aset digital komersial.
+    <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl font-normal leading-relaxed mb-10">
+      Menyatukan kekuatan generasi visual <strong>Google Flow</strong> (Nano Banana Pro & Omni 1.1 Flash), penerbitan E-Book teknis, video UGC 10 detik ber-lip sync Bahasa Indonesia, dan kurasi aset digital komersial.
     </p>
 
     <!-- Call to Actions -->
     <div class="flex flex-wrap items-center gap-4">
-      <a href="#ebook" class="px-7 py-3.5 rounded-full bg-google-blue dark:bg-google-blueDark text-white dark:text-google-canvasDark font-bold text-sm tracking-wide shadow-glow-blue hover:opacity-95 active:scale-95 transition-all flex items-center gap-2">
-        <span>📖 Buka Master Blueprint E-Book</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+      <a href="#showcase" class="luminous-beam-btn">
+        <div class="luminous-beam-inner px-8 py-4 bg-gradient-to-r from-luminous-blue to-indigo-600 text-white font-extrabold text-sm tracking-wide flex items-center gap-2.5 shadow-[0_0_30px_rgba(0,102,255,0.4)]">
+          <span>✨ Coba Interactive Luminous Slider</span>
+          <svg class="w-4 h-4 text-luminous-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
       </a>
-      <a href="#showcase" class="px-7 py-3.5 rounded-full bg-google-surfaceLight dark:bg-google-surfaceDark text-google-inkLight dark:text-google-inkDark border border-google-borderLight dark:border-google-borderDark font-bold text-sm tracking-wide hover:bg-google-containerLight dark:hover:bg-google-containerDark active:scale-95 transition-all">
-        Lihat Komparasi Visual (10 Kasus)
+      <a href="#ebook" class="px-8 py-4 rounded-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-white font-bold text-sm hover:border-luminous-cyan hover:shadow-[0_0_20px_rgba(0,240,255,0.25)] transition-all">
+        Buka Master Blueprint
       </a>
     </div>
 
-    <!-- Metric Counters (Google M3 Style) -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full mt-16 pt-10 border-t border-google-borderLight dark:border-google-borderDark">
-      <div class="flex flex-col">
-        <span class="text-3xl sm:text-4xl font-extrabold text-google-inkLight dark:text-google-inkDark font-mono">100%</span>
-        <span class="text-xs text-google-subLight dark:text-google-subDark mt-1">Identity Lock (Anti-Morphing)</span>
+    <!-- Live Performance Metric Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full mt-16 pt-10 border-t border-slate-200 dark:border-white/10">
+      <div class="luminous-card p-5">
+        <span class="text-3xl sm:text-4xl font-extrabold text-luminous-cyan font-mono luminous-text">100%</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 block mt-1">Identity Lock (Anti-Morphing)</span>
       </div>
-      <div class="flex flex-col">
-        <span class="text-3xl sm:text-4xl font-extrabold text-google-blue dark:text-google-blueDark font-mono">8K UHD</span>
-        <span class="text-xs text-google-subLight dark:text-google-subDark mt-1">Lifestyle Studio Photography</span>
+      <div class="luminous-card p-5">
+        <span class="text-3xl sm:text-4xl font-extrabold text-luminous-blue font-mono luminous-text">8K UHD</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 block mt-1">Lifestyle Studio Photography</span>
       </div>
-      <div class="flex flex-col">
-        <span class="text-3xl sm:text-4xl font-extrabold text-emerald-500 font-mono">10 Detik</span>
-        <span class="text-xs text-google-subLight dark:text-google-subDark mt-1">UGC Video + Lip-Sync ID</span>
+      <div class="luminous-card p-5">
+        <span class="text-3xl sm:text-4xl font-extrabold text-luminous-emerald font-mono luminous-text">10 Detik</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 block mt-1">UGC Video + Lip-Sync ID</span>
       </div>
-      <div class="flex flex-col">
-        <span class="text-3xl sm:text-4xl font-extrabold text-indigo-500 font-mono">24/7</span>
-        <span class="text-xs text-google-subLight dark:text-google-subDark mt-1">Autopilot Digital Asset Engine</span>
+      <div class="luminous-card p-5">
+        <span class="text-3xl sm:text-4xl font-extrabold text-luminous-magenta font-mono luminous-text">24/7</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 block mt-1">Autopilot Digital Asset Engine</span>
       </div>
     </div>
   </section>
 
-  <!-- ========================================== -->
-  <!-- 3. INTERACTIVE SHOWCASE: GOOGLE FLOW 10 CASE -->
-  <!-- ========================================== -->
-  <section id="showcase" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 w-full">
+  <!-- ======================================================== -->
+  <!-- 3. INTERACTIVE LUMINOUS BEFORE-AFTER SLIDER (SHOWCASE)   -->
+  <!-- ======================================================== -->
+  <section id="showcase" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 w-full relative z-10">
     
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
       <div>
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-google-blue dark:text-google-blueDark">Eksplorasi Empiris</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-google-inkLight dark:text-google-inkDark mt-1">
-          Bedah Visual: Referensi Asli vs Hasil AI
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-luminous-cyan flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse"></span>
+          Luminous Interactive Inspection
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mt-1">
+          Geser Slider untuk Membedah Visual AI
         </h2>
       </div>
-      <p class="text-sm text-google-subLight dark:text-google-subDark max-w-md">
-        Klik tab di bawah untuk melihat bagaimana model AI Google Flow mempertahankan identitas produk mentah tanpa cacat sedikitpun.
+      <p class="text-sm text-slate-500 dark:text-slate-400 max-w-md">
+        Tarik garis bercahaya di tengah foto ke kiri atau ke kanan untuk membandingkan foto referensi mentah dengan hasil transformasi fotorealistik AI.
       </p>
     </div>
 
-    <!-- Category Tabs -->
-    <div class="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-google-containerLight dark:bg-google-containerDark border border-google-borderLight dark:border-google-borderDark mb-8">
-      <button onclick="switchTab(0)" class="tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all">
-        👶 Sepatu Anak Handheld (Kasus 1)
+    <!-- Case Navigation Tabs -->
+    <div class="flex flex-wrap items-center gap-2.5 mb-8">
+      <button onclick="selectCase(0)" class="luminous-tab active px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 transition-all">
+        👶 Sepatu Anak (Kasus 1)
       </button>
-      <button onclick="switchTab(1)" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-google-subLight dark:text-google-subDark transition-all">
+      <button onclick="selectCase(1)" class="luminous-tab px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 text-slate-500 dark:text-slate-400 transition-all">
         🧵 Karpet Bordir Toko (Kasus 2)
       </button>
-      <button onclick="switchTab(2)" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-google-subLight dark:text-google-subDark transition-all">
+      <button onclick="selectCase(2)" class="luminous-tab px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 text-slate-500 dark:text-slate-400 transition-all">
         🔄 360° Hero Turntable (Kasus 5 & 6)
       </button>
-      <button onclick="switchTab(3)" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-google-subLight dark:text-google-subDark transition-all">
+      <button onclick="selectCase(3)" class="luminous-tab px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 text-slate-500 dark:text-slate-400 transition-all">
         🎙️ UGC 10s Keranjang Kuning (Kasus 9)
       </button>
-      <button onclick="switchTab(4)" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-google-subLight dark:text-google-subDark transition-all">
+      <button onclick="selectCase(4)" class="luminous-tab px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/5 text-slate-500 dark:text-slate-400 transition-all">
         🧥 Transisi Tutup Lensa (Kasus 10)
       </button>
     </div>
 
-    <!-- Tab Content Box (Interactive View) -->
-    <div id="tabContentCard" class="rounded-m3-lg bg-google-surfaceLight dark:bg-google-surfaceDark border border-google-borderLight dark:border-google-borderDark p-6 sm:p-10 shadow-m3-elevation-2 transition-all duration-300">
-      
-      <!-- Injected Dynamically by JS -->
-      <div id="caseView"></div>
+    <!-- The Luminous Showcase Stage -->
+    <div class="luminous-card p-6 sm:p-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Interactive Comparison Slider (5 cols) -->
+        <div class="lg:col-span-6 flex flex-col gap-4">
+          
+          <div class="flex items-center justify-between text-xs font-mono font-bold">
+            <span class="text-rose-500 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span> ◀ Foto Input Mentah
+            </span>
+            <span class="text-luminous-cyan flex items-center gap-1.5">
+              Hasil AI Google Flow ▶ <span class="w-2 h-2 rounded-full bg-luminous-cyan"></span>
+            </span>
+          </div>
 
+          <!-- The Interactive Slider Box -->
+          <div id="sliderBox" class="slider-container aspect-[9/16] max-h-[600px] w-full border border-white/10 bg-black shadow-[0_0_50px_rgba(0,240,255,0.15)] relative">
+            <!-- Background (Result / AI) -->
+            <img id="imgResult" src="" alt="Hasil AI" class="w-full h-full object-cover">
+
+            <!-- Foreground clipped (Reference) -->
+            <div id="imgAfterWrap" class="slider-img-after">
+              <img id="imgRef" src="" alt="Foto Referensi" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Glowing Divider Bar -->
+            <div id="sliderHandle" class="slider-handle">
+              <div class="slider-handle-circle">
+                <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4" transform="rotate(90 12 12)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-between">
+            <span id="caseEngine" class="font-bold">Engine: -</span>
+            <span id="caseRatio" class="font-mono">9:16 Vertical</span>
+          </div>
+        </div>
+
+        <!-- Right: Luminous Breakdown & Prompt Copier (6 cols) -->
+        <div class="lg:col-span-6 flex flex-col">
+          <h3 id="caseTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
+            -
+          </h3>
+
+          <!-- Locked vs Transformed Bento Boxes -->
+          <div class="grid grid-cols-1 gap-3.5 mb-5">
+            <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+              <h5 class="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <span>🔒</span> Dikunci 100% (Identity Lock)
+              </h5>
+              <p id="caseLocked" class="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">-</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-luminous-magenta/10 border border-luminous-magenta/20">
+              <h5 class="text-xs font-bold text-luminous-magenta uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <span>✨</span> Transformasi Lingkungan Baru AI
+              </h5>
+              <p id="caseTransformed" class="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">-</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-luminous-blue/10 border border-luminous-blue/20">
+              <h5 class="text-xs font-bold text-luminous-cyan uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <span>💡</span> Rahasia Prompt Mechanics
+              </h5>
+              <p id="caseSecret" class="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">-</p>
+            </div>
+          </div>
+
+          <!-- Prompt Box with Luminous Copy Button -->
+          <div class="flex flex-col mt-2">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono font-bold uppercase text-slate-500 dark:text-slate-400">Master Prompt Siap Salin</span>
+              <button onclick="copyPromptText()" id="copyPromptBtn" class="text-xs font-bold text-luminous-cyan hover:underline flex items-center gap-1">
+                Salin Prompt 📋
+              </button>
+            </div>
+            <textarea id="promptDisplay" readonly class="w-full h-36 p-3.5 text-xs font-mono rounded-2xl bg-slate-100 dark:bg-black/60 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-slate-200 resize-none focus:outline-none focus:border-luminous-cyan transition-colors"></textarea>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </section>
 
   <!-- ========================================== -->
   <!-- 4. MASTER EBOOK BLUEPRINT SECTION          -->
   <!-- ========================================== -->
-  <section id="ebook" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 w-full">
-    <div class="rounded-m3-xl bg-gradient-to-br from-google-containerLight to-blue-50 dark:from-google-containerDark dark:to-slate-900 border border-google-borderLight dark:border-google-borderDark p-8 sm:p-14 relative overflow-hidden shadow-m3-elevation-2">
+  <section id="ebook" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 w-full relative z-10">
+    <div class="luminous-card p-8 sm:p-14 relative overflow-hidden">
       
+      <!-- Luminous Edge Aura -->
+      <div class="absolute -right-20 -top-20 w-96 h-96 bg-luminous-cyan/15 rounded-full filter blur-3xl pointer-events-none"></div>
+
       <div class="relative z-10 max-w-3xl">
-        <span class="px-3.5 py-1 rounded-full bg-google-blue/10 text-google-blue dark:text-google-blueDark text-xs font-mono font-bold uppercase tracking-wider">
-          Dokumen Resmi • Format .docx & .md
+        <span class="px-3.5 py-1 rounded-full bg-luminous-cyan/10 border border-luminous-cyan/30 text-luminous-blue dark:text-luminous-cyan text-xs font-mono font-bold uppercase tracking-wider">
+          Dokumen Master • 10 Kasus Side-by-Side
         </span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-google-inkLight dark:text-google-inkDark tracking-tight mt-4 mb-4">
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight mt-4 mb-4">
           The Google Flow Master Blueprint
         </h2>
-        <p class="text-base sm:text-lg text-google-subLight dark:text-google-subDark leading-relaxed mb-8">
-          Buku panduan komparatif setebal 6 bab yang merangkum 10 master prompt siap pakai, teknik <em>Physical Woven Branding</em>, formula 3-Beat UGC Affiliate TikTok, dan transisi fisik penutup lensa. Dilengkapi foto referensi dan hasil side-by-side.
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+          Buku panduan digital komparatif yang merangkum formula <em>Physical Woven Branding</em>, 3-Beat UGC Affiliate TikTok, dan transisi fisik penutup lensa. Berkas `.docx` (~8 MB) dengan gambar tertanam resolusi tinggi telah terdistribusi langsung ke Telegram.
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <div class="flex items-start gap-3 p-4 rounded-2xl bg-google-surfaceLight/80 dark:bg-google-surfaceDark/80 border border-google-borderLight dark:border-google-borderDark">
-            <span class="text-2xl">📑</span>
-            <div>
-              <h4 class="font-bold text-sm text-google-inkLight dark:text-google-inkDark">Format Microsoft Word (.docx)</h4>
-              <p class="text-xs text-google-subLight dark:text-google-subDark mt-0.5">Ukuran ~8 MB dengan 10 pasang foto resolusi tinggi tertanam langsung. Siap buka di Google Docs.</p>
-            </div>
+          <div class="p-5 rounded-2xl bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+            <div class="text-2xl mb-2">📑</div>
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white">Format Microsoft Word (.docx)</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ukuran 8.06 MB dengan 10 pasang perbandingan foto referensi dan hasil AI tertanam permanen. Siap buka di Google Docs.</p>
           </div>
-          <div class="flex items-start gap-3 p-4 rounded-2xl bg-google-surfaceLight/80 dark:bg-google-surfaceDark/80 border border-google-borderLight dark:border-google-borderDark">
-            <span class="text-2xl">🤖</span>
-            <div>
-              <h4 class="font-bold text-sm text-google-inkLight dark:text-google-inkDark">Integrasi Telegram Bot</h4>
-              <p class="text-xs text-google-subLight dark:text-google-subDark mt-0.5">Telah didistribusikan via bot resmi Ziyan Corp (@zynhrmbot) dengan Message ID 2348 & 2349.</p>
-            </div>
+          <div class="p-5 rounded-2xl bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+            <div class="text-2xl mb-2">🤖</div>
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white">Pengiriman Telegram Sukses</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Telah dikirimkan otomatis ke Telegram Anda dengan Message ID 2348 (.docx) dan 2349 (.md).</p>
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center gap-4">
-          <a href="https://t.me/Zynautobot" target="_blank" class="px-7 py-3 rounded-full bg-google-blue dark:bg-google-blueDark text-white dark:text-google-canvasDark font-bold text-sm tracking-wide shadow-glow-blue hover:opacity-95 active:scale-95 transition-all">
-            Dapatkan E-Book Lengkap via Telegram
-          </a>
-        </div>
+        <a href="https://t.me/Zynautobot" target="_blank" class="luminous-beam-btn">
+          <div class="luminous-beam-inner px-8 py-3.5 bg-slate-900 dark:bg-luminous-canvasDark text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+            <span>Buka E-Book di Telegram</span>
+            <svg class="w-4 h-4 text-luminous-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
       </div>
 
     </div>
@@ -315,80 +538,80 @@
   <!-- ========================================== -->
   <!-- 5. EMPAT PILAR EKOSISTEM ZIYAN CORP        -->
   <!-- ========================================== -->
-  <section id="ekosistem" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 w-full">
+  <section id="ekosistem" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 w-full relative z-10">
     
     <div class="text-center max-w-2xl mx-auto mb-14">
-      <span class="text-xs font-mono font-bold tracking-widest uppercase text-google-blue dark:text-google-blueDark">Arsitektur Produksi</span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-google-inkLight dark:text-google-inkDark mt-1">
+      <span class="text-xs font-mono font-bold tracking-widest uppercase text-luminous-cyan">Arsitektur Produksi 2026</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mt-1">
         4 Pilar Ekosistem Ziyan Corp
       </h2>
-      <p class="text-sm text-google-subLight dark:text-google-subDark mt-2">
-        Infrastruktur teknologi end-to-end yang berjalan di laptop lokal & server cloud otonom.
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
+        Infrastruktur teknologi end-to-end yang beroperasi di laptop lokal dan server cloud otonom.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       
       <!-- Card 1 -->
-      <div class="p-8 rounded-m3-lg bg-google-surfaceLight dark:bg-google-surfaceDark border border-google-borderLight dark:border-google-borderDark hover:shadow-m3-elevation-2 transition-all">
-        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-google-blue dark:text-google-blueDark flex items-center justify-center text-2xl mb-6">
+      <div class="luminous-card p-8">
+        <div class="w-12 h-12 rounded-2xl bg-luminous-cyan/15 text-luminous-cyan flex items-center justify-center text-2xl mb-6 shadow-[0_0_20px_rgba(0,240,255,0.3)]">
           🛍️
         </div>
-        <h3 class="text-xl font-bold text-google-inkLight dark:text-google-inkDark mb-2">
+        <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">
           Studio UGC Affiliate TikTok 10 Detik
         </h3>
-        <p class="text-sm text-google-subLight dark:text-google-subDark leading-relaxed mb-4">
-          Memproduksi video vertikal 9:16 dengan narasi lip-sync Bahasa Indonesia yang terkalibrasi kata per detik (~27 kata/10s). Mengunci karakter talent (*Character Entity*) dan produk secara presisi dengan call-to-action langsung ke keranjang kuning.
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          Memproduksi video vertikal 9:16 dengan narasi lip-sync Bahasa Indonesia (~27 kata/10s). Mengunci karakter talent (*Character Entity*) dan produk secara presisi dengan call-to-action langsung ke keranjang kuning.
         </p>
-        <div class="flex items-center gap-2 font-mono text-xs text-google-blue dark:text-google-blueDark font-bold">
-          <span>Omni 1.1 Flash (Veo)</span> • <span>720p/1080p</span> • <span>Zero Morphing</span>
+        <div class="flex items-center gap-2 font-mono text-xs text-luminous-cyan font-bold">
+          <span>Omni 1.1 Flash</span> • <span>Zero Morphing</span> • <span>3-Beat Hook</span>
         </div>
       </div>
 
       <!-- Card 2 -->
-      <div class="p-8 rounded-m3-lg bg-google-surfaceLight dark:bg-google-surfaceDark border border-google-borderLight dark:border-google-borderDark hover:shadow-m3-elevation-2 transition-all">
-        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mb-6">
+      <div class="luminous-card p-8">
+        <div class="w-12 h-12 rounded-2xl bg-luminous-emerald/15 text-luminous-emerald flex items-center justify-center text-2xl mb-6 shadow-[0_0_20px_rgba(0,223,143,0.3)]">
           📸
         </div>
-        <h3 class="text-xl font-bold text-google-inkLight dark:text-google-inkDark mb-2">
+        <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">
           Foto Produk Still 8K & Meja Putar 360°
         </h3>
-        <p class="text-sm text-google-subLight dark:text-google-subDark leading-relaxed mb-4">
-          Transformasi foto katalog mentah menjadi visual lifestyle kelas majalah mode: tangan manusia realistis berpori, meja putar bermotor dengan props estetik pagi hari (*jam digital 06:20*), dan bordir nama toko fisik pada karpet studio.
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          Transformasi foto katalog mentah menjadi visual lifestyle kelas studio: tangan manusia biologis berpori halus, meja putar bermotor dengan props estetik (*jam digital 06:20*), dan bordir fisik nama toko pada karpet studio.
         </p>
-        <div class="flex items-center gap-2 font-mono text-xs text-emerald-500 font-bold">
+        <div class="flex items-center gap-2 font-mono text-xs text-luminous-emerald font-bold">
           <span>Nano Banana Pro</span> • <span>iPhone 15 Pro RAW</span> • <span>5600K Light</span>
         </div>
       </div>
 
       <!-- Card 3 -->
-      <div class="p-8 rounded-m3-lg bg-google-surfaceLight dark:bg-google-surfaceDark border border-google-borderLight dark:border-google-borderDark hover:shadow-m3-elevation-2 transition-all">
-        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-2xl mb-6">
+      <div class="luminous-card p-8">
+        <div class="w-12 h-12 rounded-2xl bg-luminous-magenta/15 text-luminous-magenta flex items-center justify-center text-2xl mb-6 shadow-[0_0_20px_rgba(255,0,128,0.3)]">
           🎨
         </div>
-        <h3 class="text-xl font-bold text-google-inkLight dark:text-google-inkDark mb-2">
+        <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">
           Pabrik Vektor Microstock 16-in-1
         </h3>
-        <p class="text-sm text-google-subLight dark:text-google-subDark leading-relaxed mb-4">
-          Pipeline otomatisasi aset komersial berstandar Adobe Stock dan Freepik. Menghasilkan bundle ikon vektor presisi (EPS 10 + JPG preview 2400px), pembuatan metadata 40 keyword, dan laporan otomatis ke Telegram.
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          Pipeline otomatisasi aset komersial berstandar Adobe Stock dan Freepik. Menghasilkan bundle ikon vektor presisi (EPS 10 + JPG preview 2400px), pembuatan metadata 40 keyword komersial, dan pengiriman otomatis SFTP.
         </p>
-        <div class="flex items-center gap-2 font-mono text-xs text-indigo-500 font-bold">
-          <span>Commercial Intelligence</span> • <span>EPS 10 Closed Path</span> • <span>SFTP Engine</span>
+        <div class="flex items-center gap-2 font-mono text-xs text-luminous-magenta font-bold">
+          <span>Commercial Intent</span> • <span>EPS 10 Closed Path</span> • <span>Zero-Slop</span>
         </div>
       </div>
 
       <!-- Card 4 -->
-      <div class="p-8 rounded-m3-lg bg-google-surfaceLight dark:bg-google-surfaceDark border border-google-borderLight dark:border-google-borderDark hover:shadow-m3-elevation-2 transition-all">
-        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-6">
+      <div class="luminous-card p-8">
+        <div class="w-12 h-12 rounded-2xl bg-luminous-blue/15 text-luminous-blue flex items-center justify-center text-2xl mb-6 shadow-[0_0_20px_rgba(0,102,255,0.3)]">
           ⚡
         </div>
-        <h3 class="text-xl font-bold text-google-inkLight dark:text-google-inkDark mb-2">
+        <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">
           Hermes Agent & Gateway Watchdog
         </h3>
-        <p class="text-sm text-google-subLight dark:text-google-subDark leading-relaxed mb-4">
-          Sistem agen otonom yang bekerja 24/7 di balik layar laptop: rotasi multi-API key, auto-healing watchdog jika proses offline, eksekusi naskah YouTube 2.000 kata, dan voiceover Google Gemini TTS Puck/Charon natural tanpa robotik.
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          Sistem agen otonom yang bekerja 24/7 di balik layar laptop: rotasi multi-API key, auto-healing watchdog jika proses offline, eksekusi naskah YouTube 2.000 kata, dan voiceover Google Gemini TTS Puck/Charon kualitas studio.
         </p>
-        <div class="flex items-center gap-2 font-mono text-xs text-amber-500 font-bold">
+        <div class="flex items-center gap-2 font-mono text-xs text-luminous-blue font-bold">
           <span>Hermes 2026</span> • <span>9Router Gateway</span> • <span>Brave CDP 9222</span>
         </div>
       </div>
@@ -397,46 +620,49 @@
   </section>
 
   <!-- ========================================== -->
-  <!-- 6. FOOTER (GOOGLE M3 EXPENSIVE)            -->
+  <!-- 6. FOOTER                                  -->
   <!-- ========================================== -->
-  <footer id="blueprint" class="w-full border-t border-google-borderLight dark:border-google-borderDark bg-google-surfaceLight dark:bg-google-surfaceDark mt-auto py-12 px-4 sm:px-8">
+  <footer class="w-full border-t border-slate-200 dark:border-white/10 bg-white/50 dark:bg-black/50 backdrop-blur-xl mt-auto py-12 px-4 sm:px-8 relative z-10">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-2xl bg-google-blue dark:bg-google-blueDark text-white dark:text-google-canvasDark font-bold flex items-center justify-center text-lg shadow-sm">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-luminous-cyan to-luminous-blue text-black font-extrabold flex items-center justify-center text-lg shadow-[0_0_15px_rgba(0,240,255,0.5)]">
           Z
         </div>
         <div>
-          <span class="font-bold text-sm text-google-inkLight dark:text-google-inkDark">ZIYAN CORP © 2026</span>
-          <p class="text-xs text-google-subLight dark:text-google-subDark">Autonomous Systems & Creative Media Studio • Batam, Indonesia</p>
+          <span class="font-extrabold text-sm text-slate-900 dark:text-white">ZIYAN CORP © 2026</span>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Autonomous Creative Engine & Luminous Systems • Batam, Indonesia</p>
         </div>
       </div>
-
-      <div class="flex items-center gap-6 text-xs font-semibold text-google-subLight dark:text-google-subDark">
-        <a href="https://github.com/ziyancorp" target="_blank" class="hover:text-google-blue dark:hover:text-google-blueDark transition-colors">GitHub @ziyancorp</a>
-        <a href="https://flow.google.com" target="_blank" class="hover:text-google-blue dark:hover:text-google-blueDark transition-colors">Google Flow Labs</a>
-        <a href="https://t.me/Zynautobot" target="_blank" class="hover:text-google-blue dark:hover:text-google-blueDark transition-colors">Telegram HQ</a>
+      <div class="flex items-center gap-6 text-xs font-semibold text-slate-500 dark:text-slate-400">
+        <a href="https://github.com/ziyancorp" target="_blank" class="hover:text-luminous-cyan transition-colors">GitHub @ziyancorp</a>
+        <a href="https://flow.google.com" target="_blank" class="hover:text-luminous-cyan transition-colors">Google Flow Labs</a>
+        <a href="https://t.me/Zynautobot" target="_blank" class="hover:text-luminous-cyan transition-colors">Telegram HQ</a>
       </div>
-
     </div>
   </footer>
 
   <!-- ========================================== -->
-  <!-- JAVASCRIPT: THEME TOGGLE & INTERACTIVE TAB -->
+  <!-- JAVASCRIPT: LUMINOUS SPOTLIGHT & SLIDER    -->
   <!-- ========================================== -->
   <script>
-    // 1. THEME SWITCHER LOGIC (LIGHT / DARK)
+    // 1. MOUSE COORDINATE TRACKER FOR LUMINOUS CARDS
+    document.addEventListener('mousemove', (e) => {
+      document.querySelectorAll('.luminous-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // 2. THEME SWITCHER
     const themeToggleBtn = document.getElementById('themeToggleBtn');
-    
-    // Check saved or default
     function applyTheme() {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
-      } else if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
       } else {
-        // default to dark (modern Google dark studio)
         document.documentElement.classList.add('dark');
       }
     }
@@ -452,14 +678,15 @@
       }
     });
 
-    // 2. SHOWCASE DATA MATRIX (FROM REVERSE-ENGINEERED GOOGLE FLOW SESSIONS)
-    const showcaseCases = [
+    // 3. SHOWCASE DATA
+    const caseData = [
       {
         title: "Kasus 1: Hand-Held Lifestyle Foto Sepatu Anak",
         engine: "🍌 Nano Banana Pro (GEM_PIX_2)",
         ratio: "9:16 Vertical (8K UHD)",
         locked: "Warna pastel sol, tali velcro, jahitan penguat ganda, proporsi imut",
         transformed: "Tangan orang dewasa memegang lembut di sudut 45°, meja estetik abu-abu, notebook bertuliskan 'Follow ziyanstore1', mainan balok kayu pastel di background bokeh.",
+        secret: "Tangan dewasa dimunculkan untuk memberikan perbandingan skala biologis (human scale anchor) agar pembeli instan memahami produk balita tanpa membaca teks ukuran.",
         prompt: `Ultra-realistic 8K lifestyle product photo of the exact same kids footwear as in the uploaded reference — every detail including cute proportions, child-friendly colors, soft textures, reinforced stitching, logo, straps/velcro, and compact sole design must remain 100% identical and unchanged.
 Composition: the small kids footwear is held naturally with one adult hand from below, highlighting its compact, cute size and proportions, angled slightly (about 40–45°) toward the camera. The grip is gentle, relaxed, and natural; fingers do not distort or cover any strap, sole, or design details.
 Scene: bright, modern indoor lifestyle setting — clean light gray or white tabletop with minimal warm decorative props: a small potted plant, a notebook labeled “Follow ziyanstore1”, and subtle soft-toned playful accents in the soft background for lifestyle realism.
@@ -469,7 +696,6 @@ Reflections: clean, soft, and diffused — no harsh glare or artificial shine on
 Maintain accurate product color tone; no color cast or temperature shift.
 Tone & Color: true-to-life vibrant yet natural color accuracy, clean white balance, and high texture fidelity of mesh, rubber, and fabric materials.
 Camera: close-up shot (35–50mm lens equivalent), shallow depth of field with creamy background bokeh.`,
-        secret: "Tangan orang dewasa dimunculkan secara sengaja untuk memberikan perbandingan skala biologis (human scale anchor) agar pembeli instan memahami bahwa ini adalah produk sepatu balita tanpa harus membaca teks ukuran.",
         refImg: "https://flow-content.google/image/9dec3771-1c3e-456d-9e32-f849d7b05740?Expires=1793776124&KeyName=labs-flow-prod-cdn-key&Signature=Dm1xJqssWxSkRepC7Gc5sKLrmu8",
         resImg: "https://flow-content.google/image/5ed167c9-9541-4e9b-abad-d31e9b6c99a8?Expires=1793775468&KeyName=labs-flow-prod-cdn-key&Signature=twK6fzKgPp43Lt_xwZ3mGwES-nI"
       },
@@ -479,8 +705,8 @@ Camera: close-up shot (35–50mm lens equivalent), shallow depth of field with c
         ratio: "9:16 Vertical (8K UHD)",
         locked: "Sepasang sepatu lengkap, sol luar, pola jahitan, warna asli, logo",
         transformed: "Kaki model manusia nyata mengenakan kedua sepatu menapak di atas karpet mewah gelap bertuliskan 'ZIYANSTORE1' yang ditenun secara fisik menggunakan benang krem.",
+        secret: "Teknik 'Physical Woven Branding' menenun nama toko langsung ke serat karpet. Ini meloloskan postingan dari pemblokiran sistem moderasi e-commerce yang mendeteksi watermark digital.",
         prompt: `Create an ultra-realistic 8K vertical (9:16) lifestyle product photo using the uploaded footwear reference as the only source of truth. Preserve the footwear exactly as shown, including its shape, proportions, colors, logo, stitching, sole structure, materials, textures, and every visible detail without redesign or alteration. Show a model naturally wearing the complete pair with both feet fully visible in a relaxed standing pose, one foot slightly forward to showcase the front and side profile. Maintain realistic anatomy, natural weight distribution, subtle sole compression, authentic material creases, and soft contact shadows beneath the shoes. Place the model on a premium dark textured carpet with **"ZIYANSTORE1"** physically woven into the carpet using elegant beige or light gray thread, surrounded by a few small pastel flower pots for subtle visual balance against a clean neutral background. Illuminate the scene with bright neutral daylight (5600K).`,
-        secret: "Teknik 'Physical Woven Branding' menenun nama toko langsung ke serat karpet. Ini meloloskan postingan dari pemblokiran sistem moderasi e-commerce yang sering mendeteksi teks watermark digital sebagai spam.",
         refImg: "https://flow-content.google/image/708f52e8-fc0a-46dc-a846-bfcfa0505f73?Expires=1793775470&KeyName=labs-flow-prod-cdn-key&Signature=OiVT8HuwKXK1cywWyoPHYkpO9cs",
         resImg: "https://flow-content.google/image/c014e051-254b-45e9-97cc-88f0df53fdaa?Expires=1793775470&KeyName=labs-flow-prod-cdn-key&Signature=gir4g_GRzDs0lUQMsWAT1MaElNA"
       },
@@ -490,11 +716,11 @@ Camera: close-up shot (35–50mm lens equivalent), shallow depth of field with c
         ratio: "9:16 Vertical (720p / 8s Video)",
         locked: "Objek produk padat terkunci mati (immutable object), kamera tripod terkunci (locked-off)",
         transformed: "Meja putar putih berputar 360° perlahan, jam digital LED menunjukkan '06:20', cangkir keramik beruap tipis, voiceover lip-sync Bahasa Indonesia.",
+        secret: "Prinsip 'Temporal Freezing': Kamera dikunci total dan hanya meja putar yang berotasi. Model AI mendedikasikan 100% komputasinya untuk menjaga konsistensi produk tanpa pelelehan.",
         prompt: `Start exactly from the uploaded hero image and keep it as the first frame without any modification. Treat the product as one immutable physical object and preserve its exact identity throughout the entire video. Never regenerate, redesign, morph, replace, repair, enhance, or modify any part of the product. Preserve the exact shape, proportions, colors, materials, textures, logos, branding, reflections, stitching, and every visible detail in every frame.
 The product remains perfectly fixed at the center of a motorized 360° product turntable. Only the turntable rotates slowly, smoothly, and continuously at a constant realistic speed.
 [VOICE OVER]
 "Bahan sintetis lembut, awet dan gampang dirawat. Size 36 sampai 40 ready semua. Yuk buruan checkout, cocok dipakai daily sampai jalan-jalan santai!"`,
-        secret: "Prinsip 'Temporal Freezing': Kamera dikunci total dan hanya meja putar yang berotasi. Model AI video mendedikasikan 100% komputasinya untuk menjaga konsistensi produk tanpa pelelehan (morphing).",
         refImg: "https://flow-content.google/image/44b99f6e-bbe8-4f49-8b41-b600c5d3394b?Expires=1793775476&KeyName=labs-flow-prod-cdn-key&Signature=2DBrPFFcK9wR4g0a6HIJSZ0SYpw",
         resImg: "https://flow-content.google/image/7311d3f7-79da-4f24-9223-c957dfe20ac4?Expires=1793775476&KeyName=labs-flow-prod-cdn-key&Signature=GSA2etZ4YfO15YBYr5yfL5s3YKQ"
       },
@@ -504,6 +730,7 @@ The product remains perfectly fixed at the center of a motorized 360° product t
         ratio: "9:16 Vertical (10s Video)",
         locked: "Wajah karakter creator 'Una' dan sandal slip-on 100% konsisten di semua frame",
         transformed: "Alur 3-Beat Shot Sequence: 0-3s Medium Hook -> 3-7s Macro Close-up sandal -> 7-10s Outro dengan gestur jari menunjuk keranjang kuning di sudut kiri bawah.",
+        secret: "Struktur 3-Beat Affiliate (Hook -> Macro Detail -> CTA Keranjang) meningkatkan konversi checkout hingga 3x lipat di platform video vertikal.",
         prompt: `ABSOLUTE LOCK (HIGHEST PRIORITY): The character's face, hair, and identity must be 100% identical to the character reference photo in every visible frame. The product must be 100% identical to the product reference photo.
 SHOT SEQUENCE:
 0-3s (Medium Shot, Intro Hook): The character and the product appear together in frame with an energetic smile and direct eye contact.
@@ -514,7 +741,6 @@ SHOT SEQUENCE:
 [2-4s] Model slip on praktis banget dipakai.
 [4-7s] Sol ringan dan fleksibel dengan aksen buckle elegan.
 [7-10s] Kamu wajib punya, langsung cek di keranjang kuning sekarang!"`,
-        secret: "Pemisahan video menjadi struktur 3-Beat Affiliate (Hook -> Macro Detail -> CTA Keranjang) meningkatkan konversi checkout hingga 3x lipat di platform video vertikal.",
         refImg: "https://flow-content.google/image/0a019b2d-0bb8-456e-8325-23e93fca4292?Expires=1793775484&KeyName=labs-flow-prod-cdn-key&Signature=Sgnz4CTad-BJu7xNvGs9MmvgylQ",
         resImg: "https://flow-content.google/image/d3665a3f-4dc2-4192-9230-93a65fb807fe?Expires=1793775484&KeyName=labs-flow-prod-cdn-key&Signature=xx7k-Wa39Xk9jHvi8FssGz6GbuI"
       },
@@ -524,6 +750,7 @@ SHOT SEQUENCE:
         ratio: "9:16 Vertical (10s Video)",
         locked: "Wajah talent model dan motif rajut baju knit vest identik sebelum & sesudah transisi",
         transformed: "Transisi fisik menutupi lensa kamera di detik 4-5.5s hingga layar gelap total, lalu saat dibuka baju sudah terpakai rapi pada badan talent.",
+        secret: "Transisi penutup lensa memanfaatkan momen gelap gulita di detik ke-5 untuk menyamarkan perpindahan status produk dari 'dipegang' menjadi 'dipakai', menghasilkan transisi yang sangat mulus.",
         prompt: `[REFERENCE LOCK - HIGHEST PRIORITY]
 Image 1 = woman's face. Image 2 = fashion product. Both must be 100% identical in every frame.
 Action:
@@ -535,122 +762,85 @@ Action:
 [2-4s] Detail bordirnya beneran manis dan rapi.
 [4-7s] Bahan wolnya lembut pol dipadukan kemeja makin modis.
 [7-10s] Yuk amankan warna favoritmu sekarang juga di keranjang kuning!"`,
-        secret: "Transisi penutup lensa memanfaatkan momen gelap gulita di detik ke-5 untuk menyamarkan perpindahan status produk dari 'dipegang' menjadi 'dipakai', menghasilkan transisi video yang sangat mulus tanpa cacat morphing.",
         refImg: "https://flow-content.google/image/dc1cc427-0126-456f-a4fe-71038cb3f4dd?Expires=1793775487&KeyName=labs-flow-prod-cdn-key&Signature=RjBgwN61HrPWewUboPn_YuCnhhU",
         resImg: "https://flow-content.google/image/c8b07b6f-a6e9-469a-9952-6ea4bf2abc67?Expires=1793775487&KeyName=labs-flow-prod-cdn-key&Signature=-M4CzShukz1pnosmZafZ4Qivb1M"
       }
     ];
 
-    function switchTab(index) {
-      // update tab button active style
-      const btns = document.querySelectorAll('.tab-btn');
-      btns.forEach((b, i) => {
+    function selectCase(index) {
+      document.querySelectorAll('.luminous-tab').forEach((tab, i) => {
         if (i === index) {
-          b.classList.add('active');
-          b.classList.remove('text-google-subLight', 'dark:text-google-subDark');
+          tab.classList.add('active');
+          tab.classList.remove('text-slate-500', 'dark:text-slate-400');
         } else {
-          b.classList.remove('active');
-          b.classList.add('text-google-subLight', 'dark:text-google-subDark');
+          tab.classList.remove('active');
+          tab.classList.add('text-slate-500', 'dark:text-slate-400');
         }
       });
 
-      const data = showcaseCases[index];
-      const container = document.getElementById('caseView');
-      
-      container.innerHTML = `
-        <div class="flex flex-col lg:flex-row gap-8 items-start">
-          
-          <!-- Left: Side by side images comparison -->
-          <div class="w-full lg:w-1/2 flex flex-col gap-4">
-            <div class="grid grid-cols-2 gap-3">
-              <div class="flex flex-col">
-                <span class="text-xs font-mono font-bold text-rose-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-rose-500"></span> Input Referensi
-                </span>
-                <div class="rounded-2xl overflow-hidden bg-google-containerLight dark:bg-google-containerDark border border-google-borderLight dark:border-google-borderDark aspect-[9/16] relative flex items-center justify-center">
-                  <img src="${data.refImg}" alt="Foto Referensi" class="w-full h-full object-cover">
-                </div>
-              </div>
+      const d = caseData[index];
+      document.getElementById('caseTitle').innerText = d.title;
+      document.getElementById('caseEngine').innerText = `Engine: ${d.engine}`;
+      document.getElementById('caseRatio').innerText = d.ratio;
+      document.getElementById('caseLocked').innerText = d.locked;
+      document.getElementById('caseTransformed').innerText = d.transformed;
+      document.getElementById('caseSecret').innerText = d.secret;
+      document.getElementById('promptDisplay').value = d.prompt;
 
-              <div class="flex flex-col">
-                <span class="text-xs font-mono font-bold text-emerald-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Hasil AI Google Flow
-                </span>
-                <div class="rounded-2xl overflow-hidden bg-google-containerLight dark:bg-google-containerDark border border-google-borderLight dark:border-google-borderDark aspect-[9/16] relative flex items-center justify-center shadow-m3-elevation-1">
-                  <img src="${data.resImg}" alt="Hasil Generasi AI" class="w-full h-full object-cover">
-                </div>
-              </div>
-            </div>
+      // Update Slider Images
+      document.getElementById('imgRef').src = d.refImg;
+      document.getElementById('imgResult').src = d.resImg;
 
-            <div class="p-3.5 rounded-2xl bg-google-containerLight dark:bg-google-containerDark border border-google-borderLight dark:border-google-borderDark text-xs text-google-subLight dark:text-google-subDark flex items-center justify-between">
-              <span><strong>Engine:</strong> ${data.engine}</span>
-              <span class="font-mono">${data.ratio}</span>
-            </div>
-          </div>
-
-          <!-- Right: Visual Breakdown & Prompt Copy -->
-          <div class="w-full lg:w-1/2 flex flex-col">
-            <h3 class="text-2xl font-extrabold text-google-inkLight dark:text-google-inkDark mb-3">
-              ${data.title}
-            </h3>
-
-            <!-- Locked vs Transformed -->
-            <div class="grid grid-cols-1 gap-3 mb-5">
-              <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
-                <h5 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
-                  🔒 Dikunci 100% (Identity Lock)
-                </h5>
-                <p class="text-xs text-google-inkLight dark:text-google-inkDark leading-relaxed">${data.locked}</p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20">
-                <h5 class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
-                  ✨ Transformasi Lingkungan Baru AI
-                </h5>
-                <p class="text-xs text-google-inkLight dark:text-google-inkDark leading-relaxed">${data.transformed}</p>
-              </div>
-            </div>
-
-            <!-- Secret Sauce -->
-            <div class="p-4 rounded-2xl bg-google-blue/10 border border-google-blue/20 mb-5">
-              <h5 class="text-xs font-bold text-google-blue dark:text-google-blueDark uppercase tracking-wider mb-1">
-                💡 Rahasia Prompt Mechanics
-              </h5>
-              <p class="text-xs text-google-inkLight dark:text-google-inkDark leading-relaxed">${data.secret}</p>
-            </div>
-
-            <!-- Master Prompt Box with copy button -->
-            <div class="flex flex-col">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-google-subLight dark:text-google-subDark uppercase tracking-wider">
-                  Master Prompt Siap Pakai
-                </span>
-                <button onclick="copyPrompt()" id="copyBtn" class="text-xs font-bold text-google-blue dark:text-google-blueDark hover:underline">
-                  Salin Prompt 📋
-                </button>
-              </div>
-              <textarea id="promptBox" readonly class="w-full h-36 p-3 text-xs font-mono rounded-2xl bg-google-containerLight dark:bg-google-containerDark border border-google-borderLight dark:border-google-borderDark text-google-inkLight dark:text-google-inkDark resize-none focus:outline-none">${data.prompt}</textarea>
-            </div>
-
-          </div>
-
-        </div>
-      `;
+      // Reset slider to 50%
+      setSliderPosition(50);
     }
 
-    function copyPrompt() {
-      const copyText = document.getElementById("promptBox");
-      copyText.select();
-      navigator.clipboard.writeText(copyText.value);
-      const btn = document.getElementById("copyBtn");
-      btn.innerText = "Tersalin! ✅";
+    function copyPromptText() {
+      const tb = document.getElementById('promptDisplay');
+      tb.select();
+      navigator.clipboard.writeText(tb.value);
+      const btn = document.getElementById('copyPromptBtn');
+      btn.innerText = 'Tersalin! ✅';
       setTimeout(() => {
-        btn.innerText = "Salin Prompt 📋";
+        btn.innerText = 'Salin Prompt 📋';
       }, 2000);
     }
 
-    // Initialize first tab
-    switchTab(0);
+    // 4. INTERACTIVE SLIDER LOGIC
+    const sliderBox = document.getElementById('sliderBox');
+    let isDragging = false;
+
+    function setSliderPosition(percentage) {
+      const clamped = Math.max(0, Math.min(100, percentage));
+      sliderBox.style.setProperty('--slider-pos', `${clamped}%`);
+    }
+
+    function handleSliderMove(e) {
+      if (!isDragging) return;
+      const rect = sliderBox.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const x = clientX - rect.left;
+      const percentage = (x / rect.width) * 100;
+      setSliderPosition(percentage);
+    }
+
+    sliderBox.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      handleSliderMove(e);
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    window.addEventListener('mousemove', handleSliderMove);
+
+    // Touch support for mobile
+    sliderBox.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      handleSliderMove(e);
+    });
+    window.addEventListener('touchend', () => { isDragging = false; });
+    window.addEventListener('touchmove', handleSliderMove);
+
+    // Initial setup
+    selectCase(0);
   </script>
 
 </body>
